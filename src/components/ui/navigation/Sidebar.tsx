@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { Logo } from "../../../../public/Logo";
 import { siteConfig } from "@/app/siteConfig";
 import { Tooltip } from "@/components/Tooltip";
 import { cx, focusRing } from "@/lib/utils";
@@ -111,8 +112,7 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
       <nav
         className={cx(
           isCollapsed ? "lg:w-[60px]" : "lg:w-64",
-          "hidden overflow-x-hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:flex-col",
-          "ease transform-gpu transition-all duration-100 will-change-transform"
+          "hidden overflow-x-hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:flex-col"
         )}
       >
         {/* <span
@@ -122,8 +122,10 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
               )}
             ></span> */}
         <aside className="flex grow flex-col gap-y-4 overflow-y-auto whitespace-nowrap px-3 py-4">
-          <div className="flex items-center gap-4">
-            <span className="size-9 bg-white rounded-md ring-1 ring-gray-200 dark:ring-gray-800 shadow-sm" />
+          <div className="flex items-center gap-3.5">
+            <span className="flex items-center justify-center size-9 p-1.5 bg-white rounded-md ring-1 ring-gray-200 dark:ring-gray-800 shadow-sm">
+              <Logo className="text-blue-500 dark:text-blue-500" />
+            </span>
             <div>
               <span className="block text-sm font-semibold text-gray-900 dark:text-gray-50">
                 Acme Corp.
@@ -136,7 +138,7 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
           <nav
             // @CHRIS: aria-labels
             aria-label="core navigation links"
-            className="mt-2 flex flex-1 flex-col space-y-10"
+            className="mt-2 flex flex-1 flex-col space-y-10 ease transform-gpu transition-all duration-100 will-change-transform"
           >
             <ul role="list" className="space-y-4">
               {navigation.map((item) => (
@@ -144,15 +146,15 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
                   <button
                     onClick={() => toggleMenu(item.name)}
                     className={cx(
-                      "flex w-full items-center justify-between gap-x-2.5 uppercase font-medium rounded-md p-2 text-xs tracking-wider text-gray-700 dark:text-gray-300 transition-opacity hover:bg-gray-200/50 hover:dark:bg-gray-900",
+                      "flex w-full items-center justify-between gap-x-2.5 font-medium rounded-md p-2 text-sm text-gray-900 dark:text-gray-300 transition-opacity hover:bg-gray-200/50 hover:dark:bg-gray-900",
                       focusRing
                     )}
                   >
                     <div className="flex items-center gap-2.5">
-                      <item.icon
+                      {/* <item.icon
                         className="size-[18px] shrink-0"
                         aria-hidden="true"
-                      />
+                      /> */}
                       {item.name}
                     </div>
                     <RiArrowDownSFill
@@ -168,7 +170,10 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
                   {item.children && openMenus.includes(item.name) && (
                     <ul
                       role="list"
-                      className="relative border-l border-transparent space-y-1.5"
+                      className={cx(
+                        "relative border-l border-transparent space-y-1",
+                        isCollapsed ? "opacity-0" : "opacity-100"
+                      )}
                     >
                       <div className="absolute inset-y-0 left-4 w-px bg-gray-300 dark:bg-gray-900" />
                       {item.children.map((child) => (
