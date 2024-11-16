@@ -1,9 +1,7 @@
 export default function Page() {
   return (
     <>
-      <section className="flex items-center justify-center h-screen">
-        Test
-      </section>
+      <section className="p-4 h-screen"></section>
     </>
   );
 }

@@ -21,11 +21,11 @@ export default function Layout({
       <Sidebar isCollapsed={isCollapsed} toggleSidebar={toggleSidebar} />
       <main
         className={cx(
-          isCollapsed ? "lg:pl-[60px]" : "lg:pl-64",
+          isCollapsed ? "lg:pl-0" : "lg:pl-64",
           "ease transform-gpu transition-all duration-100 will-change-transform"
         )}
       >
-        <div className="bg-white lg:border-l lg:border-gray-200 dark:bg-gray-925 lg:dark:border-gray-900">
+        <div className="bg-white lg:border-l lg:border-gray-200 dark:bg-gray-925 lg:dark:border-gray-900 h-screen">
           <div className="p-4 flex items-center gap-3 border-b border-gray-200 dark:border-gray-800">
             <button
               className="group inline-flex rounded-md p-1.5 hover:bg-gray-200/50 hover:dark:bg-gray-900"
@@ -65,7 +65,7 @@ export default function Layout({
                       // aria-current={page.current ? 'page' : undefined}
                       className="text-gray-900 dark:text-gray-50"
                     >
-                      AI Workspace
+                      Web analytics
                     </Link>
                   </div>
                 </li>

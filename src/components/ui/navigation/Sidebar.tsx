@@ -12,6 +12,7 @@ import {
   Settings2,
   Table2,
   ChevronDown,
+  Layers,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -56,19 +57,19 @@ const navigation = [
     href: siteConfig.baseLinks.reports,
     icon: BarChartBig,
     children: [
-      { name: "Data Workspace", href: "/reports/data" },
-      { name: "AI Workspace", href: "/reports/ai" },
-      { name: "Test Lab", href: "/reports/test" },
+      { name: "Financials", href: "/reports/data" },
+      { name: "Web analytics", href: "/reports/ai" },
+      { name: "App usage", href: "/reports/test" },
     ],
   },
   {
-    name: "Transactions",
+    name: "Workspaces",
     href: siteConfig.baseLinks.transactions,
-    icon: Table2,
+    icon: Layers,
     children: [
-      { name: "Test pipeline", href: "/workspaces/page-1" },
-      { name: "API playground", href: "/workspaces/page-2" },
-      { name: "Live workspace", href: "/workspaces/page-3" },
+      { name: "Data workspace", href: "/workspaces/page-1" },
+      { name: "AI workspace", href: "/workspaces/page-2" },
+      { name: "Keynote demo", href: "/workspaces/page-3" },
     ],
   },
   {
@@ -90,7 +91,10 @@ interface SidebarProps {
 
 export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
   const pathname = usePathname();
-  const [openMenus, setOpenMenus] = React.useState<string[]>([]);
+  const [openMenus, setOpenMenus] = React.useState<string[]>([
+    navigation[0].name,
+    navigation[1].name,
+  ]);
   const isActive = (itemHref: string) => {
     if (itemHref === siteConfig.baseLinks.settings.audit) {
       return pathname.startsWith("/settings");
@@ -111,24 +115,23 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
       {/* sidebar (lg+) */}
       <nav
         className={cx(
-          isCollapsed ? "lg:w-[60px]" : "lg:w-64",
+          isCollapsed ? "lg:hidden" : "lg:w-64",
           "hidden overflow-x-hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:flex-col"
         )}
       >
-        {/* <span
-              className={cx(
-                "text-sm font-semibold text-gray-900 transition-opacity dark:text-gray-50",
-                isCollapsed ? "hidden" : "block"
-              )}
-            ></span> */}
-        <aside className="flex grow flex-col gap-y-4 overflow-y-auto whitespace-nowrap px-3 py-4">
-          <div className="flex items-center gap-3.5">
+        <aside
+          className={cx(
+            isCollapsed ? "lg:hidden" : "lg:flex",
+            "flex grow flex-col gap-y-4 overflow-y-auto whitespace-nowrap px-3 py-4"
+          )}
+        >
+          <div className="flex items-center gap-3">
             <span className="flex items-center justify-center size-9 p-1.5 bg-white rounded-md ring-1 ring-gray-200 dark:ring-gray-800 shadow-sm">
               <Logo className="text-blue-500 dark:text-blue-500" />
             </span>
             <div>
               <span className="block text-sm font-semibold text-gray-900 dark:text-gray-50">
-                Acme Corp.
+                Innovex Systems
               </span>
               <span className="block text-xs text-gray-900 dark:text-gray-50">
                 Premium Starter Plan
@@ -138,7 +141,10 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
           <nav
             // @CHRIS: aria-labels
             aria-label="core navigation links"
-            className="mt-2 flex flex-1 flex-col space-y-10 ease transform-gpu transition-all duration-100 will-change-transform"
+            className={cx(
+              isCollapsed ? "hidden" : "flex",
+              "mt-2 flex-1 flex-col space-y-10"
+            )}
           >
             <ul role="list" className="space-y-4">
               {navigation.map((item) => (
@@ -151,10 +157,10 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
                     )}
                   >
                     <div className="flex items-center gap-2.5">
-                      {/* <item.icon
+                      <item.icon
                         className="size-[18px] shrink-0"
                         aria-hidden="true"
-                      /> */}
+                      />
                       {item.name}
                     </div>
                     <RiArrowDownSFill
@@ -207,7 +213,7 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
           )}
         >
           <Link aria-label="Home Link" href="/">
-            Acme Corp.
+            Innovex Systems
           </Link>
         </span>
         {/* <div className="flex items-center gap-1 sm:gap-2">

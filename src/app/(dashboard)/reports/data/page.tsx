@@ -1,9 +1,7 @@
 export default function Page() {
   return (
     <>
-      <section className="flex items-center justify-center h-screen">
-        Data
-      </section>
+      <section className="flex items-center justify-center h-screen"></section>
     </>
   );
 }
