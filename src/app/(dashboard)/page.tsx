@@ -3,6 +3,7 @@
 import { Fragment } from "react";
 import { cx } from "@/lib/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/Tabs";
+import { BarChart } from "@/components/BarChart";
 import { Button } from "@/components/Button";
 import { Badge } from "@/components/Badge";
 import {
@@ -13,7 +14,7 @@ import {
   SelectValue,
 } from "@/components/Select";
 import { Input } from "@/components/Input";
-import { Download } from "lucide-react";
+import { Download, SlidersHorizontal } from "lucide-react";
 
 const quotes = [
   {
@@ -74,6 +75,53 @@ const quotes = [
           },
         ],
       },
+      {
+        company: "Nordic Solutions AG",
+        size: "175K USD",
+        probability: "60%",
+        duration: "12 months",
+        status: "Drafted",
+        assigned: [
+          {
+            name: "Victoria S.",
+            initials: "V",
+          },
+          {
+            name: "Max W.",
+            initials: "M",
+          },
+        ],
+      },
+      {
+        company: "Swiss Tech Innovations",
+        size: "450K USD",
+        probability: "90%",
+        duration: "36 months",
+        status: "Sent",
+        assigned: [
+          {
+            name: "Emily S.",
+            initials: "E",
+          },
+          {
+            name: "Chris B.",
+            initials: "C",
+          },
+        ],
+      },
+      {
+        company: "Berlin Digital Hub",
+        size: "200K USD",
+        probability: "70%",
+        duration: "15 months",
+        status: "Drafted",
+        assigned: [
+          {
+            name: "Emma S.",
+            initials: "E",
+          },
+        ],
+      },
     ],
   },
   {
@@ -113,6 +161,66 @@ const quotes = [
           },
         ],
       },
+      {
+        company: "Tokyo Tech Solutions",
+        size: "750K USD",
+        probability: "85%",
+        duration: "24 months",
+        status: "Sent",
+        assigned: [
+          {
+            name: "Lena M.",
+            initials: "L",
+          },
+          {
+            name: "Jordan A.",
+            initials: "J",
+          },
+        ],
+      },
+      {
+        company: "Singapore Systems Ltd",
+        size: "300K USD",
+        probability: "75%",
+        duration: "18 months",
+        status: "Drafted",
+        assigned: [
+          {
+            name: "Sara B.",
+            initials: "S",
+          },
+        ],
+      },
+      {
+        company: "Seoul Digital Corp",
+        size: "880K USD",
+        probability: "95%",
+        duration: "30 months",
+        status: "Sent",
+        assigned: [
+          {
+            name: "Corinna B.",
+            initials: "C",
+          },
+          {
+            name: "Lena M.",
+            initials: "L",
+          },
+        ],
+      },
+      {
+        company: "Mumbai Innovations",
+        size: "450K USD",
+        probability: "40%",
+        duration: "12 months",
+        status: "Drafted",
+        assigned: [
+          {
+            name: "Jordan A.",
+            initials: "J",
+          },
+        ],
+      },
     ],
   },
   {
@@ -142,6 +250,49 @@ const quotes = [
             name: "Charlie A.",
             initials: "C",
           },
+          {
+            name: "Patrick D.",
+            initials: "P",
+          },
+        ],
+      },
+      {
+        company: "Toronto Tech Hub",
+        size: "250K USD",
+        probability: "65%",
+        duration: "12 months",
+        status: "Drafted",
+        assigned: [
+          {
+            name: "Patrick D.",
+            initials: "P",
+          },
+          {
+            name: "Charlie A.",
+            initials: "C",
+          },
+        ],
+      },
+      {
+        company: "Silicon Valley Startups",
+        size: "1.5M USD",
+        probability: "90%",
+        duration: "24 months",
+        status: "Sent",
+        assigned: [
+          {
+            name: "Charlie A.",
+            initials: "C",
+          },
+        ],
+      },
+      {
+        company: "NYC Digital Solutions",
+        size: "750K USD",
+        probability: "70%",
+        duration: "15 months",
+        status: "Drafted",
+        assigned: [
           {
             name: "Patrick D.",
             initials: "P",
@@ -206,6 +357,42 @@ function Indicator({ number }: { number: number }) {
   );
 }
 
+const data = [
+  { date: "Jan 24", value: 23 },
+  { date: "Feb 24", value: 31 },
+  { date: "Mar 24", value: 46 },
+  { date: "Apr 24", value: 46 },
+  { date: "May 24", value: 39 },
+  { date: "May 24", value: 65 },
+];
+
+const data2 = [
+  { date: "Jan 24", value: 10.3 },
+  { date: "Feb 24", value: 33.2 },
+  { date: "Mar 24", value: 27.1 },
+  { date: "Apr 24", value: 19.3 },
+  { date: "May 24", value: 24.4 },
+  { date: "May 24", value: 14.3 },
+];
+
+const data3 = [
+  { date: "Jan 24", value: 8 },
+  { date: "Feb 24", value: 9 },
+  { date: "Mar 24", value: 6 },
+  { date: "Apr 24", value: 5 },
+  { date: "May 24", value: 12 },
+  { date: "May 24", value: 9 },
+];
+
+const data4 = [
+  { date: "Jan 24", value: 89.1 },
+  { date: "Feb 24", value: 78.4 },
+  { date: "Mar 24", value: 65.5 },
+  { date: "Apr 24", value: 72.3 },
+  { date: "May 24", value: 92.1 },
+  { date: "May 24", value: 56.1 },
+];
+
 export default function Page() {
   return (
     <>
@@ -253,7 +440,7 @@ export default function Page() {
             </div>
           </dl>
         </div>
-        <Tabs defaultValue="tab1" className="mt-4">
+        <Tabs defaultValue="tab2" className="mt-4">
           <TabsList className="px-6 gap-x-4">
             <TabsTrigger value="tab1">Overview</TabsTrigger>
             <TabsTrigger value="tab2">Monitoring</TabsTrigger>
@@ -295,7 +482,6 @@ export default function Page() {
                 </Button>
               </div>
             </div>
-
             {/* @chris: to be moved as DataTable.tsx */}
             <div className="flow-root border-t border-gray-200 dark:border-gray-800">
               <div className="inline-block w-full">
@@ -435,7 +621,108 @@ export default function Page() {
               </div>
             </div>
           </TabsContent>
-          <TabsContent value="tab2"></TabsContent>
+          <TabsContent value="tab2">
+            <div className="p-6 flex items-center justify-between">
+              <Select defaultValue="365-days">
+                <SelectTrigger className="py-1.5 w-44">
+                  <SelectValue placeholder="Assigned to..." />
+                </SelectTrigger>
+                <SelectContent align="end">
+                  <SelectItem value="30-days">Last 30 days</SelectItem>
+                  <SelectItem value="90-days">Last 90 days</SelectItem>
+                  <SelectItem value="180-days">Last 180 days</SelectItem>
+                  <SelectItem value="365-days">Last 365 days</SelectItem>
+                </SelectContent>
+              </Select>
+              <Button variant="secondary" className="py-1.5 gap-2">
+                <SlidersHorizontal
+                  className="-ml-0.5 size-4 shrink-0 text-gray-400 dark:text-gray-600"
+                  aria-hidden="true"
+                />
+                Report Filters
+              </Button>
+            </div>
+            <dl className="p-6 border-t border-gray-200 dark:border-gray-800 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
+              <div className="p-4">
+                <dt className="text-sm text-gray-900 dark:text-gray-50 font-semibold">
+                  Inherent risk
+                </dt>
+                <dd className="mt-0.5 text-sm text-gray-500 dark:text-gray-500">
+                  Risk scenarios over time grouped by risk level
+                </dd>
+                <BarChart
+                  data={data}
+                  index="date"
+                  categories={["value"]}
+                  showLegend={false}
+                  yAxisWidth={45}
+                  yAxisLabel="Number of inherent risks"
+                  barCategoryGap="20%"
+                  onValueChange={(v) => console.log(v)}
+                  className="mt-6 h-56"
+                />
+              </div>
+              <div className="p-4">
+                <dt className="text-sm text-gray-900 dark:text-gray-50 font-semibold">
+                  Lead-to-Quote time
+                </dt>
+                <dd className="mt-0.5 text-sm text-gray-500 dark:text-gray-500">
+                  Analysis of the duration from lead generation to quote
+                  issuance
+                </dd>
+                <BarChart
+                  data={data2}
+                  index="date"
+                  categories={["value"]}
+                  showLegend={false}
+                  yAxisWidth={45}
+                  yAxisLabel="Working days (d)"
+                  barCategoryGap="20%"
+                  className="mt-6 h-56"
+                />
+              </div>
+              <div className="p-4">
+                <dt className="text-sm text-gray-900 dark:text-gray-50 font-semibold">
+                  ESG impact
+                </dt>
+                <dd className="mt-0.5 text-sm text-gray-500 dark:text-gray-500">
+                  Evaluation of environmental, social, and governance factors
+                  over time,
+                </dd>
+                <BarChart
+                  data={data3}
+                  index="date"
+                  categories={["value"]}
+                  showLegend={false}
+                  yAxisWidth={45}
+                  yAxisLabel="# of dimensions impacted"
+                  barCategoryGap="20%"
+                  className="mt-6 h-56"
+                />
+              </div>
+              <div className="p-4">
+                <dt className="text-sm text-gray-900 dark:text-gray-50 font-semibold">
+                  Bidder density
+                </dt>
+                <dd className="mt-0.5 text-sm text-gray-500 dark:text-gray-500">
+                  Density and competition levels of bidders over time
+                </dd>
+                <BarChart
+                  data={data4}
+                  index="date"
+                  categories={["value"]}
+                  showLegend={false}
+                  valueFormatter={(number: number) =>
+                    `${Intl.NumberFormat().format(number).toString()}%`
+                  }
+                  yAxisWidth={45}
+                  yAxisLabel="Competition density (%)"
+                  barCategoryGap="20%"
+                  className="mt-6 h-56"
+                />
+              </div>
+            </dl>
+          </TabsContent>
           <TabsContent value="tab3"></TabsContent>
         </Tabs>
       </section>
