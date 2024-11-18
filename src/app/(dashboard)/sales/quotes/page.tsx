@@ -4,6 +4,7 @@ import { Fragment } from "react";
 import { cx } from "@/lib/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/Tabs";
 import { Button } from "@/components/Button";
+import { Badge } from "@/components/Badge";
 import {
   Select,
   SelectContent,
@@ -16,13 +17,14 @@ import { Download } from "lucide-react";
 
 const quotes = [
   {
-    status: "Drafted",
+    region: "Europe",
     project: [
       {
         company: "Walton Holding",
         size: "50K USD",
         probability: "40%",
         duration: "18 months",
+        status: "Drafted",
         assigned: [
           {
             name: "Emily S.",
@@ -43,6 +45,24 @@ const quotes = [
         size: "100-150K USD",
         probability: "80%",
         duration: "24 months",
+        status: "Sent",
+        assigned: [
+          {
+            name: "Emma S.",
+            initials: "E",
+          },
+          {
+            name: "Chris B.",
+            initials: "C",
+          },
+        ],
+      },
+      {
+        company: "Riverflow Media Group",
+        size: "280-300K USD",
+        probability: "80%",
+        duration: "24 months",
+        status: "Sent",
         assigned: [
           {
             name: "Emma S.",
@@ -57,13 +77,14 @@ const quotes = [
     ],
   },
   {
-    status: "Sent",
+    region: "Asia",
     project: [
       {
         company: "Real Estate Group",
         size: "1.2M USD",
-        probability: "60%",
+        probability: "100%",
         duration: "6 months",
+        status: "Closed",
         assigned: [
           {
             name: "Lena M.",
@@ -80,6 +101,7 @@ const quotes = [
         size: "100K USD",
         probability: "20%",
         duration: "12 months",
+        status: "Drafted",
         assigned: [
           {
             name: "Jordan A.",
@@ -94,13 +116,14 @@ const quotes = [
     ],
   },
   {
-    status: "Closed",
+    region: "North America",
     project: [
       {
         company: "Liquid Holdings Group",
         size: "5.1M USD",
         probability: "100%",
         duration: "Member",
+        status: "Closed",
         assigned: [
           {
             name: "Charlie A.",
@@ -111,8 +134,9 @@ const quotes = [
       {
         company: "Craft Labs, Inc.",
         size: "80-90K USD",
-        probability: "100%",
+        probability: "80%",
         duration: "18 months",
+        status: "Sent",
         assigned: [
           {
             name: "Charlie A.",
@@ -147,27 +171,27 @@ const getRandomColor = (initials: string) => {
 function Indicator({ number }: { number: number }) {
   let category;
   if (number < 0.3) {
-    category = "emerald";
+    category = "red";
   } else if (number >= 0.3 && number < 0.7) {
     category = "orange";
   } else if (number >= 0.7) {
-    category = "red";
+    category = "emerald";
   } else {
     category = "gray";
   }
 
   const getBarClass = (index: number) => {
     switch (category) {
-      case "emerald":
+      case "red":
         return index < 1
-          ? "bg-emerald-500 dark:bg-emerald-500"
+          ? "bg-red-500 dark:bg-red-500"
           : "bg-gray-300 dark:bg-gray-800";
       case "orange":
         return index < 2
           ? "bg-orange-500 dark:bg-orange-500"
           : "bg-gray-300 dark:bg-gray-800";
-      case "red":
-        return "bg-red-500 dark:bg-red-500";
+      case "emerald":
+        return "bg-emerald-500 dark:bg-emerald-500";
       default:
         return "bg-gray-300 dark:bg-gray-800";
     }
@@ -193,21 +217,19 @@ export default function Page() {
           <dl className="mt-6 flex flex-wrap items-center gap-12">
             <div>
               <dt className="text-sm text-gray-500 dark:text-gray-500">
-                Storage Capacity
+                Lead-to-Quote Ratio
               </dt>
               <dd className="mt-1.5 flex items-center gap-2">
                 <Indicator number={0.61} />
                 <p className="text-lg font-semibold text-gray-900 dark:text-gray-50">
-                  61% - 45
-                  <span className="text-gray-400 dark:text-gray-600">
-                    /100GB
-                  </span>
+                  59.8% - 450
+                  <span className="text-gray-400 dark:text-gray-600">/752</span>
                 </p>
               </dd>
             </div>
             <div>
               <dt className="text-sm text-gray-500 dark:text-gray-500">
-                Usage Capacity
+                Project Load
               </dt>
               <dd className="mt-1.5 flex items-center gap-2">
                 <Indicator number={0.24} />
@@ -219,15 +241,13 @@ export default function Page() {
             </div>
             <div>
               <dt className="text-sm text-gray-500 dark:text-gray-500">
-                Requests Load
+                Win Probability
               </dt>
               <dd className="mt-1.5 flex items-center gap-2">
                 <Indicator number={0.8} />
                 <p className="text-lg font-semibold text-gray-900 dark:text-gray-50">
-                  99.1% - 99.1K
-                  <span className="text-gray-400 dark:text-gray-600">
-                    /100K
-                  </span>
+                  85.1% - 280
+                  <span className="text-gray-400 dark:text-gray-600">/329</span>
                 </p>
               </dd>
             </div>
@@ -237,7 +257,7 @@ export default function Page() {
           <TabsList className="px-6 gap-x-4">
             <TabsTrigger value="tab1">Overview</TabsTrigger>
             <TabsTrigger value="tab2">Monitoring</TabsTrigger>
-            <TabsTrigger value="tab3">Security Controls</TabsTrigger>
+            <TabsTrigger value="tab3">Approval Workflows</TabsTrigger>
           </TabsList>
           <div className="p-6">
             <TabsContent value="tab1">
@@ -251,9 +271,9 @@ export default function Page() {
                   <Tabs defaultValue="all">
                     <TabsList variant="solid">
                       <TabsTrigger value="all">All</TabsTrigger>
-                      <TabsTrigger value="drafted">Drafted</TabsTrigger>
-                      <TabsTrigger value="sent">Sent</TabsTrigger>
-                      <TabsTrigger value="closed">Closed</TabsTrigger>
+                      <TabsTrigger value="Drafted">Drafted</TabsTrigger>
+                      <TabsTrigger value="Sent">Sent</TabsTrigger>
+                      <TabsTrigger value="Closed">Closed</TabsTrigger>
                     </TabsList>
                   </Tabs>
                   <Select>
@@ -281,10 +301,10 @@ export default function Page() {
           </div>
         </Tabs>
         <div className="flow-root border-t border-gray-200 dark:border-gray-800">
-          <div className="inline-block w-full py-2">
+          <div className="inline-block w-full">
             <table className="min-w-full">
               <thead className="bg-white">
-                <tr>
+                <tr className="divide-x divide-gray-200 dark:divide-gray-800">
                   <th
                     scope="col"
                     className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
@@ -315,29 +335,36 @@ export default function Page() {
                   >
                     Assigned
                   </th>
-                  <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-6">
-                    <span className="sr-only">Edit</span>
+                  <th
+                    scope="col"
+                    className="px-3 py-3.5 pl-3 pr-4 sm:pr-6 text-left text-sm font-semibold text-gray-900"
+                  >
+                    Status
                   </th>
                 </tr>
               </thead>
               <tbody className="bg-white">
                 {quotes.map((quote) => (
-                  <Fragment key={quote.status}>
+                  <Fragment key={quote.region}>
                     <tr className="border-t border-gray-200">
                       <th
                         scope="colgroup"
                         colSpan={6}
-                        className="bg-gray-50 py-2 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                        className="bg-gray-50 py-3 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 dark:text-gray-400 sm:pl-6"
                       >
-                        {quote.status}
+                        {quote.region}
+                        <span className="ml-2 font-medium text-gray-500 dark:text-gray-500">
+                          {quote.project.length}
+                        </span>
                       </th>
                     </tr>
                     {quote.project.map((item, itemIdx) => (
                       <tr
                         key={item.company}
                         className={cx(
-                          itemIdx === 0 ? "border-gray-300" : "border-gray-200",
-                          "border-t"
+                          // itemIdx === 0 ? "border-gray-200" : "border-gray-200",
+                          "border-t border-gray-200 dark:border-gray-800",
+                          "divide-x divide-gray-200 dark:divide-gray-800"
                         )}
                       >
                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
@@ -353,13 +380,13 @@ export default function Page() {
                           {item.duration}
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          <div className="flex -space-x-0.5 overflow-hidden">
+                          <div className="flex -space-x-1 overflow-hidden">
                             {item.assigned.map((name, nameIdx) => (
                               <span
                                 key={nameIdx}
                                 className={cx(
                                   getRandomColor(name.initials),
-                                  "inline-flex text-xs items-center justify-center size-5 rounded text-white font-medium dark:text-white ring-2 ring-white dark:ring-[#090E1A]"
+                                  "inline-flex text-xs items-center justify-center size-5 rounded-full text-white font-medium dark:text-white ring-2 ring-white dark:ring-[#090E1A]"
                                 )}
                               >
                                 {name.initials}
@@ -367,14 +394,40 @@ export default function Page() {
                             ))}
                           </div>
                         </td>
-                        <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                          <a
-                            href="#"
-                            className="text-blue-600 hover:text-blue-900"
+                        <td className="whitespace-nowrap pl-3 pr-4 text-sm sm:pr-6">
+                          <Badge
+                            variant={
+                              item.status === "Closed"
+                                ? "success"
+                                : item.status === "Drafted"
+                                ? "neutral"
+                                : item.status === "Sent"
+                                ? "default"
+                                : "default"
+                            }
+                            className="rounded-full"
                           >
-                            Edit
-                            <span className="sr-only">, {item.company}</span>
-                          </a>
+                            <span
+                              className={cx(
+                                "size-1.5 shrink-0 rounded-full",
+                                "bg-gray-500 dark:bg-gray-500",
+                                {
+                                  "bg-emerald-600 dark:bg-emerald-400":
+                                    item.status === "Closed",
+                                },
+                                {
+                                  "bg-gray-500 dark:bg-gray-500":
+                                    item.status === "Drafted",
+                                },
+                                {
+                                  "bg-blue-500 dark:bg-blue-500":
+                                    item.status === "Sent",
+                                }
+                              )}
+                              aria-hidden="true"
+                            />
+                            {item.status}
+                          </Badge>
                         </td>
                       </tr>
                     ))}

@@ -2,23 +2,15 @@
 import React from "react";
 import { Logo } from "../../../../public/Logo";
 import { siteConfig } from "@/app/siteConfig";
-import { Tooltip } from "@/components/Tooltip";
 import { cx, focusRing } from "@/lib/utils";
-import {
-  BarChartBig,
-  Compass,
-  PanelRightClose,
-  PanelRightOpen,
-  Settings2,
-  Table2,
-  ChevronDown,
-  Layers,
-} from "lucide-react";
+import { Settings2, PackageSearch, BookText, House, Inbox } from "lucide-react";
 import Link from "next/link";
+import { Input } from "@/components/Input";
 import { usePathname } from "next/navigation";
 // import MobileSidebar from "./MobileSidebar";
 import { UserProfileDesktop, UserProfileMobile } from "./UserProfile";
 import { RiArrowDownSFill } from "@remixicon/react";
+import { Divider } from "@/components/Divider";
 
 function NavLink({
   href,
@@ -53,35 +45,52 @@ function NavLink({
 
 const navigation = [
   {
-    name: "Reports",
-    href: siteConfig.baseLinks.reports,
-    icon: BarChartBig,
+    name: "Home",
+    href: "#",
+    icon: House,
+    notifications: false,
+  },
+  {
+    name: "Inbox",
+    href: "#",
+    icon: PackageSearch,
+    notifications: 2,
+  },
+] as const;
+
+const navigation2 = [
+  {
+    name: "Sales",
+    href: "#",
+    // href: siteConfig.baseLinks.reports,
+    icon: BookText,
     children: [
-      { name: "Financials", href: "/reports/data" },
-      { name: "Web analytics", href: "/reports/ai" },
-      { name: "App usage", href: "/reports/test" },
+      { name: "Quotes", href: "/sales/quotes" },
+      { name: "Orders", href: "/sales/orders" },
+      { name: "Insights & Reports", href: "/sales/forecast" },
     ],
   },
   {
-    name: "Workspaces",
-    href: siteConfig.baseLinks.transactions,
-    icon: Layers,
+    name: "Products",
+    href: "#",
+    // href: siteConfig.baseLinks.transactions,
+    icon: PackageSearch,
     children: [
-      { name: "Data workspace", href: "/workspaces/page-1" },
-      { name: "AI workspace", href: "/workspaces/page-2" },
-      { name: "Keynote demo", href: "/workspaces/page-3" },
+      { name: "Items", href: "/workspaces/page-1" },
+      { name: "Variants", href: "/workspaces/page-2" },
+      { name: "Suppliers", href: "/workspaces/page-3" },
     ],
   },
-  {
-    name: "Settings",
-    href: siteConfig.baseLinks.settings.audit,
-    icon: Settings2,
-    children: [
-      { name: "Test pipeline", href: "/compliance/page-1" },
-      { name: "API playground", href: "/compliance/page-2" },
-      { name: "Live workspace", href: "/rcompliance/page-3" },
-    ],
-  },
+  // {
+  //   name: "Settings",
+  //   href: "#",
+  //   icon: Settings2,
+  //   children: [
+  //     { name: "General", href: "/settings/page-1" },
+  //     { name: "Security", href: "/settings/page-2" },
+  //     { name: "Workflows", href: "/settings/page-3" },
+  //   ],
+  // },
 ] as const;
 
 interface SidebarProps {
@@ -92,9 +101,11 @@ interface SidebarProps {
 export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
   const pathname = usePathname();
   const [openMenus, setOpenMenus] = React.useState<string[]>([
-    navigation[0].name,
-    navigation[1].name,
+    navigation2[0].name,
+    navigation2[1].name,
   ]);
+
+  // @chris: old
   const isActive = (itemHref: string) => {
     if (itemHref === siteConfig.baseLinks.settings.audit) {
       return pathname.startsWith("/settings");
@@ -116,7 +127,7 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
       <nav
         className={cx(
           isCollapsed ? "lg:hidden" : "lg:w-64",
-          "hidden overflow-x-hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:flex-col"
+          "hidden overflow-x-hidden bg-gray-50 dark:bg-gray-900 lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:flex-col border-r border-gray-200 dark:border-gray-800"
         )}
       >
         <aside
@@ -143,11 +154,47 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
             aria-label="core navigation links"
             className={cx(
               isCollapsed ? "hidden" : "flex",
-              "mt-2 flex-1 flex-col space-y-10"
+              "mt-2 flex-col space-y-4"
             )}
           >
-            <ul role="list" className="space-y-4">
+            <Input
+              type="search"
+              placeholder="Search items..."
+              className="[&>input]:py-1.5"
+            />
+            <ul role="list" className="space-y-1">
               {navigation.map((item) => (
+                <li key={item.name}>
+                  <Link
+                    href="#"
+                    className={cx(
+                      isActive(item.href)
+                        ? "text-blue-600 dark:text-blue-500"
+                        : "text-gray-900 dark:text-gray-50",
+                      "flex items-center justify-between rounded-md p-2 text-sm font-medium transition-opacity hover:bg-gray-200/50 hover:dark:bg-gray-900",
+                      focusRing
+                    )}
+                    // @CHRIS: check transition-opacity really needed
+                  >
+                    <div className="flex items-center gap-x-2.5">
+                      <item.icon
+                        className="size-[18px] shrink-0"
+                        aria-hidden="true"
+                      />
+                      {item.name}
+                    </div>
+                    {item.notifications && (
+                      <span className="inline-flex text-xs items-center justify-center size-5 bg-blue-100 text-blue-600 dark:text-blue-400 dark:bg-blue-500/10 rounded font-medium">
+                        {item.notifications}
+                      </span>
+                    )}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <Divider />
+            <ul role="list" className="space-y-4">
+              {navigation2.map((item) => (
                 <li key={item.name}>
                   <button
                     onClick={() => toggleMenu(item.name)}
@@ -155,6 +202,7 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
                       "flex w-full items-center justify-between gap-x-2.5 font-medium rounded-md p-2 text-sm text-gray-900 dark:text-gray-300 transition-opacity hover:bg-gray-200/50 hover:dark:bg-gray-900",
                       focusRing
                     )}
+                    // @CHRIS: check transition-opacity really needed
                   >
                     <div className="flex items-center gap-2.5">
                       <item.icon
@@ -168,7 +216,7 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
                         openMenus.includes(item.name)
                           ? "rotate-180"
                           : "rotate-0",
-                        "size-5 shrink-0 text-gray-400 dark:text-gray-600 transform transition-transform duration-200 ease-in-out"
+                        "size-5 shrink-0 text-gray-400 dark:text-gray-600 transform transition-transform duration-150 ease-in-out"
                       )}
                       aria-hidden="true"
                     />

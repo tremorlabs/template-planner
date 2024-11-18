@@ -17,7 +17,9 @@ export default function Layout({
     setIsCollapsed(!isCollapsed);
   };
   return (
-    <div className="mx-auto max-w-screen-2xl">
+    <>
+      {/* @CHRIS: challenge sev */}
+      {/* <div className="mx-auto max-w-screen-2xl"> */}
       <Sidebar isCollapsed={isCollapsed} toggleSidebar={toggleSidebar} />
       <main
         className={cx(
@@ -25,7 +27,7 @@ export default function Layout({
           "ease transform-gpu transition-all duration-100 will-change-transform"
         )}
       >
-        <div className="bg-white lg:border-l lg:border-gray-200 dark:bg-gray-925 lg:dark:border-gray-900 h-screen">
+        <div className="bg-white dark:bg-gray-925 h-screen">
           <div className="p-4 sticky top-0 z-10 bg-white dark:bg-gray-950 flex items-center gap-3 border-b border-gray-200 dark:border-gray-800">
             <button
               className="group inline-flex rounded-md p-1.5 hover:bg-gray-200/50 hover:dark:bg-gray-900"
@@ -65,7 +67,7 @@ export default function Layout({
                       // aria-current={page.current ? 'page' : undefined}
                       className="text-gray-900 dark:text-gray-50"
                     >
-                      Web analytics
+                      Quotes
                     </Link>
                   </div>
                 </li>
@@ -75,6 +77,6 @@ export default function Layout({
           {children}
         </div>
       </main>
-    </div>
+    </>
   );
 }
