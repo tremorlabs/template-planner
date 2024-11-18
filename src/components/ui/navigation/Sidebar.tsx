@@ -62,35 +62,23 @@ const navigation2 = [
   {
     name: "Sales",
     href: "#",
-    // href: siteConfig.baseLinks.reports,
     icon: BookText,
     children: [
-      { name: "Quotes", href: "/sales/quotes" },
-      { name: "Orders", href: "/sales/orders" },
-      { name: "Insights & Reports", href: "/sales/forecast" },
+      { name: "Quotes", href: "#" },
+      { name: "Orders", href: "#" },
+      { name: "Insights & Reports", href: "#" },
     ],
   },
   {
     name: "Products",
     href: "#",
-    // href: siteConfig.baseLinks.transactions,
     icon: PackageSearch,
     children: [
-      { name: "Items", href: "/workspaces/page-1" },
-      { name: "Variants", href: "/workspaces/page-2" },
-      { name: "Suppliers", href: "/workspaces/page-3" },
+      { name: "Items", href: "#" },
+      { name: "Variants", href: "#" },
+      { name: "Suppliers", href: "#" },
     ],
   },
-  // {
-  //   name: "Settings",
-  //   href: "#",
-  //   icon: Settings2,
-  //   children: [
-  //     { name: "General", href: "/settings/page-1" },
-  //     { name: "Security", href: "/settings/page-2" },
-  //     { name: "Workflows", href: "/settings/page-3" },
-  //   ],
-  // },
 ] as const;
 
 interface SidebarProps {
