@@ -3,7 +3,8 @@
 import { Fragment } from "react";
 import { cx } from "@/lib/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/Tabs";
-import { BarChart } from "@/components/BarChart";
+import { ComboChart } from "@/components/ComboChart";
+import { BarChart, TooltipProps } from "@/components/BarChart";
 import { Button } from "@/components/Button";
 import { Badge } from "@/components/Badge";
 import {
@@ -358,30 +359,102 @@ function Indicator({ number }: { number: number }) {
 }
 
 const data = [
-  { date: "Jan 24", value: 23 },
-  { date: "Feb 24", value: 31 },
-  { date: "Mar 24", value: 46 },
-  { date: "Apr 24", value: 46 },
-  { date: "May 24", value: 39 },
-  { date: "May 24", value: 65 },
+  {
+    date: "Jan 24",
+    "Current year": 23,
+    "Same period last year": 67,
+  },
+  {
+    date: "Feb 24",
+    "Current year": 31,
+    "Same period last year": 23,
+  },
+  {
+    date: "Mar 24",
+    "Current year": 46,
+    "Same period last year": 78,
+  },
+  {
+    date: "Apr 24",
+    "Current year": 46,
+    "Same period last year": 23,
+  },
+  {
+    date: "May 24",
+    "Current year": 39,
+    "Same period last year": 32,
+  },
+  {
+    date: "Jun 24",
+    "Current year": 65,
+    "Same period last year": 32,
+  },
 ];
 
 const data2 = [
-  { date: "Jan 24", value: 10.3 },
-  { date: "Feb 24", value: 33.2 },
-  { date: "Mar 24", value: 27.1 },
-  { date: "Apr 24", value: 19.3 },
-  { date: "May 24", value: 24.4 },
-  { date: "May 24", value: 14.3 },
+  {
+    date: "Jan 24",
+    Quotes: 120,
+    "Total deal size": 55000,
+  },
+  {
+    date: "Feb 24",
+    Quotes: 183,
+    "Total deal size": 75400,
+  },
+  {
+    date: "Mar 24",
+    Quotes: 165,
+    "Total deal size": 50450,
+  },
+  {
+    date: "Apr 24",
+    Quotes: 99,
+    "Total deal size": 41540,
+  },
+  {
+    date: "May 24",
+    Quotes: 194,
+    "Total deal size": 63850,
+  },
+  {
+    date: "Jun 24",
+    Quotes: 241,
+    "Total deal size": 73850,
+  },
 ];
 
 const data3 = [
-  { date: "Jan 24", value: 8 },
-  { date: "Feb 24", value: 9 },
-  { date: "Mar 24", value: 6 },
-  { date: "Apr 24", value: 5 },
-  { date: "May 24", value: 12 },
-  { date: "May 24", value: 9 },
+  {
+    date: "Jan 24",
+    Addressed: 8,
+    Unrealized: 12,
+  },
+  {
+    date: "Feb 24",
+    Addressed: 9,
+    Unrealized: 12,
+  },
+  {
+    date: "Mar 24",
+    Addressed: 6,
+    Unrealized: 12,
+  },
+  {
+    date: "Apr 24",
+    Addressed: 5,
+    Unrealized: 12,
+  },
+  {
+    date: "May 24",
+    Addressed: 12,
+    Unrealized: 12,
+  },
+  {
+    date: "May 24",
+    Addressed: 9,
+    Unrealized: 12,
+  },
 ];
 
 const data4 = [
@@ -392,6 +465,163 @@ const data4 = [
   { date: "May 24", value: 92.1 },
   { date: "May 24", value: 56.1 },
 ];
+
+const CustomTooltip = ({ payload, active }: TooltipProps) => {
+  if (!active || !payload || payload.length === 0) return null;
+
+  const calculatePercentageDiff = () => {
+    if (payload.length < 2) return null;
+
+    const firstValue = payload[1].value;
+    const secondValue = payload[0].value;
+
+    if (isNaN(firstValue) || isNaN(secondValue) || firstValue === 0)
+      return null;
+
+    const percentageDiff = ((secondValue - firstValue) / firstValue) * 100;
+    const sign = percentageDiff > 0 ? "+" : "";
+    return `${sign}${percentageDiff.toFixed(1)}%`;
+  };
+
+  const percentageDiff = calculatePercentageDiff();
+
+  return (
+    <div className="w-56 flex items-start justify-between rounded-md border border-gray-200 bg-white p-2 text-sm shadow-md dark:border-gray-800 dark:bg-gray-950">
+      <div className="space-y-2">
+        {payload.map((category, index) => (
+          <div key={index} className="flex space-x-2.5">
+            <span
+              className={cx(
+                index === 1
+                  ? // @CHRIS: add dark mode
+                    "bg-[repeating-linear-gradient(-45deg,theme(colors.gray.300)_0px,theme(colors.gray.300)_2px,theme(colors.gray.400)_2px,theme(colors.gray.400)_4px)] dark:bg-gray-700"
+                  : `bg-${category.color}-500 dark:bg-${category.color}-500`,
+                "w-1 rounded"
+              )}
+              aria-hidden={true}
+            />
+            <div className="space-y-0.5">
+              <p className="text-xs text-gray-500 dark:text-gray-500">
+                {category.category}
+              </p>
+              <p className="font-medium text-gray-900 dark:text-gray-50">
+                {category.value}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {percentageDiff && (
+        <span
+          className={cx(
+            parseFloat(percentageDiff) >= 0
+              ? "text-emerald-600 dark:text-emerald-400 bg-emerald-100 dark:bg-emerald-400/20"
+              : "text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-400/20",
+            "text-xs font-medium px-1.5 py-1 rounded"
+          )}
+        >
+          <p>{percentageDiff}</p>
+        </span>
+      )}
+    </div>
+  );
+};
+
+const CustomTooltip3 = ({ payload, active }: TooltipProps) => {
+  if (!active || !payload || payload.length === 0) return null;
+
+  const calculatePercentageDiff = () => {
+    const firstValue = payload[0].value;
+    const peerAverage = 6.5;
+
+    if (isNaN(firstValue) || firstValue === 0) return null;
+
+    const percentageDiff = ((firstValue - peerAverage) / peerAverage) * 100;
+    const sign = percentageDiff > 0 ? "+" : "";
+    return `${sign}${percentageDiff.toFixed(1)}%`;
+  };
+
+  // @SEV: double check whether it can be further simplified
+  const percentageDiff = calculatePercentageDiff();
+  const parsedValue = parseFloat(percentageDiff || "0");
+
+  // capped Value, such that marker bar cannot be bigger than 100%
+  const cappedValue = Math.min(Math.max(parsedValue, -100), 100);
+
+  return (
+    <div className="w-56 rounded-md border border-gray-200 bg-white text-sm shadow-md dark:border-gray-800 dark:bg-gray-950">
+      <div className="p-2 space-y-2">
+        {payload.map((category, index) => (
+          <div key={index} className="flex space-x-2.5">
+            <span
+              className={cx(
+                index === 1
+                  ? "bg-emerald-300 dark:bg-emerald-700"
+                  : `bg-${category.color}-500 dark:bg-${category.color}-500`,
+                "w-1 rounded"
+              )}
+              aria-hidden={true}
+            />
+            <div className="space-y-0.5">
+              <p className="text-xs text-gray-500 dark:text-gray-500">
+                {category.category}
+              </p>
+              <p className="font-medium text-gray-900 dark:text-gray-50">
+                {category.value}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="p-2">
+        <div className="relative w-full bg-gray-200 h-1.5 rounded-full">
+          <span className="absolute z-30 left-1/2 h-2.5 w-0.5 rounded-full bg-gray-500 dark:bg-gray-500 -translate-y-1/2 top-1/2" />
+          {percentageDiff &&
+            (parseFloat(percentageDiff) >= 0 ? (
+              <span className="absolute z-10 left-1/2 h-1.5 w-1/2 -translate-y-1/2 top-1/2">
+                <span
+                  style={{ width: `${cappedValue}%` }}
+                  className="absolute h-1.5 rounded-r-full bg-gradient-to-r from-gray-400 to-gray-300"
+                  // @CHRIS: dark mode
+                  // @CHRIS: check simpler approach for 100% cap approach
+                  // className="absolute h-1.5 rounded-r-full bg-[repeating-linear-gradient(-45deg,theme(colors.gray.400)_0px,theme(colors.gray.400)_2px,theme(colors.gray.300)_2px,theme(colors.gray.300)_4px)]"
+                />
+              </span>
+            ) : (
+              <span className="absolute z-10 right-1/2 h-1.5 w-1/2 -translate-y-1/2 top-1/2">
+                <span
+                  style={{ width: `${cappedValue}%` }}
+                  // className="absolute h-1.5 right-0 rounded-l-full bg-gradient-to-l from-gray-400 to-gray-300"
+                  // @CHRIS: dark mode
+                  className="absolute h-1.5 right-0 rounded-l-full bg-[repeating-linear-gradient(-45deg,theme(colors.gray.400)_0px,theme(colors.gray.400)_2px,theme(colors.gray.300)_2px,theme(colors.gray.300)_4px)]"
+                />
+              </span>
+            ))}
+        </div>
+        <div className="mt-2 flex items-center justify-between">
+          <div className="flex items-center">
+            <span
+              className="mr-1 w-2.5 h-0.5 rounded-full bg-gray-500 dark:bg-gray-500"
+              aria-hidden="true"
+            />
+            <span className="text-xs italic text-gray-500 dark:text-gray-500">
+              Peer avg.
+            </span>
+          </div>
+          <span className="text-xs font-medium text-gray-900 dark:text-gray-50">
+            {percentageDiff}
+          </span>
+        </div>
+        {/* {percentageDiff && (
+          <span className="text-xs font-medium">
+            <p>{percentageDiff}</p>
+          </span>
+        )} */}
+      </div>
+    </div>
+  );
+};
 
 export default function Page() {
   return (
@@ -653,32 +883,43 @@ export default function Page() {
                 <BarChart
                   data={data}
                   index="date"
-                  categories={["value"]}
-                  showLegend={false}
+                  categories={["Current year", "Same period last year"]}
+                  colors={["blue", "lightGray"]}
                   yAxisWidth={45}
+                  customTooltip={CustomTooltip}
                   yAxisLabel="Number of inherent risks"
                   barCategoryGap="20%"
                   onValueChange={(v) => console.log(v)}
-                  className="mt-6 h-56"
+                  className="mt-6 h-60"
                 />
               </div>
               <div className="p-4">
                 <dt className="text-sm text-gray-900 dark:text-gray-50 font-semibold">
-                  Lead-to-Quote time
+                  {/* Lead-to-Quote time */}
+                  Quotes-to-Deal ratio
                 </dt>
                 <dd className="mt-0.5 text-sm text-gray-500 dark:text-gray-500">
-                  Analysis of the duration from lead generation to quote
-                  issuance
+                  {/* Analysis of the avg. duration from lead generation to quote
+                  issuance */}
+                  Number of quotes compared to total deal size for given month
                 </dd>
-                <BarChart
+                <ComboChart
                   data={data2}
                   index="date"
-                  categories={["value"]}
-                  showLegend={false}
-                  yAxisWidth={45}
-                  yAxisLabel="Working days (d)"
-                  barCategoryGap="20%"
-                  className="mt-6 h-56"
+                  enableBiaxial={true}
+                  barSeries={{
+                    categories: ["Quotes"],
+                    yAxisLabel: "Number of quotes / Deal size ($)",
+                  }}
+                  lineSeries={{
+                    categories: ["Total deal size"],
+                    colors: ["lightGray"],
+                    yAxisWidth: 60,
+                    showYAxis: false,
+                    valueFormatter: (number: number) =>
+                      `$${Intl.NumberFormat().format(number).toString()}`,
+                  }}
+                  className="mt-6 h-60"
                 />
               </div>
               <div className="p-4">
@@ -686,18 +927,19 @@ export default function Page() {
                   ESG impact
                 </dt>
                 <dd className="mt-0.5 text-sm text-gray-500 dark:text-gray-500">
-                  Evaluation of environmental, social, and governance factors
-                  over time,
+                  Evaluation of addressed ESG criteria in biddings over time
                 </dd>
                 <BarChart
                   data={data3}
                   index="date"
-                  categories={["value"]}
-                  showLegend={false}
-                  yAxisWidth={45}
-                  yAxisLabel="# of dimensions impacted"
-                  barCategoryGap="20%"
-                  className="mt-6 h-56"
+                  categories={["Addressed", "Unrealized"]}
+                  colors={["emerald", "lightEmerald"]}
+                  customTooltip={CustomTooltip3}
+                  type="percent"
+                  yAxisWidth={55}
+                  yAxisLabel="% of criteria addressed"
+                  barCategoryGap="30%"
+                  className="mt-6 h-60"
                 />
               </div>
               <div className="p-4">
@@ -711,14 +953,13 @@ export default function Page() {
                   data={data4}
                   index="date"
                   categories={["value"]}
-                  showLegend={false}
                   valueFormatter={(number: number) =>
                     `${Intl.NumberFormat().format(number).toString()}%`
                   }
                   yAxisWidth={45}
                   yAxisLabel="Competition density (%)"
                   barCategoryGap="20%"
-                  className="mt-6 h-56"
+                  className="mt-6 h-60"
                 />
               </div>
             </dl>

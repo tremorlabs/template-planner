@@ -9,11 +9,23 @@ export const chartColors = {
     fill: "fill-blue-500 dark:fill-blue-500",
     text: "text-blue-500 dark:text-blue-500",
   },
+  lightBlue: {
+    bg: "bg-blue-300/50 dark:bg-blue-800/50",
+    stroke: "stroke-blue-300/50 dark:stroke-blue-800/50",
+    fill: "fill-blue-300/50 dark:fill-blue-800/50",
+    text: "text-blue-300/50 dark:text-blue-800/50",
+  },
   emerald: {
-    bg: "bg-emerald-500 dark:bg-emerald-400",
-    stroke: "stroke-emerald-500 dark:stroke-emerald-400",
-    fill: "fill-emerald-500 dark:fill-emerald-400",
-    text: "text-emerald-500 dark:text-emerald-400",
+    bg: "bg-emerald-500 dark:bg-emerald-500",
+    stroke: "stroke-emerald-500 dark:stroke-emerald-500",
+    fill: "fill-emerald-500 dark:fill-emerald-500",
+    text: "text-emerald-500 dark:text-emerald-500",
+  },
+  lightEmerald: {
+    bg: "bg-emerald-300/50 dark:bg-emerald-800/50",
+    stroke: "stroke-emerald-300/50 dark:stroke-emerald-800/50",
+    fill: "fill-emerald-300/50 dark:fill-emerald-800/50",
+    text: "text-emerald-300/50 dark:text-emerald-800/50",
   },
   violet: {
     bg: "bg-violet-500 dark:bg-violet-500",

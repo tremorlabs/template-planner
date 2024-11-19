@@ -115,7 +115,7 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
       <nav
         className={cx(
           isCollapsed ? "lg:hidden" : "lg:w-64",
-          "hidden overflow-x-hidden bg-gray-50 dark:bg-gray-900 lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:flex-col border-r border-gray-200 dark:border-gray-800"
+          "hidden overflow-x-hidden bg-gray-50 dark:bg-gray-925 lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:flex-col border-r border-gray-200 dark:border-gray-800"
         )}
       >
         <aside
@@ -187,7 +187,7 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
                   <button
                     onClick={() => toggleMenu(item.name)}
                     className={cx(
-                      "flex w-full items-center justify-between gap-x-2.5 font-medium rounded-md p-2 text-sm text-gray-900 dark:text-gray-300 transition-opacity hover:bg-gray-200/50 hover:dark:bg-gray-900",
+                      "flex w-full items-center justify-between gap-x-2.5 font-medium rounded-md p-2 text-sm text-gray-900 dark:text-gray-50 transition-opacity hover:bg-gray-200/50 hover:dark:bg-gray-900",
                       focusRing
                     )}
                     // @CHRIS: check transition-opacity really needed
@@ -217,7 +217,7 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
                         isCollapsed ? "opacity-0" : "opacity-100"
                       )}
                     >
-                      <div className="absolute inset-y-0 left-4 w-px bg-gray-300 dark:bg-gray-900" />
+                      <div className="absolute inset-y-0 left-4 w-px bg-gray-300 dark:bg-gray-800" />
                       {item.children.map((child) => (
                         <li key={child.name}>
                           <NavLink
