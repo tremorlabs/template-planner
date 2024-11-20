@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/Tabs";
 import { ComboChart } from "@/components/ComboChart";
 import { BarChart, TooltipProps } from "@/components/BarChart";
 import { Button } from "@/components/Button";
+import { ConditionalBarChart } from "@/components/ConditionalBarChart";
 import { Badge } from "@/components/Badge";
 import {
   Select,
@@ -451,19 +452,37 @@ const data3 = [
     Unrealized: 12,
   },
   {
-    date: "May 24",
+    date: "Jun 24",
     Addressed: 9,
     Unrealized: 12,
   },
 ];
 
 const data4 = [
-  { date: "Jan 24", value: 89.1 },
-  { date: "Feb 24", value: 78.4 },
-  { date: "Mar 24", value: 65.5 },
-  { date: "Apr 24", value: 72.3 },
-  { date: "May 24", value: 92.1 },
-  { date: "May 24", value: 56.1 },
+  {
+    date: "Jan 24",
+    density: 89.1,
+  },
+  {
+    date: "Feb 24",
+    density: 78.4,
+  },
+  {
+    date: "Mar 24",
+    density: 15.5,
+  },
+  {
+    date: "Apr 24",
+    density: 72.3,
+  },
+  {
+    date: "May 24",
+    density: 22.1,
+  },
+  {
+    date: "Jun 24",
+    density: 56.1,
+  },
 ];
 
 const CustomTooltip = ({ payload, active }: TooltipProps) => {
@@ -592,9 +611,9 @@ const CustomTooltip3 = ({ payload, active }: TooltipProps) => {
               <span className="absolute z-10 right-1/2 h-1.5 w-1/2 -translate-y-1/2 top-1/2">
                 <span
                   style={{ width: `${cappedValue}%` }}
-                  // className="absolute h-1.5 right-0 rounded-l-full bg-gradient-to-l from-gray-400 to-gray-300"
+                  className="absolute h-1.5 right-0 rounded-l-full bg-gradient-to-l from-gray-400 to-gray-300"
                   // @CHRIS: dark mode
-                  className="absolute h-1.5 right-0 rounded-l-full bg-[repeating-linear-gradient(-45deg,theme(colors.gray.400)_0px,theme(colors.gray.400)_2px,theme(colors.gray.300)_2px,theme(colors.gray.300)_4px)]"
+                  // className="absolute h-1.5 right-0 rounded-l-full bg-[repeating-linear-gradient(-45deg,theme(colors.gray.400)_0px,theme(colors.gray.400)_2px,theme(colors.gray.300)_2px,theme(colors.gray.300)_4px)]"
                 />
               </span>
             ))}
@@ -674,7 +693,7 @@ export default function Page() {
           <TabsList className="px-6 gap-x-4">
             <TabsTrigger value="tab1">Overview</TabsTrigger>
             <TabsTrigger value="tab2">Monitoring</TabsTrigger>
-            <TabsTrigger value="tab3">Approval Workflows</TabsTrigger>
+            <TabsTrigger value="tab3">Audits</TabsTrigger>
           </TabsList>
           <TabsContent value="tab1">
             {/* @chris: to be moved as Filterbar.tsx */}
@@ -896,7 +915,7 @@ export default function Page() {
               <div className="p-4">
                 <dt className="text-sm text-gray-900 dark:text-gray-50 font-semibold">
                   {/* Lead-to-Quote time */}
-                  Quotes-to-Deal ratio
+                  Quote-to-Deal ratio
                 </dt>
                 <dd className="mt-0.5 text-sm text-gray-500 dark:text-gray-500">
                   {/* Analysis of the avg. duration from lead generation to quote
@@ -947,18 +966,20 @@ export default function Page() {
                   Bidder density
                 </dt>
                 <dd className="mt-0.5 text-sm text-gray-500 dark:text-gray-500">
-                  Density and competition levels of bidders over time
+                  Competition level measured by number and size of bidders over
+                  time
                 </dd>
-                <BarChart
+                <ConditionalBarChart
                   data={data4}
                   index="date"
-                  categories={["value"]}
+                  categories={["density"]}
+                  colors={["orange"]}
                   valueFormatter={(number: number) =>
                     `${Intl.NumberFormat().format(number).toString()}%`
                   }
-                  yAxisWidth={45}
+                  yAxisWidth={55}
                   yAxisLabel="Competition density (%)"
-                  barCategoryGap="20%"
+                  barCategoryGap="30%"
                   className="mt-6 h-60"
                 />
               </div>

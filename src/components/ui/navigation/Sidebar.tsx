@@ -159,7 +159,7 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
                       isActive(item.href)
                         ? "text-blue-600 dark:text-blue-500"
                         : "text-gray-900 dark:text-gray-50",
-                      "flex items-center justify-between rounded-md p-2 text-sm font-medium transition-opacity hover:bg-gray-200/50 hover:dark:bg-gray-900",
+                      "flex items-center justify-between rounded-md p-2 text-sm transition-opacity hover:bg-gray-200/50 hover:dark:bg-gray-900",
                       focusRing
                     )}
                     // @CHRIS: check transition-opacity really needed
@@ -187,7 +187,7 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
                   <button
                     onClick={() => toggleMenu(item.name)}
                     className={cx(
-                      "flex w-full items-center justify-between gap-x-2.5 font-medium rounded-md p-2 text-sm text-gray-900 dark:text-gray-50 transition-opacity hover:bg-gray-200/50 hover:dark:bg-gray-900",
+                      "flex w-full items-center justify-between gap-x-2.5 rounded-md p-2 text-sm text-gray-900 dark:text-gray-50 transition-opacity hover:bg-gray-200/50 hover:dark:bg-gray-900",
                       focusRing
                     )}
                     // @CHRIS: check transition-opacity really needed

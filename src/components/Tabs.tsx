@@ -62,7 +62,7 @@ function getVariantStyles(tabVariant: TabsListVariant) {
     case "line":
       return cx(
         // base
-        "-mb-px items-center justify-center whitespace-nowrap border-b-2 border-transparent px-3 pb-2 text-sm font-medium transition-all",
+        "-mb-px items-center justify-center whitespace-nowrap border-b-2 border-transparent px-3 pb-2 text-sm transition-all",
         // text color
         "text-gray-500 dark:text-gray-500",
         // hover
