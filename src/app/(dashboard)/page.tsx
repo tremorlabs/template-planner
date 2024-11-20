@@ -8,6 +8,12 @@ import { ComboChart } from "@/components/ComboChart";
 import { BarChart } from "@/components/BarChart";
 import { Button } from "@/components/Button";
 import { ConditionalBarChart } from "@/components/ConditionalBarChart";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/Accordion";
 import { Badge } from "@/components/Badge";
 import {
   Select,
@@ -24,6 +30,7 @@ import {
   CustomTooltip4,
 } from "@/components/CustomTooltips";
 import { Download, SlidersHorizontal } from "lucide-react";
+import { RiCheckboxCircleFill } from "@remixicon/react";
 
 const quotes = [
   {
@@ -539,7 +546,7 @@ export default function Page() {
             </div>
           </dl>
         </div>
-        <Tabs defaultValue="tab2" className="mt-4">
+        <Tabs defaultValue="tab3" className="mt-4">
           <TabsList className="px-6 gap-x-4">
             <TabsTrigger value="tab1">Overview</TabsTrigger>
             <TabsTrigger value="tab2">Monitoring</TabsTrigger>
@@ -837,7 +844,123 @@ export default function Page() {
               </div>
             </dl>
           </TabsContent>
-          <TabsContent value="tab3"></TabsContent>
+          <TabsContent value="tab3">
+            <div className="p-6 flex items-center justify-between">
+              <Input
+                type="search"
+                placeholder="Search audits..."
+                className="sm:w-64 [&>input]:py-1.5"
+              />
+              <Button variant="secondary" className="py-1.5 gap-2">
+                <SlidersHorizontal
+                  className="-ml-0.5 size-4 shrink-0 text-gray-400 dark:text-gray-600"
+                  aria-hidden="true"
+                />
+                Filters
+              </Button>
+            </div>
+            <div className="px-6 border-t border-gray-200 dark:border-gray-800">
+              <Accordion type="multiple" className="mt-3">
+                <AccordionItem value="item-1">
+                  <AccordionTrigger>
+                    <div className="flex items-center w-full justify-between pr-10">
+                      <p>Code of conduct</p>
+                      <span className="flex items-center gap-x-2">
+                        <RiCheckboxCircleFill
+                          className="size-5 text-emerald-600 dark:text-emerald-400 shrink-0"
+                          aria-hidden="true"
+                        />
+                        46/46
+                      </span>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <p>
+                      Simply navigate to the "My Trips" section on our website
+                      and input your booking reference and last name to view
+                      your itinerary details.
+                    </p>
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-2">
+                  <AccordionTrigger>
+                    <span className="flex items-center gap-2 ">
+                      Change Flights
+                    </span>
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <ol className="flex flex-col gap-2">
+                      <li>
+                        <span className="font-semibold text-gray-900 dark:text-gray-50">
+                          Step 1:
+                        </span>{" "}
+                        Within your booking details, select "Change Flights."
+                      </li>
+                      <li>
+                        <span className="font-semibold text-gray-900 dark:text-gray-50">
+                          Step 2:
+                        </span>{" "}
+                        Follow the prompts to select new flight options and
+                        confirm the changes.
+                      </li>
+                      <li>
+                        <span className="font-semibold text-gray-900 dark:text-gray-50">
+                          Step 3:
+                        </span>{" "}
+                        Review your new flight details and any fare differences.
+                      </li>
+                      <li>
+                        <span className="font-semibold text-gray-900 dark:text-gray-50">
+                          Step 4:
+                        </span>{" "}
+                        Complete the change and receive your updated itinerary
+                        via email.
+                      </li>
+                    </ol>
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-3">
+                  <AccordionTrigger>
+                    <span className="flex items-center gap-2 ">
+                      Add Special Requests
+                    </span>
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <p>
+                      Look for the "Special Requests" option within your booking
+                      to specify any meal preferences, seating arrangements, or
+                      assistance services you may require during your flight.
+                    </p>
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-4">
+                  <AccordionTrigger>
+                    <span className="flex items-center gap-2 ">
+                      Check-In Online
+                    </span>
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <ol className="flex flex-col gap-2">
+                      <li>
+                        <span className="font-semibold text-gray-900 dark:text-gray-50">
+                          Step 1:
+                        </span>{" "}
+                        Starting 48 hours before your flight, access the
+                        "Check-In" option.
+                      </li>
+                      <li>
+                        <span className="font-semibold text-gray-900 dark:text-gray-50">
+                          Step 2:
+                        </span>{" "}
+                        Confirm your details and select your seats to complete
+                        the online check-in process.
+                      </li>
+                    </ol>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </div>
+          </TabsContent>
         </Tabs>
       </section>
     </>
