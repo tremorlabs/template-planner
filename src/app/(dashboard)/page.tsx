@@ -2,6 +2,7 @@
 
 import { Fragment } from "react";
 import { cx } from "@/lib/utils";
+import { formatters } from "@/lib/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/Tabs";
 import { ComboChart } from "@/components/ComboChart";
 import { BarChart, TooltipProps } from "@/components/BarChart";
@@ -461,27 +462,27 @@ const data3 = [
 const data4 = [
   {
     date: "Jan 24",
-    density: 89.1,
+    Density: 0.891,
   },
   {
     date: "Feb 24",
-    density: 78.4,
+    Density: 0.784,
   },
   {
     date: "Mar 24",
-    density: 15.5,
+    Density: 0.155,
   },
   {
     date: "Apr 24",
-    density: 72.3,
+    Density: 0.75,
   },
   {
     date: "May 24",
-    density: 22.1,
+    Density: 0.221,
   },
   {
     date: "Jun 24",
-    density: 56.1,
+    Density: 0.561,
   },
 ];
 
@@ -561,7 +562,7 @@ const CustomTooltip3 = ({ payload, active }: TooltipProps) => {
     return `${sign}${percentageDiff.toFixed(1)}%`;
   };
 
-  // @SEV: double check whether it can be further simplified
+  // @SEV/CHRIS: double check whether it can be further simplified
   const percentageDiff = calculatePercentageDiff();
   const parsedValue = parseFloat(percentageDiff || "0");
 
@@ -570,9 +571,9 @@ const CustomTooltip3 = ({ payload, active }: TooltipProps) => {
 
   return (
     <div className="w-56 rounded-md border border-gray-200 bg-white text-sm shadow-md dark:border-gray-800 dark:bg-gray-950">
-      <div className="p-2 space-y-2">
+      <ul role="list" className="p-2 grid grid-cols-2 gap-x-4">
         {payload.map((category, index) => (
-          <div key={index} className="flex space-x-2.5">
+          <li key={index} className="flex space-x-2.5">
             <span
               className={cx(
                 index === 1
@@ -590,11 +591,11 @@ const CustomTooltip3 = ({ payload, active }: TooltipProps) => {
                 {category.value}
               </p>
             </div>
-          </div>
+          </li>
         ))}
-      </div>
-      <div className="p-2">
-        <div className="relative w-full bg-gray-200 h-1.5 rounded-full">
+      </ul>
+      <div className="p-2 border-t border-gray-200 dark:border-gray-800">
+        <div className="mt-0.5 relative w-full bg-gray-200 h-1.5 rounded-full">
           <span className="absolute z-30 left-1/2 h-2.5 w-0.5 rounded-full bg-gray-500 dark:bg-gray-500 -translate-y-1/2 top-1/2" />
           {percentageDiff &&
             (parseFloat(percentageDiff) >= 0 ? (
@@ -618,25 +619,88 @@ const CustomTooltip3 = ({ payload, active }: TooltipProps) => {
               </span>
             ))}
         </div>
-        <div className="mt-2 flex items-center justify-between">
+        <div className="mt-1 flex items-center justify-between">
           <div className="flex items-center">
             <span
               className="mr-1 w-2.5 h-0.5 rounded-full bg-gray-500 dark:bg-gray-500"
               aria-hidden="true"
             />
-            <span className="text-xs italic text-gray-500 dark:text-gray-500">
+            <span className="text-xs text-gray-500 dark:text-gray-500">
               Peer avg.
             </span>
           </div>
-          <span className="text-xs font-medium text-gray-900 dark:text-gray-50">
+          <span className="text-xs font-medium text-gray-600 dark:text-gray-400">
             {percentageDiff}
           </span>
         </div>
-        {/* {percentageDiff && (
-          <span className="text-xs font-medium">
-            <p>{percentageDiff}</p>
-          </span>
-        )} */}
+      </div>
+    </div>
+  );
+};
+
+const CustomTooltip4 = ({ payload, active }: TooltipProps) => {
+  if (!active || !payload || payload.length === 0) return null;
+
+  const peerAverage = 0.75;
+
+  const calculateDiff = () => {
+    const difference = payload[0].value - peerAverage;
+    const sign = difference > 0 ? "+" : "";
+    return `${sign}${formatters.percentage({ number: difference })}`;
+  };
+
+  const peerDifference = calculateDiff();
+
+  return (
+    <div className="w-56 rounded-md border border-gray-200 bg-white text-sm shadow-md dark:border-gray-800 dark:bg-gray-950">
+      <ul role="list" className="p-2 grid grid-cols-2 gap-x-4">
+        <li className="flex space-x-2.5">
+          <span
+            className={cx(
+              `bg-${payload[0].color}-500 dark:bg-${payload[0].color}-500`,
+              "w-1 rounded"
+            )}
+            aria-hidden={true}
+          />
+          <div className="space-y-0.5">
+            <p className="text-xs text-gray-500 dark:text-gray-500 whitespace-nowrap">
+              {payload[0].category}
+            </p>
+            <p className="font-medium text-gray-900 dark:text-gray-50">
+              {formatters.percentage({ number: payload[0].value })}
+            </p>
+          </div>
+        </li>
+        <li className="flex space-x-2.5">
+          <span
+            className="bg-gray-400 dark:bg-gray-600 w-1 rounded"
+            aria-hidden={true}
+          />
+          <div className="space-y-0.5">
+            <p className="text-xs text-gray-500 dark:text-gray-500 whitespace-nowrap">
+              Benchmark
+            </p>
+            <p className="font-medium text-gray-900 dark:text-gray-50">
+              {/* dummy values for showcase */}
+              {formatters.percentage({ number: peerAverage })}
+            </p>
+          </div>
+        </li>
+      </ul>
+      <div className="p-2 border-t border-gray-200 dark:border-gray-800">
+        <p
+          className={cx(
+            "text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-400/20",
+            "text-xs inline-flex justify-center w-full px-1.5 py-1 rounded"
+          )}
+        >
+          <span className="mr-1">{peerDifference}</span>
+          {parseFloat(peerDifference) > 0
+            ? "above benchmark"
+            : parseFloat(peerDifference) === 0
+            ? "same as benchmark"
+            : "below benchmark"}
+        </p>
       </div>
     </div>
   );
@@ -972,10 +1036,11 @@ export default function Page() {
                 <ConditionalBarChart
                   data={data4}
                   index="date"
-                  categories={["density"]}
+                  categories={["Density"]}
                   colors={["orange"]}
-                  valueFormatter={(number: number) =>
-                    `${Intl.NumberFormat().format(number).toString()}%`
+                  customTooltip={CustomTooltip4}
+                  valueFormatter={(value) =>
+                    formatters.percentage({ number: value, decimals: 0 })
                   }
                   yAxisWidth={55}
                   yAxisLabel="Competition density (%)"

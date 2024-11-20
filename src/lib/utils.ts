@@ -73,9 +73,8 @@ export const formatters: { [key: string]: any } = {
       minimumFractionDigits: decimals,
       maximumFractionDigits: decimals,
     }).format(number);
-    const symbol = number > 0 && number !== Infinity ? "+" : "";
 
-    return `${symbol}${formattedNumber}`;
+    return `${formattedNumber}`;
   },
 
   million: ({

@@ -77,11 +77,11 @@ const renderShape = (
       width={width}
       height={height}
       className={cx(
-        value <= 25
+        value <= 0.25
           ? `fill-${colors}-200 dark:fill-${colors}-100`
-          : value <= 50
+          : value <= 0.5
           ? `fill-${colors}-300 dark:fill-${colors}-300`
-          : value <= 75
+          : value <= 0.75
           ? `fill-${colors}-400 dark:fill-${colors}-400`
           : `fill-${colors}-500 dark:fill-${colors}-500`
       )}
