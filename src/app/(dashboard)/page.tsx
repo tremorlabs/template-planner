@@ -3,6 +3,7 @@
 import { Fragment } from "react";
 import { cx } from "@/lib/utils";
 import { formatters } from "@/lib/utils";
+import { Link } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/Tabs";
 import { ComboChart } from "@/components/ComboChart";
 import { BarChart } from "@/components/BarChart";
@@ -29,8 +30,14 @@ import {
   CustomTooltip3,
   CustomTooltip4,
 } from "@/components/CustomTooltips";
-import { Download, SlidersHorizontal } from "lucide-react";
-import { RiCheckboxCircleFill } from "@remixicon/react";
+import {
+  Download,
+  SlidersHorizontal,
+  CircleCheck,
+  CircleAlert,
+  Eye,
+} from "lucide-react";
+import { RiCheckboxCircleFill, RiErrorWarningFill } from "@remixicon/react";
 
 const quotes = [
   {
@@ -499,6 +506,92 @@ const data4 = [
   },
 ];
 
+const sections = [
+  {
+    id: "item-1",
+    title: "Code of conduct",
+    progress: { current: 46, total: 46 },
+    status: "complete",
+    auditDates: [
+      { date: "Dec 10, 2023", auditor: "Max Duster" },
+      { date: "Dec 12, 2023", auditor: "Emma Stone" },
+    ],
+    documents: [
+      { name: "policy_overview.xlsx", status: "OK" },
+      { name: "employee_guidelines.xlsx", status: "Needs update" },
+      { name: "compliance_checklist.xlsx", status: "In audit" },
+    ],
+  },
+  {
+    id: "item-2",
+    title: "SAFe Certifications",
+    progress: { current: 32, total: 41 },
+    status: "warning",
+    auditDates: [
+      { date: "Jan 15, 2024", auditor: "Sarah Johnson" },
+      { date: "Jan 20, 2024", auditor: "Mike Peters" },
+    ],
+    documents: [
+      { name: "certification_records.xlsx", status: "OK" },
+      { name: "training_logs.xlsx", status: "In audit" },
+      { name: "assessment_results.xlsx", status: "Needs update" },
+    ],
+  },
+  {
+    id: "item-3",
+    title: "PMP Certifications",
+    progress: { current: 21, total: 21 },
+    status: "complete",
+    auditDates: [
+      { date: "Feb 5, 2024", auditor: "Lisa Chen" },
+      { date: "Feb 8, 2024", auditor: "Tom Wilson" },
+    ],
+    documents: [
+      { name: "project_documents.xlsx", status: "OK" },
+      { name: "methodology_guide.xlsx", status: "OK" },
+      { name: "best_practices.xlsx", status: "In audit" },
+    ],
+  },
+  {
+    id: "item-4",
+    title: "Cloud Certifications",
+    progress: { current: 21, total: 21 },
+    status: "complete",
+    auditDates: [
+      { date: "Mar 1, 2024", auditor: "Alex Kumar" },
+      { date: "Mar 5, 2024", auditor: "Rachel Green" },
+    ],
+    documents: [
+      { name: "aws_certifications.xlsx", status: "OK" },
+      { name: "azure_competencies.xlsx", status: "OK" },
+      { name: "gcp_credentials.xlsx", status: "In audit" },
+      { name: "cloud_security.xlsx", status: "OK" },
+    ],
+  },
+];
+
+const getStatusIcon = (status: string) => {
+  if (status === "complete") {
+    return (
+      <RiCheckboxCircleFill className="size-[18px] text-emerald-600 dark:text-emerald-400 shrink-0" />
+    );
+  }
+  return (
+    <RiErrorWarningFill className="size-[18px] text-red-600 dark:text-red-400 shrink-0" />
+  );
+};
+
+const getStatusBadgeStyle = (status: string) => {
+  switch (status) {
+    case "OK":
+      return "bg-emerald-100 text-emerald-700 dark:text-emerald-300";
+    case "Needs update":
+      return "bg-orange-100 text-orange-700 dark:text-orange-300";
+    default:
+      return "bg-gray-100 text-gray-700 dark:text-gray-300";
+  }
+};
+
 export default function Page() {
   return (
     <>
@@ -859,105 +952,100 @@ export default function Page() {
                 Filters
               </Button>
             </div>
-            <div className="px-6 border-t border-gray-200 dark:border-gray-800">
+            <div className="px-6 pb-6 border-t border-gray-200 dark:border-gray-800">
+              {/* <h2 className="mt-4 font-medium text-gray-900 dark:text-gray-50">
+                Certifications and reports
+              </h2> */}
               <Accordion type="multiple" className="mt-3">
-                <AccordionItem value="item-1">
-                  <AccordionTrigger>
-                    <div className="flex items-center w-full justify-between pr-10">
-                      <p>Code of conduct</p>
-                      <span className="flex items-center gap-x-2">
-                        <RiCheckboxCircleFill
-                          className="size-5 text-emerald-600 dark:text-emerald-400 shrink-0"
-                          aria-hidden="true"
-                        />
-                        46/46
-                      </span>
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    <p>
-                      Simply navigate to the "My Trips" section on our website
-                      and input your booking reference and last name to view
-                      your itinerary details.
-                    </p>
-                  </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="item-2">
-                  <AccordionTrigger>
-                    <span className="flex items-center gap-2 ">
-                      Change Flights
-                    </span>
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    <ol className="flex flex-col gap-2">
-                      <li>
-                        <span className="font-semibold text-gray-900 dark:text-gray-50">
-                          Step 1:
-                        </span>{" "}
-                        Within your booking details, select "Change Flights."
-                      </li>
-                      <li>
-                        <span className="font-semibold text-gray-900 dark:text-gray-50">
-                          Step 2:
-                        </span>{" "}
-                        Follow the prompts to select new flight options and
-                        confirm the changes.
-                      </li>
-                      <li>
-                        <span className="font-semibold text-gray-900 dark:text-gray-50">
-                          Step 3:
-                        </span>{" "}
-                        Review your new flight details and any fare differences.
-                      </li>
-                      <li>
-                        <span className="font-semibold text-gray-900 dark:text-gray-50">
-                          Step 4:
-                        </span>{" "}
-                        Complete the change and receive your updated itinerary
-                        via email.
-                      </li>
-                    </ol>
-                  </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="item-3">
-                  <AccordionTrigger>
-                    <span className="flex items-center gap-2 ">
-                      Add Special Requests
-                    </span>
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    <p>
-                      Look for the "Special Requests" option within your booking
-                      to specify any meal preferences, seating arrangements, or
-                      assistance services you may require during your flight.
-                    </p>
-                  </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="item-4">
-                  <AccordionTrigger>
-                    <span className="flex items-center gap-2 ">
-                      Check-In Online
-                    </span>
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    <ol className="flex flex-col gap-2">
-                      <li>
-                        <span className="font-semibold text-gray-900 dark:text-gray-50">
-                          Step 1:
-                        </span>{" "}
-                        Starting 48 hours before your flight, access the
-                        "Check-In" option.
-                      </li>
-                      <li>
-                        <span className="font-semibold text-gray-900 dark:text-gray-50">
-                          Step 2:
-                        </span>{" "}
-                        Confirm your details and select your seats to complete
-                        the online check-in process.
-                      </li>
-                    </ol>
-                  </AccordionContent>
-                </AccordionItem>
+                {sections.map((section) => (
+                  <AccordionItem key={section.id} value={section.id}>
+                    <AccordionTrigger className="py-5">
+                      <p className="flex items-center w-full justify-between pr-4">
+                        <span className="flex items-center gap-2.5">
+                          <span>{section.title}</span>
+                          <span className="text-xs inline-flex items-center font-medium bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-300 px-2 py-1 rounded-full">
+                            SOC2
+                          </span>
+                        </span>
+                        <span className="flex items-center gap-x-2">
+                          {getStatusIcon(section.status)}
+                          {section.progress.current}/{section.progress.total}
+                        </span>
+                      </p>
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      <div className="mt-2 grid grid-cols-2 gap-6">
+                        <div>
+                          <p className="flex items-center justify-between text-sm font-medium text-gray-900 dark:text-gray-50">
+                            <span>Audit round</span>
+                            <span>Auditor</span>
+                          </p>
+                          <ul className="mt-1 text-sm text-gray-700 dark:text-gray-300 divide-y divide-gray-200 dark:divide-gray-800">
+                            {section.auditDates.map((audit, index) => (
+                              <li
+                                key={index}
+                                className="py-2.5 flex items-center justify-between"
+                              >
+                                <span>{audit.date}</span>
+                                <span>{audit.auditor}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div>
+                          <p className="flex items-center justify-between text-sm font-medium text-gray-900 dark:text-gray-50">
+                            <span>Related documents</span>
+                            <span>Status</span>
+                          </p>
+                          <ul className="mt-1 text-gray-700 dark:text-gray-300 divide-y divide-gray-200 dark:divide-gray-800">
+                            {section.documents.map((doc, index) => (
+                              <li
+                                key={index}
+                                className="py-2.5 text-sm flex items-center justify-between"
+                              >
+                                <a
+                                  href="#"
+                                  className="hover:underline hover:underline-offset-4 text-blue-500 dark:text-blue-500 flex items-center gap-2"
+                                >
+                                  <Link
+                                    className="size-4 shrink-0"
+                                    aria-hidden="true"
+                                  />
+                                  {doc.name}
+                                </a>
+                                <div className="flex items-center gap-2">
+                                  <button
+                                    type="button"
+                                    className="hover:text-gray-900 hover:dark:text-gray-50"
+                                  >
+                                    Edit
+                                  </button>
+                                  <span
+                                    className="h-4 w-px bg-gray-300 dark:bg-gray-700"
+                                    aria-hidden="true"
+                                  />
+                                  <button
+                                    type="button"
+                                    className="hover:text-gray-900 hover:dark:text-gray-50"
+                                  >
+                                    Re-Upload
+                                  </button>
+                                </div>
+                                {/* <span
+                                  className={`px-2 py-0.5 rounded-full text-xs inline-flex items-center font-medium ${getStatusBadgeStyle(
+                                    doc.status
+                                  )}`}
+                                >
+                                  {doc.status}
+                                </span> */}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
               </Accordion>
             </div>
           </TabsContent>
