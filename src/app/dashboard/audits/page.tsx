@@ -88,13 +88,16 @@ const sections = [
 export default function Audits() {
   return (
     <>
-      <div className="p-6 flex items-center justify-between">
+      <div className="p-6 flex flex-col sm:flex-row items-center justify-between gap-2">
         <Input
           type="search"
           placeholder="Search audits..."
           className="sm:w-64 [&>input]:py-1.5"
         />
-        <Button variant="secondary" className="py-1.5 gap-2">
+        <Button
+          variant="secondary"
+          className="py-1.5 text-base sm:text-sm gap-2 w-full sm:w-fit"
+        >
           <SlidersHorizontal
             className="-ml-0.5 size-4 shrink-0 text-gray-400 dark:text-gray-600"
             aria-hidden="true"

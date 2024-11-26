@@ -3,12 +3,11 @@ import React from "react";
 import { Logo } from "../../../../public/Logo";
 import { siteConfig } from "@/app/siteConfig";
 import { cx, focusRing } from "@/lib/utils";
-import { Settings2, PackageSearch, BookText, House, Inbox } from "lucide-react";
+import { PackageSearch, BookText, House } from "lucide-react";
 import Link from "next/link";
 import { Input } from "@/components/Input";
 import { usePathname } from "next/navigation";
-// import MobileSidebar from "./MobileSidebar";
-import { UserProfileDesktop, UserProfileMobile } from "./UserProfile";
+import { UserProfileDesktop } from "./UserProfile";
 import { RiArrowDownSFill } from "@remixicon/react";
 import { Divider } from "@/components/Divider";
 

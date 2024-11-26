@@ -148,9 +148,9 @@ const data4 = [
 export default function Monitoring() {
   return (
     <>
-      <div className="p-6 flex items-center justify-between">
+      <div className="p-6 flex flex-col sm:flex-row items-center justify-between gap-2">
         <Select defaultValue="365-days">
-          <SelectTrigger className="py-1.5 w-44">
+          <SelectTrigger className="py-1.5 sm:w-44">
             <SelectValue placeholder="Assigned to..." />
           </SelectTrigger>
           <SelectContent align="end">
@@ -160,7 +160,10 @@ export default function Monitoring() {
             <SelectItem value="365-days">Last 365 days</SelectItem>
           </SelectContent>
         </Select>
-        <Button variant="secondary" className="py-1.5 gap-2">
+        <Button
+          variant="secondary"
+          className="text-base sm:text-sm w-full sm:w-fit py-1.5 gap-2"
+        >
           <SlidersHorizontal
             className="-ml-0.5 size-4 shrink-0 text-gray-400 dark:text-gray-600"
             aria-hidden="true"
