@@ -49,12 +49,14 @@ const navigation = [
     href: "#",
     icon: House,
     notifications: false,
+    active: false,
   },
   {
     name: "Inbox",
     href: "#",
     icon: PackageSearch,
     notifications: 2,
+    active: false,
   },
 ] as const;
 
@@ -64,9 +66,21 @@ const navigation2 = [
     href: "#",
     icon: BookText,
     children: [
-      { name: "Quotes", href: "#" },
-      { name: "Orders", href: "#" },
-      { name: "Insights & Reports", href: "#" },
+      {
+        name: "Quotes",
+        href: "#",
+        active: true,
+      },
+      {
+        name: "Orders",
+        href: "#",
+        active: false,
+      },
+      {
+        name: "Insights & Reports",
+        href: "#",
+        active: false,
+      },
     ],
   },
   {
@@ -74,9 +88,21 @@ const navigation2 = [
     href: "#",
     icon: PackageSearch,
     children: [
-      { name: "Items", href: "#" },
-      { name: "Variants", href: "#" },
-      { name: "Suppliers", href: "#" },
+      {
+        name: "Items",
+        href: "#",
+        active: false,
+      },
+      {
+        name: "Variants",
+        href: "#",
+        active: false,
+      },
+      {
+        name: "Suppliers",
+        href: "#",
+        active: false,
+      },
     ],
   },
 ] as const;
@@ -95,8 +121,8 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
 
   // @chris: old
   const isActive = (itemHref: string) => {
-    if (itemHref === siteConfig.baseLinks.settings.audit) {
-      return pathname.startsWith("/settings");
+    if (itemHref === siteConfig.baseLinks.dashboard.overview) {
+      return pathname.startsWith("/overview");
     }
     return pathname === itemHref || pathname.startsWith(itemHref);
   };
@@ -223,7 +249,7 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
                           <NavLink
                             href={child.href}
                             isAnchorLink
-                            active={isActive(child.href)}
+                            active={child.active}
                           >
                             {child.name}
                           </NavLink>

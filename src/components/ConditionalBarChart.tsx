@@ -71,28 +71,33 @@ const renderShape = (
   }
 
   return (
-    <rect
-      x={x}
-      y={y}
-      width={width}
-      height={height}
-      className={cx(
-        value <= 0.25
-          ? `fill-${colors}-200 dark:fill-${colors}-100`
-          : value <= 0.5
-          ? `fill-${colors}-300 dark:fill-${colors}-300`
-          : value <= 0.75
-          ? `fill-${colors}-400 dark:fill-${colors}-400`
-          : `fill-${colors}-500 dark:fill-${colors}-500`
-      )}
-      opacity={
-        activeBar || (activeLegend && activeLegend !== name)
-          ? deepEqual(activeBar, { ...payload, value })
-            ? fillOpacity
-            : 0.3
-          : fillOpacity
-      }
-    />
+    <>
+      <rect
+        x={x}
+        y={y}
+        width={width}
+        height={height}
+        className={cx(
+          value <= 0.25
+            ? `fill-orange-200 dark:fill-orange-100`
+            : value <= 0.5
+            ? `fill-orange-300 dark:fill-orange-300`
+            : value <= 0.75
+            ? `fill-orange-400 dark:fill-orange-400`
+            : // @SEV/CHRIS: $-logic causes outages sometimes
+              // : `fill-${colors}-500 dark:fill-${colors}-500`
+              `fill-${colors}-500 dark:fill-${colors}-500`
+        )}
+        opacity={
+          activeBar || (activeLegend && activeLegend !== name)
+            ? deepEqual(activeBar, { ...payload, value })
+              ? fillOpacity
+              : 0.3
+            : fillOpacity
+        }
+      />
+      {console.log(colors)}
+    </>
   );
 };
 
@@ -123,7 +128,9 @@ const LegendItem = ({ name, color, onClick }: LegendItemProps) => {
       <span className="text-xs text-gray-700 dark:text-gray-300">High</span>
       <span
         className={cx(
-          `from-${color}-500 to-${color}-700 dark:from-${color}-500 dark:to-${color}-700`,
+          // @SEV/CHRIS: $-logic causes outages
+          `from-orange-200 to-orange-500 dark:from-orange-500 dark:to-orange-700`,
+          // `from-${color}-500 to-${color}-700 dark:from-${color}-500 dark:to-${color}-700`,
           "w-14 h-1.5 rounded-full bg-gradient-to-r"
         )}
       />

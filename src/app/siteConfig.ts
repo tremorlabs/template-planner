@@ -3,12 +3,10 @@ export const siteConfig = {
   url: "https://planner.tremor.so",
   description: "The only planner app you will ever need.",
   baseLinks: {
-    reports: "/reports",
-    transactions: "/transactions",
-    settings: {
-      audit: "/settings/audit",
-      users: "/settings/users",
-      billing: "/settings/billing",
+    dashboard: {
+      audits: "/dashboard/audits",
+      overview: "/dashboard/overview",
+      monitoring: "/dashboard/monitoring",
     },
     login: "/login",
     onboarding: "/onboarding/products",

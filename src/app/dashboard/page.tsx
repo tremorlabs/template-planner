@@ -2,19 +2,8 @@
 
 import { Fragment } from "react";
 import { cx } from "@/lib/utils";
-import { formatters } from "@/lib/utils";
-import { Link } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/Tabs";
-import { ComboChart } from "@/components/ComboChart";
-import { BarChart } from "@/components/BarChart";
 import { Button } from "@/components/Button";
-import { ConditionalBarChart } from "@/components/ConditionalBarChart";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/Accordion";
 import { Badge } from "@/components/Badge";
 import {
   Select,
@@ -24,12 +13,6 @@ import {
   SelectValue,
 } from "@/components/Select";
 import { Input } from "@/components/Input";
-import {
-  CustomTooltip,
-  CustomTooltip2,
-  CustomTooltip3,
-  CustomTooltip4,
-} from "@/components/CustomTooltips";
 import {
   Download,
   SlidersHorizontal,
@@ -486,7 +469,7 @@ const data4 = [
   },
   {
     date: "Feb 24",
-    Density: 0.784,
+    Density: 0.084,
   },
   {
     date: "Mar 24",
@@ -581,64 +564,10 @@ const getStatusIcon = (status: string) => {
   );
 };
 
-const getStatusBadgeStyle = (status: string) => {
-  switch (status) {
-    case "OK":
-      return "bg-emerald-100 text-emerald-700 dark:text-emerald-300";
-    case "Needs update":
-      return "bg-orange-100 text-orange-700 dark:text-orange-300";
-    default:
-      return "bg-gray-100 text-gray-700 dark:text-gray-300";
-  }
-};
-
 export default function Page() {
   return (
     <>
       <section>
-        <div className="p-6">
-          <h1 className="text-lg font-semibold text-gray-900 dark:text-gray-50">
-            Overview
-          </h1>
-          <dl className="mt-6 flex flex-wrap items-center gap-12">
-            <div>
-              <dt className="text-sm text-gray-500 dark:text-gray-500">
-                Lead-to-Quote Ratio
-              </dt>
-              <dd className="mt-1.5 flex items-center gap-2">
-                <Indicator number={0.61} />
-                <p className="text-lg font-semibold text-gray-900 dark:text-gray-50">
-                  59.8% - 450
-                  <span className="text-gray-400 dark:text-gray-600">/752</span>
-                </p>
-              </dd>
-            </div>
-            <div>
-              <dt className="text-sm text-gray-500 dark:text-gray-500">
-                Project Load
-              </dt>
-              <dd className="mt-1.5 flex items-center gap-2">
-                <Indicator number={0.24} />
-                <p className="text-lg font-semibold text-gray-900 dark:text-gray-50">
-                  12.9% - 129
-                  <span className="text-gray-400 dark:text-gray-600">/1K</span>
-                </p>
-              </dd>
-            </div>
-            <div>
-              <dt className="text-sm text-gray-500 dark:text-gray-500">
-                Win Probability
-              </dt>
-              <dd className="mt-1.5 flex items-center gap-2">
-                <Indicator number={0.8} />
-                <p className="text-lg font-semibold text-gray-900 dark:text-gray-50">
-                  85.1% - 280
-                  <span className="text-gray-400 dark:text-gray-600">/329</span>
-                </p>
-              </dd>
-            </div>
-          </dl>
-        </div>
         <Tabs defaultValue="tab3" className="mt-4">
           <TabsList className="px-6 gap-x-4">
             <TabsTrigger value="tab1">Overview</TabsTrigger>
@@ -820,235 +749,8 @@ export default function Page() {
               </div>
             </div>
           </TabsContent>
-          <TabsContent value="tab2">
-            <div className="p-6 flex items-center justify-between">
-              <Select defaultValue="365-days">
-                <SelectTrigger className="py-1.5 w-44">
-                  <SelectValue placeholder="Assigned to..." />
-                </SelectTrigger>
-                <SelectContent align="end">
-                  <SelectItem value="30-days">Last 30 days</SelectItem>
-                  <SelectItem value="90-days">Last 90 days</SelectItem>
-                  <SelectItem value="180-days">Last 180 days</SelectItem>
-                  <SelectItem value="365-days">Last 365 days</SelectItem>
-                </SelectContent>
-              </Select>
-              <Button variant="secondary" className="py-1.5 gap-2">
-                <SlidersHorizontal
-                  className="-ml-0.5 size-4 shrink-0 text-gray-400 dark:text-gray-600"
-                  aria-hidden="true"
-                />
-                Report Filters
-              </Button>
-            </div>
-            <dl className="p-6 border-t border-gray-200 dark:border-gray-800 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
-              <div className="p-4">
-                <dt className="text-sm text-gray-900 dark:text-gray-50 font-semibold">
-                  Inherent risk
-                </dt>
-                <dd className="mt-0.5 text-sm text-gray-500 dark:text-gray-500">
-                  Risk scenarios over time grouped by risk level
-                </dd>
-                <BarChart
-                  data={data}
-                  index="date"
-                  categories={["Current year", "Same period last year"]}
-                  colors={["blue", "lightGray"]}
-                  yAxisWidth={45}
-                  customTooltip={CustomTooltip}
-                  yAxisLabel="Number of inherent risks"
-                  barCategoryGap="20%"
-                  onValueChange={(v) => console.log(v)}
-                  className="mt-6 h-60"
-                />
-              </div>
-              <div className="p-4">
-                <dt className="text-sm text-gray-900 dark:text-gray-50 font-semibold">
-                  {/* Lead-to-Quote time */}
-                  Quote-to-Deal ratio
-                </dt>
-                <dd className="mt-0.5 text-sm text-gray-500 dark:text-gray-500">
-                  {/* Analysis of the avg. duration from lead generation to quote
-                  issuance */}
-                  Number of quotes compared to total deal size for given month
-                </dd>
-                <ComboChart
-                  data={data2}
-                  index="date"
-                  enableBiaxial={true}
-                  barSeries={{
-                    categories: ["Quotes"],
-                    yAxisLabel: "Number of quotes / Deal size ($)",
-                  }}
-                  lineSeries={{
-                    categories: ["Total deal size"],
-                    colors: ["lightGray"],
-                    yAxisWidth: 60,
-                    showYAxis: false,
-                    valueFormatter: (number: number) =>
-                      `$${Intl.NumberFormat().format(number).toString()}`,
-                  }}
-                  customTooltip={CustomTooltip2}
-                  className="mt-6 h-60"
-                />
-              </div>
-              <div className="p-4">
-                <dt className="text-sm text-gray-900 dark:text-gray-50 font-semibold">
-                  ESG impact
-                </dt>
-                <dd className="mt-0.5 text-sm text-gray-500 dark:text-gray-500">
-                  Evaluation of addressed ESG criteria in biddings over time
-                </dd>
-                <BarChart
-                  data={data3}
-                  index="date"
-                  categories={["Addressed", "Unrealized"]}
-                  colors={["emerald", "lightEmerald"]}
-                  customTooltip={CustomTooltip3}
-                  type="percent"
-                  yAxisWidth={55}
-                  yAxisLabel="% of criteria addressed"
-                  barCategoryGap="30%"
-                  className="mt-6 h-60"
-                />
-              </div>
-              <div className="p-4">
-                <dt className="text-sm text-gray-900 dark:text-gray-50 font-semibold">
-                  Bidder density
-                </dt>
-                <dd className="mt-0.5 text-sm text-gray-500 dark:text-gray-500">
-                  Competition level measured by number and size of bidders over
-                  time
-                </dd>
-                <ConditionalBarChart
-                  data={data4}
-                  index="date"
-                  categories={["Density"]}
-                  colors={["orange"]}
-                  customTooltip={CustomTooltip4}
-                  valueFormatter={(value) =>
-                    formatters.percentage({ number: value, decimals: 0 })
-                  }
-                  yAxisWidth={55}
-                  yAxisLabel="Competition density (%)"
-                  barCategoryGap="30%"
-                  className="mt-6 h-60"
-                />
-              </div>
-            </dl>
-          </TabsContent>
-          <TabsContent value="tab3">
-            <div className="p-6 flex items-center justify-between">
-              <Input
-                type="search"
-                placeholder="Search audits..."
-                className="sm:w-64 [&>input]:py-1.5"
-              />
-              <Button variant="secondary" className="py-1.5 gap-2">
-                <SlidersHorizontal
-                  className="-ml-0.5 size-4 shrink-0 text-gray-400 dark:text-gray-600"
-                  aria-hidden="true"
-                />
-                Filters
-              </Button>
-            </div>
-            <div className="px-6 pb-6 border-t border-gray-200 dark:border-gray-800">
-              {/* <h2 className="mt-4 font-medium text-gray-900 dark:text-gray-50">
-                Certifications and reports
-              </h2> */}
-              <Accordion type="multiple" className="mt-3">
-                {sections.map((section) => (
-                  <AccordionItem key={section.id} value={section.id}>
-                    <AccordionTrigger className="py-5">
-                      <p className="flex items-center w-full justify-between pr-4">
-                        <span className="flex items-center gap-2.5">
-                          <span>{section.title}</span>
-                          <span className="text-xs inline-flex items-center font-medium bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-300 px-2 py-1 rounded-full">
-                            SOC2
-                          </span>
-                        </span>
-                        <span className="flex items-center gap-x-2">
-                          {getStatusIcon(section.status)}
-                          {section.progress.current}/{section.progress.total}
-                        </span>
-                      </p>
-                    </AccordionTrigger>
-                    <AccordionContent>
-                      <div className="mt-2 grid grid-cols-2 gap-6">
-                        <div>
-                          <p className="flex items-center justify-between text-sm font-medium text-gray-900 dark:text-gray-50">
-                            <span>Audit round</span>
-                            <span>Auditor</span>
-                          </p>
-                          <ul className="mt-1 text-sm text-gray-700 dark:text-gray-300 divide-y divide-gray-200 dark:divide-gray-800">
-                            {section.auditDates.map((audit, index) => (
-                              <li
-                                key={index}
-                                className="py-2.5 flex items-center justify-between"
-                              >
-                                <span>{audit.date}</span>
-                                <span>{audit.auditor}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                        <div>
-                          <p className="flex items-center justify-between text-sm font-medium text-gray-900 dark:text-gray-50">
-                            <span>Related documents</span>
-                            <span>Status</span>
-                          </p>
-                          <ul className="mt-1 text-gray-700 dark:text-gray-300 divide-y divide-gray-200 dark:divide-gray-800">
-                            {section.documents.map((doc, index) => (
-                              <li
-                                key={index}
-                                className="py-2.5 text-sm flex items-center justify-between"
-                              >
-                                <a
-                                  href="#"
-                                  className="hover:underline hover:underline-offset-4 text-blue-500 dark:text-blue-500 flex items-center gap-2"
-                                >
-                                  <Link
-                                    className="size-4 shrink-0"
-                                    aria-hidden="true"
-                                  />
-                                  {doc.name}
-                                </a>
-                                <div className="flex items-center gap-2">
-                                  <button
-                                    type="button"
-                                    className="hover:text-gray-900 hover:dark:text-gray-50"
-                                  >
-                                    Edit
-                                  </button>
-                                  <span
-                                    className="h-4 w-px bg-gray-300 dark:bg-gray-700"
-                                    aria-hidden="true"
-                                  />
-                                  <button
-                                    type="button"
-                                    className="hover:text-gray-900 hover:dark:text-gray-50"
-                                  >
-                                    Re-Upload
-                                  </button>
-                                </div>
-                                {/* <span
-                                  className={`px-2 py-0.5 rounded-full text-xs inline-flex items-center font-medium ${getStatusBadgeStyle(
-                                    doc.status
-                                  )}`}
-                                >
-                                  {doc.status}
-                                </span> */}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            </div>
-          </TabsContent>
+          <TabsContent value="tab2"></TabsContent>
+          <TabsContent value="tab3"></TabsContent>
         </Tabs>
       </section>
     </>
