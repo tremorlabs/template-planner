@@ -24,7 +24,8 @@ const getStatusIcon = (status: string) => {
 const sections = [
   {
     id: "item-1",
-    title: "Code of conduct",
+    title: "CompTIA Security+",
+    certified: "ISO",
     progress: { current: 46, total: 46 },
     status: "complete",
     auditDates: [
@@ -40,6 +41,7 @@ const sections = [
   {
     id: "item-2",
     title: "SAFe Certifications",
+    certified: "ISO/IEC 27001",
     progress: { current: 32, total: 41 },
     status: "warning",
     auditDates: [
@@ -55,6 +57,7 @@ const sections = [
   {
     id: "item-3",
     title: "PMP Certifications",
+    certified: "ISO",
     progress: { current: 21, total: 21 },
     status: "complete",
     auditDates: [
@@ -70,6 +73,7 @@ const sections = [
   {
     id: "item-4",
     title: "Cloud Certifications",
+    certified: "SOC 2",
     progress: { current: 21, total: 21 },
     status: "complete",
     auditDates: [
@@ -116,8 +120,8 @@ export default function Audits() {
                 <p className="flex items-center w-full justify-between pr-4">
                   <span className="flex items-center gap-2.5">
                     <span>{section.title}</span>
-                    <span className="text-xs inline-flex items-center font-medium bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-300 px-2 py-1 rounded-full">
-                      SOC2
+                    <span className="text-xs inline-flex items-center font-medium bg-gray-100 dark:bg-gray-400/10 text-gray-700 dark:text-gray-300 px-2 py-1 rounded-full">
+                      {section.certified}
                     </span>
                   </span>
                   <span className="flex items-center gap-x-2">
@@ -127,13 +131,13 @@ export default function Audits() {
                 </p>
               </AccordionTrigger>
               <AccordionContent>
-                <div className="mt-2 grid grid-cols-2 gap-6">
+                <div className="mt-2 grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div>
                     <p className="flex items-center justify-between text-sm font-medium text-gray-900 dark:text-gray-50">
                       <span>Audit round</span>
                       <span>Auditor</span>
                     </p>
-                    <ul className="mt-1 text-sm text-gray-700 dark:text-gray-300 divide-y divide-gray-200 dark:divide-gray-800">
+                    <ul className="mt-1 text-sm text-gray-600 dark:text-gray-400 divide-y divide-gray-200 dark:divide-gray-800">
                       {section.auditDates.map((audit, index) => (
                         <li
                           key={index}
@@ -150,7 +154,7 @@ export default function Audits() {
                       <span>Related documents</span>
                       <span>Status</span>
                     </p>
-                    <ul className="mt-1 text-gray-700 dark:text-gray-300 divide-y divide-gray-200 dark:divide-gray-800">
+                    <ul className="mt-1 text-gray-600 dark:text-gray-400 divide-y divide-gray-200 dark:divide-gray-800">
                       {section.documents.map((doc, index) => (
                         <li
                           key={index}
@@ -169,7 +173,7 @@ export default function Audits() {
                           <div className="flex items-center gap-2">
                             <button
                               type="button"
-                              className="hover:text-gray-900 hover:dark:text-gray-50"
+                              className="hover:underline hover:underline-offset-4 hover:text-gray-900 hover:dark:text-gray-50"
                             >
                               Edit
                             </button>
@@ -179,18 +183,11 @@ export default function Audits() {
                             />
                             <button
                               type="button"
-                              className="hover:text-gray-900 hover:dark:text-gray-50"
+                              className="hover:underline hover:underline-offset-4 hover:text-gray-900 hover:dark:text-gray-50"
                             >
                               Re-Upload
                             </button>
                           </div>
-                          {/* <span
-                                  className={`px-2 py-0.5 rounded-full text-xs inline-flex items-center font-medium ${getStatusBadgeStyle(
-                                    doc.status
-                                  )}`}
-                                >
-                                  {doc.status}
-                                </span> */}
                         </li>
                       ))}
                     </ul>

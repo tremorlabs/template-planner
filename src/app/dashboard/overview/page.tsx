@@ -392,10 +392,10 @@ export default function Overview() {
                   <th
                     scope="colgroup"
                     colSpan={6}
-                    className="bg-gray-50 dark:bg-gray-900 py-3 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 dark:text-gray-400 sm:pl-6"
+                    className="bg-gray-50 dark:bg-gray-900 py-3 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 dark:text-gray-50 sm:pl-6"
                   >
                     {quote.region}
-                    <span className="ml-2 font-medium text-gray-500 dark:text-gray-500">
+                    <span className="ml-2 font-medium text-gray-600 dark:text-gray-400">
                       {quote.project.length}
                     </span>
                   </th>

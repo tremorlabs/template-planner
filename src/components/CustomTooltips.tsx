@@ -172,14 +172,14 @@ export const CustomTooltip3 = ({ payload, active }: TooltipProps) => {
         ))}
       </ul>
       <div className="p-2 border-t border-gray-200 dark:border-gray-800">
-        <div className="mt-0.5 relative w-full bg-gray-200 h-1.5 rounded-full">
+        <div className="mt-0.5 relative w-full bg-gray-200 dark:bg-gray-800 h-1.5 rounded-full">
           <span className="absolute z-30 left-1/2 h-2.5 w-0.5 rounded-full bg-gray-500 dark:bg-gray-500 -translate-y-1/2 top-1/2" />
           {percentageDiff &&
             (parseFloat(percentageDiff) >= 0 ? (
               <span className="absolute z-10 left-1/2 h-1.5 w-1/2 -translate-y-1/2 top-1/2">
                 <span
                   style={{ width: `${cappedValue}%` }}
-                  className="absolute h-1.5 rounded-r-full bg-gradient-to-r from-gray-400 to-gray-300"
+                  className="absolute h-1.5 rounded-r-full bg-gradient-to-r from-gray-400 to-gray-300 dark:from-gray-400 dark:to-gray-500"
                   // @CHRIS: dark mode
                   // @CHRIS: check simpler approach for 100% cap approach
                   // className="absolute h-1.5 rounded-r-full bg-[repeating-linear-gradient(-45deg,theme(colors.gray.400)_0px,theme(colors.gray.400)_2px,theme(colors.gray.300)_2px,theme(colors.gray.300)_4px)]"
@@ -189,7 +189,7 @@ export const CustomTooltip3 = ({ payload, active }: TooltipProps) => {
               <span className="absolute z-10 right-1/2 h-1.5 w-1/2 -translate-y-1/2 top-1/2">
                 <span
                   style={{ width: `${cappedValue}%` }}
-                  className="absolute h-1.5 right-0 rounded-l-full bg-gradient-to-l from-gray-400 to-gray-300"
+                  className="absolute h-1.5 right-0 rounded-l-full bg-gradient-to-l from-gray-400 to-gray-300 dark:from-gray-400 dark:to-gray-500"
                   // @CHRIS: dark mode
                   // className="absolute h-1.5 right-0 rounded-l-full bg-[repeating-linear-gradient(-45deg,theme(colors.gray.400)_0px,theme(colors.gray.400)_2px,theme(colors.gray.300)_2px,theme(colors.gray.300)_4px)]"
                 />

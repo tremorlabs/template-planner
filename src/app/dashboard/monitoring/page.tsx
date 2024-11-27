@@ -171,14 +171,16 @@ export default function Monitoring() {
           Report Filters
         </Button>
       </div>
-      <dl className="p-6 border-t border-gray-200 dark:border-gray-800 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
-        <div className="p-4">
-          <dt className="text-sm text-gray-900 dark:text-gray-50 font-semibold">
-            Inherent risk
-          </dt>
-          <dd className="mt-0.5 text-sm text-gray-500 dark:text-gray-500">
-            Risk scenarios over time grouped by risk level
-          </dd>
+      <dl className="p-6 border-t border-gray-200 dark:border-gray-800 grid grid-cols-1 md:grid-cols-2 gap-x-14 gap-y-10">
+        <div className="p-0 flex flex-col justify-between">
+          <div>
+            <dt className="text-sm text-gray-900 dark:text-gray-50 font-semibold">
+              Inherent risk
+            </dt>
+            <dd className="mt-0.5 text-sm/6 text-gray-500 dark:text-gray-500">
+              Risk scenarios over time grouped by risk level
+            </dd>
+          </div>
           <BarChart
             data={data}
             index="date"
@@ -189,19 +191,32 @@ export default function Monitoring() {
             yAxisLabel="Number of inherent risks"
             barCategoryGap="20%"
             onValueChange={(v) => console.log(v)}
-            className="mt-6 h-60"
+            className="mt-4 h-60 hidden md:block"
+          />
+          <BarChart
+            data={data}
+            index="date"
+            categories={["Current year", "Same period last year"]}
+            colors={["blue", "lightGray"]}
+            showYAxis={false}
+            customTooltip={CustomTooltip}
+            barCategoryGap="20%"
+            onValueChange={(v) => console.log(v)}
+            className="mt-4 h-60 md:hidden"
           />
         </div>
-        <div className="p-4">
-          <dt className="text-sm text-gray-900 dark:text-gray-50 font-semibold">
-            {/* Lead-to-Quote time */}
-            Quote-to-Deal ratio
-          </dt>
-          <dd className="mt-0.5 text-sm text-gray-500 dark:text-gray-500">
-            {/* Analysis of the avg. duration from lead generation to quote
+        <div className="flex flex-col justify-between">
+          <div>
+            <dt className="text-sm text-gray-900 dark:text-gray-50 font-semibold">
+              {/* Lead-to-Quote time */}
+              Quote-to-Deal ratio
+            </dt>
+            <dd className="mt-0.5 text-sm/6 text-gray-500 dark:text-gray-500">
+              {/* Analysis of the avg. duration from lead generation to quote
                   issuance */}
-            Number of quotes compared to total deal size for given month
-          </dd>
+              Number of quotes compared to total deal size for given month
+            </dd>
+          </div>
           <ComboChart
             data={data2}
             index="date"
@@ -219,16 +234,37 @@ export default function Monitoring() {
                 `$${Intl.NumberFormat().format(number).toString()}`,
             }}
             customTooltip={CustomTooltip2}
-            className="mt-6 h-60"
+            className="mt-4 h-60 hidden md:block"
+          />
+          <ComboChart
+            data={data2}
+            index="date"
+            enableBiaxial={true}
+            barSeries={{
+              categories: ["Quotes"],
+              showYAxis: false,
+            }}
+            lineSeries={{
+              categories: ["Total deal size"],
+              colors: ["lightGray"],
+              yAxisWidth: 60,
+              showYAxis: false,
+              valueFormatter: (number: number) =>
+                `$${Intl.NumberFormat().format(number).toString()}`,
+            }}
+            customTooltip={CustomTooltip2}
+            className="mt-4 h-60 md:hidden"
           />
         </div>
-        <div className="p-4">
-          <dt className="text-sm text-gray-900 dark:text-gray-50 font-semibold">
-            ESG impact
-          </dt>
-          <dd className="mt-0.5 text-sm text-gray-500 dark:text-gray-500">
-            Evaluation of addressed ESG criteria in biddings over time
-          </dd>
+        <div className="flex flex-col justify-between">
+          <div>
+            <dt className="text-sm text-gray-900 dark:text-gray-50 font-semibold">
+              ESG impact
+            </dt>
+            <dd className="mt-0.5 text-sm/6 text-gray-500 dark:text-gray-500">
+              Evaluation of addressed ESG criteria in biddings over time
+            </dd>
+          </div>
           <BarChart
             data={data3}
             index="date"
@@ -239,16 +275,29 @@ export default function Monitoring() {
             yAxisWidth={55}
             yAxisLabel="% of criteria addressed"
             barCategoryGap="30%"
-            className="mt-6 h-60"
+            className="mt-4 h-60 hidden md:block"
+          />
+          <BarChart
+            data={data3}
+            index="date"
+            categories={["Addressed", "Unrealized"]}
+            colors={["emerald", "lightEmerald"]}
+            customTooltip={CustomTooltip3}
+            showYAxis={false}
+            type="percent"
+            barCategoryGap="30%"
+            className="mt-4 h-60 md:hidden"
           />
         </div>
-        <div className="p-4">
-          <dt className="text-sm text-gray-900 dark:text-gray-50 font-semibold">
-            Bidder density
-          </dt>
-          <dd className="mt-0.5 text-sm text-gray-500 dark:text-gray-500">
-            Competition level measured by number and size of bidders over time
-          </dd>
+        <div className="flex flex-col justify-between">
+          <div>
+            <dt className="text-sm text-gray-900 dark:text-gray-50 font-semibold">
+              Bidder density
+            </dt>
+            <dd className="mt-0.5 text-sm/6 text-gray-500 dark:text-gray-500">
+              Competition level measured by number and size of bidders over time
+            </dd>
+          </div>
           <ConditionalBarChart
             data={data4}
             index="date"
@@ -261,7 +310,20 @@ export default function Monitoring() {
             yAxisWidth={55}
             yAxisLabel="Competition density (%)"
             barCategoryGap="30%"
-            className="mt-6 h-60"
+            className="mt-4 h-60 hidden md:block"
+          />
+          <ConditionalBarChart
+            data={data4}
+            index="date"
+            categories={["Density"]}
+            colors={["orange"]}
+            customTooltip={CustomTooltip4}
+            valueFormatter={(value) =>
+              formatters.percentage({ number: value, decimals: 0 })
+            }
+            showYAxis={false}
+            barCategoryGap="30%"
+            className="mt-4 h-60 md:hidden"
           />
         </div>
       </dl>

@@ -1,12 +1,10 @@
 "use client";
 import React from "react";
 import { Logo } from "../../../../public/Logo";
-import { siteConfig } from "@/app/siteConfig";
 import { cx, focusRing } from "@/lib/utils";
 import { PackageSearch, BookText, House } from "lucide-react";
 import Link from "next/link";
 import { Input } from "@/components/Input";
-import { usePathname } from "next/navigation";
 import { UserProfileDesktop } from "./UserProfile";
 import { RiArrowDownSFill } from "@remixicon/react";
 import { Divider } from "@/components/Divider";
@@ -30,12 +28,15 @@ function NavLink({
         "relative flex gap-2 py-1.5 pr-3 text-sm transition",
         isAnchorLink ? "pl-9" : "pl-4",
         active
-          ? "text-blue-600 dark:text-blue-500 bg-white rounded ring-1 ring-gray-200 shadow"
-          : "text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-50"
+          ? "text-blue-600 dark:text-blue-500 bg-white dark:bg-gray-900 rounded ring-1 ring-gray-200 dark:ring-gray-800 shadow"
+          : "text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
       )}
     >
       {active && (
-        <div className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-px bg-blue-500" />
+        <div
+          className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-px bg-blue-500 dark:bg-blue-500"
+          aria-hidden="true"
+        />
       )}
       {children}
     </Link>
@@ -112,19 +113,19 @@ interface SidebarProps {
 }
 
 export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
-  const pathname = usePathname();
+  // const pathname = usePathname();
   const [openMenus, setOpenMenus] = React.useState<string[]>([
     navigation2[0].name,
     navigation2[1].name,
   ]);
 
   // @chris: old
-  const isActive = (itemHref: string) => {
-    if (itemHref === siteConfig.baseLinks.dashboard.overview) {
-      return pathname.startsWith("/overview");
-    }
-    return pathname === itemHref || pathname.startsWith(itemHref);
-  };
+  // const isActive = (itemHref: string) => {
+  //   if (itemHref === siteConfig.baseLinks.dashboard.overview) {
+  //     return pathname.startsWith("/overview");
+  //   }
+  //   return pathname === itemHref || pathname.startsWith(itemHref);
+  // };
 
   const toggleMenu = (name: string) => {
     setOpenMenus((prev: string[]) =>
@@ -151,6 +152,7 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
         >
           <div className="flex items-center gap-3">
             <span className="flex items-center justify-center size-9 p-1.5 bg-white rounded-md ring-1 ring-gray-200 dark:ring-gray-800 shadow-sm">
+              {/* @CHRIS: dark mode logo */}
               <Logo className="text-blue-500 dark:text-blue-500" />
             </span>
             <div>
@@ -181,13 +183,12 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
                   <Link
                     href="#"
                     className={cx(
-                      isActive(item.href)
+                      item.active
                         ? "text-blue-600 dark:text-blue-500"
-                        : "text-gray-900 dark:text-gray-50",
-                      "flex items-center justify-between rounded-md p-2 text-sm transition-opacity hover:bg-gray-200/50 hover:dark:bg-gray-900",
+                        : "text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
+                      "flex items-center justify-between rounded-md p-2 text-sm transition hover:bg-gray-200/50 hover:dark:bg-gray-900",
                       focusRing
                     )}
-                    // @CHRIS: check transition-opacity really needed
                   >
                     <div className="flex items-center gap-x-2.5">
                       <item.icon
@@ -197,7 +198,7 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
                       {item.name}
                     </div>
                     {item.notifications && (
-                      <span className="inline-flex text-xs items-center justify-center size-5 bg-blue-100 text-blue-600 dark:text-blue-400 dark:bg-blue-500/10 rounded font-medium">
+                      <span className="inline-flex text-xs items-center justify-center size-5 bg-blue-100 text-blue-600 dark:text-blue-500 dark:bg-blue-500/10 rounded font-medium">
                         {item.notifications}
                       </span>
                     )}
@@ -212,7 +213,7 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
                   <button
                     onClick={() => toggleMenu(item.name)}
                     className={cx(
-                      "flex w-full items-center justify-between gap-x-2.5 rounded-md p-2 text-sm text-gray-900 dark:text-gray-50 transition-opacity hover:bg-gray-200/50 hover:dark:bg-gray-900",
+                      "flex w-full items-center justify-between gap-x-2.5 rounded-md p-2 text-sm text-gray-900 dark:text-gray-400 hover:dark:text-gray-50 transition hover:bg-gray-200/50 hover:dark:bg-gray-900",
                       focusRing
                     )}
                     // @CHRIS: check transition-opacity really needed

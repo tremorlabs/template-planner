@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ThemeProvider } from "next-themes";
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -25,11 +26,17 @@ export default function RootLayout({
 }>) {
   return (
     // @CHRIS: check h-full necessity
-    <html lang="en" className="h-full">
+    <html lang="en" className="h-full" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} h-full antialiased bg-white-50 dark:bg-gray-950`}
       >
-        {children}
+        <ThemeProvider
+          defaultTheme="system"
+          disableTransitionOnChange
+          attribute="class"
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -79,11 +79,11 @@ const renderShape = (
         height={height}
         className={cx(
           value <= 0.25
-            ? `fill-orange-200 dark:fill-orange-100`
+            ? `fill-orange-200 dark:fill-orange-300`
             : value <= 0.5
-            ? `fill-orange-300 dark:fill-orange-300`
+            ? `fill-orange-300 dark:fill-orange-400`
             : value <= 0.75
-            ? `fill-orange-400 dark:fill-orange-400`
+            ? `fill-orange-400 dark:fill-orange-500`
             : // @SEV/CHRIS: $-logic causes outages sometimes
               // : `fill-${colors}-500 dark:fill-${colors}-500`
               `fill-${colors}-500 dark:fill-${colors}-500`
@@ -125,16 +125,16 @@ const LegendItem = ({ name, color, onClick }: LegendItemProps) => {
         onClick?.(name, color);
       }}
     >
-      <span className="text-xs text-gray-700 dark:text-gray-300">High</span>
+      <span className="text-xs text-gray-700 dark:text-gray-300">Low</span>
       <span
         className={cx(
           // @SEV/CHRIS: $-logic causes outages
-          `from-orange-200 to-orange-500 dark:from-orange-500 dark:to-orange-700`,
+          `from-orange-200 to-orange-500 dark:from-orange-200/10 dark:to-orange-400`,
           // `from-${color}-500 to-${color}-700 dark:from-${color}-500 dark:to-${color}-700`,
           "w-14 h-1.5 rounded-full bg-gradient-to-r"
         )}
       />
-      <span className="text-xs text-gray-700 dark:text-gray-300">Low</span>
+      <span className="text-xs text-gray-700 dark:text-gray-300">High</span>
     </div>
   );
 };
