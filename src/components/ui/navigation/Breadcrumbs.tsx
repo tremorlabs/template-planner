@@ -1,15 +1,15 @@
-import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import Link from "next/link"
+import { ChevronRight } from "lucide-react"
 
 export function Breadcrumbs() {
   return (
     <>
       <nav aria-label="Breadcrumb" className="ml-2">
-        <ol role="list" className="text-sm flex items-center space-x-3">
+        <ol role="list" className="flex items-center space-x-3 text-sm">
           <li className="flex">
             <Link
               href="#"
-              className="text-gray-500 hover:text-gray-700 dark:text-gray-400 hover:dark:text-gray-300 transition"
+              className="text-gray-500 transition hover:text-gray-700 dark:text-gray-400 hover:dark:text-gray-300"
             >
               Home
             </Link>
@@ -32,5 +32,5 @@ export function Breadcrumbs() {
         </ol>
       </nav>
     </>
-  );
+  )
 }

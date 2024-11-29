@@ -1,14 +1,14 @@
-"use client";
-import { cx } from "@/lib/utils";
-import { Input } from "@/components/Input";
-import { Tabs, TabsList, TabsTrigger } from "@/components/Tabs";
+"use client"
+import { cx } from "@/lib/utils"
+import { Input } from "@/components/Input"
+import { Tabs, TabsList, TabsTrigger } from "@/components/Tabs"
 import {
   Select,
   SelectTrigger,
   SelectValue,
   SelectContent,
   SelectItem,
-} from "@/components/Select";
+} from "@/components/Select"
 import {
   Table,
   TableRoot,
@@ -17,11 +17,11 @@ import {
   TableHead,
   TableBody,
   TableCell,
-} from "@/components/Table";
-import { Badge } from "@/components/Badge";
-import { Button } from "@/components/Button";
-import { Download } from "lucide-react";
-import { Fragment } from "react";
+} from "@/components/Table"
+import { Badge } from "@/components/Badge"
+import { Button } from "@/components/Button"
+import { Download } from "lucide-react"
+import { Fragment } from "react"
 
 const quotes = [
   {
@@ -308,7 +308,7 @@ const quotes = [
       },
     ],
   },
-];
+]
 
 const colorClasses = [
   "bg-blue-500 dark:bg-blue-500",
@@ -317,26 +317,26 @@ const colorClasses = [
   "bg-cyan-500 dark:bg-cyan-500",
   "bg-rose-500 dark:bg-rose-500",
   "bg-indigo-500 dark:bg-indigo-500",
-];
+]
 
 const getRandomColor = (initials: string) => {
   const seed = initials
     .split("")
-    .reduce((acc, char) => acc + char.charCodeAt(0), 0);
-  return colorClasses[seed % colorClasses.length];
-};
+    .reduce((acc, char) => acc + char.charCodeAt(0), 0)
+  return colorClasses[seed % colorClasses.length]
+}
 
 export default function Overview() {
   return (
     <>
       {/* @chris: to be moved as Filterbar.tsx */}
-      <div className="p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+      <div className="flex flex-col justify-between gap-2 p-6 sm:flex-row sm:items-center">
         <Input
           type="search"
           placeholder="Search quotes..."
           className="sm:w-64 [&>input]:py-1.5"
         />
-        <div className="flex flex-col sm:flex-row items-center gap-2">
+        <div className="flex flex-col items-center gap-2 sm:flex-row">
           {/* @CHRIS: consider to integrate */}
           {/* <Tabs defaultValue="all">
             <TabsList variant="solid">
@@ -347,7 +347,7 @@ export default function Overview() {
             </TabsList>
           </Tabs> */}
           <Select>
-            <SelectTrigger className="py-1.5 w-full sm:w-44">
+            <SelectTrigger className="w-full py-1.5 sm:w-44">
               <SelectValue placeholder="Assigned to..." />
             </SelectTrigger>
             <SelectContent align="end">
@@ -358,7 +358,7 @@ export default function Overview() {
           </Select>
           <Button
             variant="secondary"
-            className="w-full sm:w-fit text-base sm:text-sm py-1.5 gap-2"
+            className="w-full gap-2 py-1.5 text-base sm:w-fit sm:text-sm"
           >
             <Download
               className="-ml-0.5 size-4 shrink-0 text-gray-400 dark:text-gray-600"
@@ -392,7 +392,7 @@ export default function Overview() {
                   <th
                     scope="colgroup"
                     colSpan={6}
-                    className="bg-gray-50 dark:bg-gray-900 py-3 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 dark:text-gray-50 sm:pl-6"
+                    className="bg-gray-50 py-3 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6 dark:bg-gray-900 dark:text-gray-50"
                   >
                     {quote.region}
                     <span className="ml-2 font-medium text-gray-600 dark:text-gray-400">
@@ -421,7 +421,7 @@ export default function Overview() {
                             key={nameIdx}
                             className={cx(
                               getRandomColor(name.initials),
-                              "inline-flex text-xs items-center justify-center size-5 rounded-full text-white font-medium dark:text-white ring-2 ring-white dark:ring-[#090E1A]"
+                              "inline-flex size-5 items-center justify-center rounded-full text-xs font-medium text-white ring-2 ring-white dark:text-white dark:ring-[#090E1A]",
                             )}
                           >
                             {name.initials}
@@ -436,10 +436,10 @@ export default function Overview() {
                           item.status === "Closed"
                             ? "success"
                             : item.status === "Drafted"
-                            ? "neutral"
-                            : item.status === "Sent"
-                            ? "default"
-                            : "default"
+                              ? "neutral"
+                              : item.status === "Sent"
+                                ? "default"
+                                : "default"
                         }
                         className="rounded-full"
                       >
@@ -458,7 +458,7 @@ export default function Overview() {
                             {
                               "bg-blue-500 dark:bg-blue-500":
                                 item.status === "Sent",
-                            }
+                            },
                           )}
                           aria-hidden="true"
                         />
@@ -477,5 +477,5 @@ export default function Overview() {
       {/* </div>
       </div> */}
     </>
-  );
+  )
 }

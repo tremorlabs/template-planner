@@ -1,25 +1,25 @@
-"use client";
-import { Input } from "@/components/Input";
-import { Button } from "@/components/Button";
-import { SlidersHorizontal, Link } from "lucide-react";
+"use client"
+import { Input } from "@/components/Input"
+import { Button } from "@/components/Button"
+import { SlidersHorizontal, Link } from "lucide-react"
 import {
   Accordion,
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
-} from "@/components/Accordion";
-import { RiCheckboxCircleFill, RiErrorWarningFill } from "@remixicon/react";
+} from "@/components/Accordion"
+import { RiCheckboxCircleFill, RiErrorWarningFill } from "@remixicon/react"
 
 const getStatusIcon = (status: string) => {
   if (status === "complete") {
     return (
-      <RiCheckboxCircleFill className="size-[18px] text-emerald-600 dark:text-emerald-400 shrink-0" />
-    );
+      <RiCheckboxCircleFill className="size-[18px] shrink-0 text-emerald-600 dark:text-emerald-400" />
+    )
   }
   return (
-    <RiErrorWarningFill className="size-[18px] text-red-600 dark:text-red-400 shrink-0" />
-  );
-};
+    <RiErrorWarningFill className="size-[18px] shrink-0 text-red-600 dark:text-red-400" />
+  )
+}
 
 const sections = [
   {
@@ -87,12 +87,12 @@ const sections = [
       { name: "cloud_security.xlsx", status: "OK" },
     ],
   },
-];
+]
 
 export default function Audits() {
   return (
     <>
-      <div className="p-6 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div className="flex flex-col items-center justify-between gap-2 p-6 sm:flex-row">
         <Input
           type="search"
           placeholder="Search audits..."
@@ -100,7 +100,7 @@ export default function Audits() {
         />
         <Button
           variant="secondary"
-          className="py-1.5 text-base sm:text-sm gap-2 w-full sm:w-fit"
+          className="w-full gap-2 py-1.5 text-base sm:w-fit sm:text-sm"
         >
           <SlidersHorizontal
             className="-ml-0.5 size-4 shrink-0 text-gray-400 dark:text-gray-600"
@@ -109,7 +109,7 @@ export default function Audits() {
           Filters
         </Button>
       </div>
-      <div className="px-6 pb-6 border-t border-gray-200 dark:border-gray-800">
+      <div className="border-t border-gray-200 px-6 pb-6 dark:border-gray-800">
         {/* <h2 className="mt-4 font-medium text-gray-900 dark:text-gray-50">
                 Certifications and reports
               </h2> */}
@@ -117,10 +117,10 @@ export default function Audits() {
           {sections.map((section) => (
             <AccordionItem key={section.id} value={section.id}>
               <AccordionTrigger className="py-5">
-                <p className="flex items-center w-full justify-between pr-4">
+                <p className="flex w-full items-center justify-between pr-4">
                   <span className="flex items-center gap-2.5">
                     <span>{section.title}</span>
-                    <span className="text-xs inline-flex items-center font-medium bg-gray-100 dark:bg-gray-400/10 text-gray-700 dark:text-gray-300 px-2 py-1 rounded-full">
+                    <span className="inline-flex items-center rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700 dark:bg-gray-400/10 dark:text-gray-300">
                       {section.certified}
                     </span>
                   </span>
@@ -131,17 +131,17 @@ export default function Audits() {
                 </p>
               </AccordionTrigger>
               <AccordionContent>
-                <div className="mt-2 grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="mt-2 grid grid-cols-1 gap-8 md:grid-cols-2">
                   <div>
                     <p className="flex items-center justify-between text-sm font-medium text-gray-900 dark:text-gray-50">
                       <span>Audit round</span>
                       <span>Auditor</span>
                     </p>
-                    <ul className="mt-1 text-sm text-gray-600 dark:text-gray-400 divide-y divide-gray-200 dark:divide-gray-800">
+                    <ul className="mt-1 divide-y divide-gray-200 text-sm text-gray-600 dark:divide-gray-800 dark:text-gray-400">
                       {section.auditDates.map((audit, index) => (
                         <li
                           key={index}
-                          className="py-2.5 flex items-center justify-between"
+                          className="flex items-center justify-between py-2.5"
                         >
                           <span>{audit.date}</span>
                           <span>{audit.auditor}</span>
@@ -154,15 +154,15 @@ export default function Audits() {
                       <span>Related documents</span>
                       <span>Status</span>
                     </p>
-                    <ul className="mt-1 text-gray-600 dark:text-gray-400 divide-y divide-gray-200 dark:divide-gray-800">
+                    <ul className="mt-1 divide-y divide-gray-200 text-gray-600 dark:divide-gray-800 dark:text-gray-400">
                       {section.documents.map((doc, index) => (
                         <li
                           key={index}
-                          className="py-2.5 text-sm flex items-center justify-between"
+                          className="flex items-center justify-between py-2.5 text-sm"
                         >
                           <a
                             href="#"
-                            className="hover:underline hover:underline-offset-4 text-blue-500 dark:text-blue-500 flex items-center gap-2"
+                            className="flex items-center gap-2 text-blue-500 hover:underline hover:underline-offset-4 dark:text-blue-500"
                           >
                             <Link
                               className="size-4 shrink-0"
@@ -173,7 +173,7 @@ export default function Audits() {
                           <div className="flex items-center gap-2">
                             <button
                               type="button"
-                              className="hover:underline hover:underline-offset-4 hover:text-gray-900 hover:dark:text-gray-50"
+                              className="hover:text-gray-900 hover:underline hover:underline-offset-4 hover:dark:text-gray-50"
                             >
                               Edit
                             </button>
@@ -183,7 +183,7 @@ export default function Audits() {
                             />
                             <button
                               type="button"
-                              className="hover:underline hover:underline-offset-4 hover:text-gray-900 hover:dark:text-gray-50"
+                              className="hover:text-gray-900 hover:underline hover:underline-offset-4 hover:dark:text-gray-50"
                             >
                               Re-Upload
                             </button>
@@ -199,5 +199,5 @@ export default function Audits() {
         </Accordion>
       </div>
     </>
-  );
+  )
 }

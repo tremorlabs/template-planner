@@ -1,25 +1,25 @@
 // Tremor TabNavigation [v0.1.0]
 
-import React from "react";
-import * as NavigationMenuPrimitives from "@radix-ui/react-navigation-menu";
+import React from "react"
+import * as NavigationMenuPrimitives from "@radix-ui/react-navigation-menu"
 
-import { cx, focusRing } from "@/lib/utils";
+import { cx, focusRing } from "@/lib/utils"
 
 function getSubtree(
   options: { asChild: boolean | undefined; children: React.ReactNode },
-  content: React.ReactNode | ((children: React.ReactNode) => React.ReactNode)
+  content: React.ReactNode | ((children: React.ReactNode) => React.ReactNode),
 ) {
-  const { asChild, children } = options;
+  const { asChild, children } = options
   if (!asChild)
-    return typeof content === "function" ? content(children) : content;
+    return typeof content === "function" ? content(children) : content
 
-  const firstChild = React.Children.only(children) as React.ReactElement;
+  const firstChild = React.Children.only(children) as React.ReactElement
   return React.cloneElement(firstChild, {
     children:
       typeof content === "function"
         ? content(firstChild.props.children)
         : content,
-  });
+  })
 }
 
 const TabNavigation = React.forwardRef<
@@ -41,15 +41,15 @@ const TabNavigation = React.forwardRef<
         "flex items-center justify-start whitespace-nowrap border-b [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
         // border color
         "border-gray-200 dark:border-gray-800",
-        className
+        className,
       )}
     >
       {children}
     </NavigationMenuPrimitives.List>
   </NavigationMenuPrimitives.Root>
-));
+))
 
-TabNavigation.displayName = "TabNavigation";
+TabNavigation.displayName = "TabNavigation"
 
 const TabNavigationLink = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitives.Link>,
@@ -63,7 +63,7 @@ const TabNavigationLink = React.forwardRef<
       aria-disabled={disabled}
       className={cx(
         "group relative flex shrink-0 select-none items-center justify-center",
-        disabled ? "pointer-events-none" : ""
+        disabled ? "pointer-events-none" : "",
       )}
       ref={forwardedRef}
       onSelect={() => {}}
@@ -89,7 +89,7 @@ const TabNavigationLink = React.forwardRef<
               ? "pointer-events-none text-gray-300 dark:text-gray-700"
               : "",
             focusRing,
-            className
+            className,
           )}
         >
           {children}
@@ -97,8 +97,8 @@ const TabNavigationLink = React.forwardRef<
       ))}
     </NavigationMenuPrimitives.Link>
   </NavigationMenuPrimitives.Item>
-));
+))
 
-TabNavigationLink.displayName = "TabNavigationLink";
+TabNavigationLink.displayName = "TabNavigationLink"
 
-export { TabNavigation, TabNavigationLink };
+export { TabNavigation, TabNavigationLink }

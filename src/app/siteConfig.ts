@@ -11,6 +11,6 @@ export const siteConfig = {
     login: "/login",
     onboarding: "/onboarding/products",
   },
-};
+}
 
-export type siteConfig = typeof siteConfig;
+export type siteConfig = typeof siteConfig

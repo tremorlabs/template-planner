@@ -3,27 +3,27 @@ function Indicator({ number }: { number: number }) {
     number < 0.3
       ? "red"
       : number < 0.7
-      ? "orange"
-      : number >= 0.7
-      ? "emerald"
-      : "gray";
+        ? "orange"
+        : number >= 0.7
+          ? "emerald"
+          : "gray"
 
   const getBarClass = (index: number) => {
     switch (category) {
       case "red":
         return index < 1
           ? "bg-red-500 dark:bg-red-500"
-          : "bg-gray-300 dark:bg-gray-800";
+          : "bg-gray-300 dark:bg-gray-800"
       case "orange":
         return index < 2
           ? "bg-orange-500 dark:bg-orange-500"
-          : "bg-gray-300 dark:bg-gray-800";
+          : "bg-gray-300 dark:bg-gray-800"
       case "emerald":
-        return "bg-emerald-500 dark:bg-emerald-500";
+        return "bg-emerald-500 dark:bg-emerald-500"
       default:
-        return "bg-gray-300 dark:bg-gray-800";
+        return "bg-gray-300 dark:bg-gray-800"
     }
-  };
+  }
 
   return (
     <div className="flex gap-0.5">
@@ -34,7 +34,7 @@ function Indicator({ number }: { number: number }) {
         />
       ))}
     </div>
-  );
+  )
 }
 
 const metrics = [
@@ -56,7 +56,7 @@ const metrics = [
     percentage: "85.1%",
     fraction: "280/329",
   },
-];
+]
 
 export function MetricsCards() {
   return (
@@ -83,5 +83,5 @@ export function MetricsCards() {
         ))}
       </dl>
     </>
-  );
+  )
 }

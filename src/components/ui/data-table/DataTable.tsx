@@ -1,5 +1,5 @@
-import React from "react";
-import { cx } from "@/lib/utils";
+import React from "react"
+import { cx } from "@/lib/utils"
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -11,11 +11,11 @@ import {
   getSortedRowModel,
   Row,
   useReactTable,
-} from "@tanstack/react-table";
+} from "@tanstack/react-table"
 
 interface DataTableProps<TData> {
-  columns: ColumnDef<TData>[];
-  data: TData[];
+  columns: ColumnDef<TData>[]
+  data: TData[]
 }
 
 export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
@@ -46,5 +46,5 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
   //     return groups
   //   }, {})
 
-  return <>{/* Insert table */}</>;
+  return <>{/* Insert table */}</>
 }

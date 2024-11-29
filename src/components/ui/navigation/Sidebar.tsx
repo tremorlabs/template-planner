@@ -1,13 +1,13 @@
-"use client";
-import React from "react";
-import { Logo } from "../../../../public/Logo";
-import { cx, focusRing } from "@/lib/utils";
-import { PackageSearch, BookText, House } from "lucide-react";
-import Link from "next/link";
-import { Input } from "@/components/Input";
-import { UserProfileDesktop } from "./UserProfile";
-import { RiArrowDownSFill } from "@remixicon/react";
-import { Divider } from "@/components/Divider";
+"use client"
+import React from "react"
+import { Logo } from "../../../../public/Logo"
+import { cx, focusRing } from "@/lib/utils"
+import { PackageSearch, BookText, House } from "lucide-react"
+import Link from "next/link"
+import { Input } from "@/components/Input"
+import { UserProfileDesktop } from "./UserProfile"
+import { RiArrowDownSFill } from "@remixicon/react"
+import { Divider } from "@/components/Divider"
 
 function NavLink({
   href,
@@ -15,10 +15,10 @@ function NavLink({
   active = false,
   isAnchorLink = false,
 }: {
-  href: string;
-  children: React.ReactNode;
-  active?: boolean;
-  isAnchorLink?: boolean;
+  href: string
+  children: React.ReactNode
+  active?: boolean
+  isAnchorLink?: boolean
 }) {
   return (
     <Link
@@ -28,19 +28,19 @@ function NavLink({
         "relative flex gap-2 py-1.5 pr-3 text-sm transition",
         isAnchorLink ? "pl-9" : "pl-4",
         active
-          ? "text-blue-600 dark:text-blue-500 bg-white dark:bg-gray-900 rounded ring-1 ring-gray-200 dark:ring-gray-800 shadow"
-          : "text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+          ? "rounded bg-white text-blue-600 shadow ring-1 ring-gray-200 dark:bg-gray-900 dark:text-blue-500 dark:ring-gray-800"
+          : "text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50",
       )}
     >
       {active && (
         <div
-          className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-px bg-blue-500 dark:bg-blue-500"
+          className="absolute left-4 top-1/2 h-5 w-px -translate-y-1/2 bg-blue-500 dark:bg-blue-500"
           aria-hidden="true"
         />
       )}
       {children}
     </Link>
-  );
+  )
 }
 
 const navigation = [
@@ -58,7 +58,7 @@ const navigation = [
     notifications: 2,
     active: false,
   },
-] as const;
+] as const
 
 const navigation2 = [
   {
@@ -105,11 +105,11 @@ const navigation2 = [
       },
     ],
   },
-] as const;
+] as const
 
 interface SidebarProps {
-  isCollapsed: boolean;
-  toggleSidebar: () => void;
+  isCollapsed: boolean
+  toggleSidebar: () => void
 }
 
 export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
@@ -117,7 +117,7 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
   const [openMenus, setOpenMenus] = React.useState<string[]>([
     navigation2[0].name,
     navigation2[1].name,
-  ]);
+  ])
 
   // @chris: old
   // const isActive = (itemHref: string) => {
@@ -131,9 +131,9 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
     setOpenMenus((prev: string[]) =>
       prev.includes(name)
         ? prev.filter((item: string) => item !== name)
-        : [...prev, name]
-    );
-  };
+        : [...prev, name],
+    )
+  }
 
   return (
     <>
@@ -141,17 +141,17 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
       <nav
         className={cx(
           isCollapsed ? "lg:hidden" : "lg:w-64",
-          "hidden overflow-x-hidden bg-gray-50 dark:bg-gray-925 lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:flex-col border-r border-gray-200 dark:border-gray-800"
+          "hidden overflow-x-hidden border-r border-gray-200 bg-gray-50 lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:flex-col dark:border-gray-800 dark:bg-gray-925",
         )}
       >
         <aside
           className={cx(
             isCollapsed ? "lg:hidden" : "lg:flex",
-            "flex grow flex-col gap-y-4 overflow-y-auto whitespace-nowrap px-3 py-4"
+            "flex grow flex-col gap-y-4 overflow-y-auto whitespace-nowrap px-3 py-4",
           )}
         >
           <div className="flex items-center gap-3">
-            <span className="flex items-center justify-center size-9 p-1.5 bg-white rounded-md ring-1 ring-gray-200 dark:ring-gray-800 shadow-sm">
+            <span className="flex size-9 items-center justify-center rounded-md bg-white p-1.5 shadow-sm ring-1 ring-gray-200 dark:ring-gray-800">
               {/* @CHRIS: dark mode logo */}
               <Logo className="text-blue-500 dark:text-blue-500" />
             </span>
@@ -169,7 +169,7 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
             aria-label="core navigation links"
             className={cx(
               isCollapsed ? "hidden" : "flex",
-              "mt-2 flex-col space-y-4"
+              "mt-2 flex-col space-y-4",
             )}
           >
             <Input
@@ -187,7 +187,7 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
                         ? "text-blue-600 dark:text-blue-500"
                         : "text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
                       "flex items-center justify-between rounded-md p-2 text-sm transition hover:bg-gray-200/50 hover:dark:bg-gray-900",
-                      focusRing
+                      focusRing,
                     )}
                   >
                     <div className="flex items-center gap-x-2.5">
@@ -198,7 +198,7 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
                       {item.name}
                     </div>
                     {item.notifications && (
-                      <span className="inline-flex text-xs items-center justify-center size-5 bg-blue-100 text-blue-600 dark:text-blue-500 dark:bg-blue-500/10 rounded font-medium">
+                      <span className="inline-flex size-5 items-center justify-center rounded bg-blue-100 text-xs font-medium text-blue-600 dark:bg-blue-500/10 dark:text-blue-500">
                         {item.notifications}
                       </span>
                     )}
@@ -213,8 +213,8 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
                   <button
                     onClick={() => toggleMenu(item.name)}
                     className={cx(
-                      "flex w-full items-center justify-between gap-x-2.5 rounded-md p-2 text-sm text-gray-900 dark:text-gray-400 hover:dark:text-gray-50 transition hover:bg-gray-200/50 hover:dark:bg-gray-900",
-                      focusRing
+                      "flex w-full items-center justify-between gap-x-2.5 rounded-md p-2 text-sm text-gray-900 transition hover:bg-gray-200/50 dark:text-gray-400 hover:dark:bg-gray-900 hover:dark:text-gray-50",
+                      focusRing,
                     )}
                     // @CHRIS: check transition-opacity really needed
                   >
@@ -230,7 +230,7 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
                         openMenus.includes(item.name)
                           ? "rotate-180"
                           : "rotate-0",
-                        "size-5 shrink-0 text-gray-400 dark:text-gray-600 transform transition-transform duration-150 ease-in-out"
+                        "size-5 shrink-0 transform text-gray-400 transition-transform duration-150 ease-in-out dark:text-gray-600",
                       )}
                       aria-hidden="true"
                     />
@@ -239,8 +239,8 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
                     <ul
                       role="list"
                       className={cx(
-                        "relative border-l border-transparent space-y-1",
-                        isCollapsed ? "opacity-0" : "opacity-100"
+                        "relative space-y-1 border-l border-transparent",
+                        isCollapsed ? "opacity-0" : "opacity-100",
                       )}
                     >
                       <div className="absolute inset-y-0 left-4 w-px bg-gray-300 dark:bg-gray-800" />
@@ -271,7 +271,7 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
         <span
           className={cx(
             "font-semibold text-gray-900 sm:text-sm dark:text-gray-50",
-            isCollapsed ? "opacity-0" : "opacity-100"
+            isCollapsed ? "opacity-0" : "opacity-100",
           )}
         >
           <Link aria-label="Home Link" href="/">
@@ -284,5 +284,5 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
         </div> */}
       </div>
     </>
-  );
+  )
 }

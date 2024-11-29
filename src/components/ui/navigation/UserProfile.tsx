@@ -1,13 +1,13 @@
-"use client";
+"use client"
 
-import { Button } from "@/components/Button";
-import { cx, focusRing } from "@/lib/utils";
-import { ChevronsUpDown, User } from "lucide-react";
+import { Button } from "@/components/Button"
+import { cx, focusRing } from "@/lib/utils"
+import { ChevronsUpDown, User } from "lucide-react"
 
-import { DropdownUserProfile } from "./DropdownUserProfile";
+import { DropdownUserProfile } from "./DropdownUserProfile"
 
 interface UserProfileDesktopProps {
-  isCollapsed?: boolean;
+  isCollapsed?: boolean
 }
 
 export const UserProfileDesktop = ({
@@ -21,7 +21,7 @@ export const UserProfileDesktop = ({
         className={cx(
           isCollapsed ? "justify-center" : "justify-between",
           focusRing,
-          "group flex w-full items-center rounded-md px-1 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200/50 data-[state=open]:bg-gray-200/50 hover:dark:bg-gray-800/50 data-[state=open]:dark:bg-gray-900"
+          "group flex w-full items-center rounded-md px-1 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200/50 data-[state=open]:bg-gray-200/50 hover:dark:bg-gray-800/50 data-[state=open]:dark:bg-gray-900",
         )}
       >
         {isCollapsed ? (
@@ -37,7 +37,7 @@ export const UserProfileDesktop = ({
             <span
               className={cx(
                 isCollapsed ? "size-5" : "size-8",
-                "flex shrink-0 items-center justify-center rounded-full border border-gray-300 bg-white text-xs text-gray-700 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300"
+                "flex shrink-0 items-center justify-center rounded-full border border-gray-300 bg-white text-xs text-gray-700 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300",
               )}
               aria-hidden="true"
             >
@@ -56,8 +56,8 @@ export const UserProfileDesktop = ({
         )}
       </Button>
     </DropdownUserProfile>
-  );
-};
+  )
+}
 
 export const UserProfileMobile = () => {
   return (
@@ -66,16 +66,16 @@ export const UserProfileMobile = () => {
         aria-label="User settings"
         variant="ghost"
         className={cx(
-          "group flex items-center rounded-md p-0.5 sm:p-1 text-sm font-medium text-gray-900 hover:bg-gray-200/50 data-[state=open]:bg-gray-200/50 hover:dark:bg-gray-800/50 data-[state=open]:dark:bg-gray-800/50"
+          "group flex items-center rounded-md p-0.5 text-sm font-medium text-gray-900 hover:bg-gray-200/50 data-[state=open]:bg-gray-200/50 sm:p-1 hover:dark:bg-gray-800/50 data-[state=open]:dark:bg-gray-800/50",
         )}
       >
         <span
-          className="flex size-8 sm:size-7 shrink-0 items-center justify-center rounded-full border border-gray-300 bg-white text-xs text-gray-700 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-300"
+          className="flex size-8 shrink-0 items-center justify-center rounded-full border border-gray-300 bg-white text-xs text-gray-700 sm:size-7 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-300"
           aria-hidden="true"
         >
           ES
         </span>
       </Button>
     </DropdownUserProfile>
-  );
-};
+  )
+}

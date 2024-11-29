@@ -1,6 +1,6 @@
-"use client";
+"use client"
 
-import { siteConfig } from "@/app/siteConfig";
+import { siteConfig } from "@/app/siteConfig"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,28 +14,28 @@ import {
   DropdownMenuSubMenuContent,
   DropdownMenuSubMenuTrigger,
   DropdownMenuTrigger,
-} from "@/components/DropdownMenu";
-import { ArrowUpRight, Monitor, Moon, Sun } from "lucide-react";
-import { useTheme } from "next-themes";
-import * as React from "react";
+} from "@/components/DropdownMenu"
+import { ArrowUpRight, Monitor, Moon, Sun } from "lucide-react"
+import { useTheme } from "next-themes"
+import * as React from "react"
 
 export type DropdownUserProfileProps = {
-  children: React.ReactNode;
-  align?: "center" | "start" | "end";
-};
+  children: React.ReactNode
+  align?: "center" | "start" | "end"
+}
 
 export function DropdownUserProfile({
   children,
   align = "start",
 }: DropdownUserProfileProps) {
-  const [mounted, setMounted] = React.useState(false);
-  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = React.useState(false)
+  const { theme, setTheme } = useTheme()
   React.useEffect(() => {
-    setMounted(true);
-  }, []);
+    setMounted(true)
+  }, [])
 
   if (!mounted) {
-    return null;
+    return null
   }
   return (
     <>
@@ -53,7 +53,7 @@ export function DropdownUserProfile({
                 <DropdownMenuRadioGroup
                   value={theme}
                   onValueChange={(value) => {
-                    setTheme(value);
+                    setTheme(value)
                   }}
                 >
                   <DropdownMenuRadioItem
@@ -119,5 +119,5 @@ export function DropdownUserProfile({
         </DropdownMenuContent>
       </DropdownMenu>
     </>
-  );
+  )
 }

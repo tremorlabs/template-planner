@@ -1,4 +1,4 @@
-import { Quotes } from "./schema";
+import { Quotes } from "./schema"
 
 export const quotes: Quotes = [
   {
@@ -135,4 +135,4 @@ export const quotes: Quotes = [
       },
     ],
   },
-];
+]

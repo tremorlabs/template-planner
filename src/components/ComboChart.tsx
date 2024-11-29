@@ -1,8 +1,8 @@
 // Tremor ComboChart [v0.0.0]
-"use client";
+"use client"
 
-import React from "react";
-import { RiArrowLeftSLine, RiArrowRightSLine } from "@remixicon/react";
+import React from "react"
+import { RiArrowLeftSLine, RiArrowRightSLine } from "@remixicon/react"
 import {
   Bar,
   CartesianGrid,
@@ -15,8 +15,8 @@ import {
   Tooltip,
   XAxis,
   YAxis,
-} from "recharts";
-import { AxisDomain } from "recharts/types/util/types";
+} from "recharts"
+import { AxisDomain } from "recharts/types/util/types"
 
 import {
   AvailableChartColors,
@@ -25,13 +25,13 @@ import {
   getColorClassName,
   getYAxisDomain,
   hasOnlyOneValueForKey,
-} from "@/lib/chartUtils";
-import { useOnWindowResize } from "@/lib/useOnWindowResize";
-import { cx } from "@/lib/utils";
+} from "@/lib/chartUtils"
+import { useOnWindowResize } from "@/lib/useOnWindowResize"
+import { cx } from "@/lib/utils"
 
 //#region Shape
 function deepEqual<T>(obj1: T, obj2: T): boolean {
-  if (obj1 === obj2) return true;
+  if (obj1 === obj2) return true
 
   if (
     typeof obj1 !== "object" ||
@@ -39,32 +39,32 @@ function deepEqual<T>(obj1: T, obj2: T): boolean {
     obj1 === null ||
     obj2 === null
   ) {
-    return false;
+    return false
   }
 
-  const keys1 = Object.keys(obj1) as Array<keyof T>;
-  const keys2 = Object.keys(obj2) as Array<keyof T>;
+  const keys1 = Object.keys(obj1) as Array<keyof T>
+  const keys2 = Object.keys(obj2) as Array<keyof T>
 
-  if (keys1.length !== keys2.length) return false;
+  if (keys1.length !== keys2.length) return false
 
   for (const key of keys1) {
-    if (!keys2.includes(key) || !deepEqual(obj1[key], obj2[key])) return false;
+    if (!keys2.includes(key) || !deepEqual(obj1[key], obj2[key])) return false
   }
 
-  return true;
+  return true
 }
 
 const renderShape = (
   props: any,
   activeBar: any | undefined,
-  activeLegend: string | undefined
+  activeLegend: string | undefined,
 ) => {
-  const { fillOpacity, name, payload, value, width, x } = props;
-  let { y, height } = props;
+  const { fillOpacity, name, payload, value, width, x } = props
+  let { y, height } = props
 
   if (height < 0) {
-    y += height;
-    height = Math.abs(height); // height must be a positive number
+    y += height
+    height = Math.abs(height) // height must be a positive number
   }
 
   return (
@@ -81,17 +81,17 @@ const renderShape = (
           : fillOpacity
       }
     />
-  );
-};
+  )
+}
 
 //#region Legend
 
 interface LegendItemProps {
-  name: string;
-  color: AvailableChartColorsKeys;
-  onClick?: (name: string, color: AvailableChartColorsKeys) => void;
-  activeLegend?: string;
-  chartType: "bar" | "line";
+  name: string
+  color: AvailableChartColorsKeys
+  onClick?: (name: string, color: AvailableChartColorsKeys) => void
+  activeLegend?: string
+  chartType: "bar" | "line"
 }
 
 const LegendItem = ({
@@ -101,8 +101,8 @@ const LegendItem = ({
   activeLegend,
   chartType,
 }: LegendItemProps) => {
-  const hasOnValueChange = !!onClick;
-  const colorClass = getColorClassName(color, "bg");
+  const hasOnValueChange = !!onClick
+  const colorClass = getColorClassName(color, "bg")
 
   return (
     <li
@@ -111,11 +111,11 @@ const LegendItem = ({
         "group inline-flex flex-nowrap items-center gap-1.5 whitespace-nowrap rounded px-2 py-1 transition",
         hasOnValueChange
           ? "cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800"
-          : "cursor-default"
+          : "cursor-default",
       )}
       onClick={(e) => {
-        e.stopPropagation();
-        onClick?.(name, color);
+        e.stopPropagation()
+        onClick?.(name, color)
       }}
     >
       <span
@@ -126,7 +126,7 @@ const LegendItem = ({
           },
           "shrink-0",
           colorClass,
-          activeLegend && activeLegend !== name ? "opacity-40" : "opacity-100"
+          activeLegend && activeLegend !== name ? "opacity-40" : "opacity-100",
         )}
         aria-hidden={true}
       />
@@ -138,43 +138,43 @@ const LegendItem = ({
           "text-gray-700 dark:text-gray-300",
           hasOnValueChange &&
             "group-hover:text-gray-900 dark:group-hover:text-gray-50",
-          activeLegend && activeLegend !== name ? "opacity-40" : "opacity-100"
+          activeLegend && activeLegend !== name ? "opacity-40" : "opacity-100",
         )}
       >
         {name}
       </p>
     </li>
-  );
-};
+  )
+}
 
 interface ScrollButtonProps {
-  icon: React.ElementType;
-  onClick?: () => void;
-  disabled?: boolean;
+  icon: React.ElementType
+  onClick?: () => void
+  disabled?: boolean
 }
 
 const ScrollButton = ({ icon, onClick, disabled }: ScrollButtonProps) => {
-  const Icon = icon;
-  const [isPressed, setIsPressed] = React.useState(false);
-  const intervalRef = React.useRef<NodeJS.Timeout | null>(null);
+  const Icon = icon
+  const [isPressed, setIsPressed] = React.useState(false)
+  const intervalRef = React.useRef<NodeJS.Timeout | null>(null)
 
   React.useEffect(() => {
     if (isPressed) {
       intervalRef.current = setInterval(() => {
-        onClick?.();
-      }, 300);
+        onClick?.()
+      }, 300)
     } else {
-      clearInterval(intervalRef.current as NodeJS.Timeout);
+      clearInterval(intervalRef.current as NodeJS.Timeout)
     }
-    return () => clearInterval(intervalRef.current as NodeJS.Timeout);
-  }, [isPressed, onClick]);
+    return () => clearInterval(intervalRef.current as NodeJS.Timeout)
+  }, [isPressed, onClick])
 
   React.useEffect(() => {
     if (disabled) {
-      clearInterval(intervalRef.current as NodeJS.Timeout);
-      setIsPressed(false);
+      clearInterval(intervalRef.current as NodeJS.Timeout)
+      setIsPressed(false)
     }
-  }, [disabled]);
+  }, [disabled])
 
   return (
     <button
@@ -184,43 +184,43 @@ const ScrollButton = ({ icon, onClick, disabled }: ScrollButtonProps) => {
         "group inline-flex size-5 items-center truncate rounded transition",
         disabled
           ? "cursor-not-allowed text-gray-400 dark:text-gray-600"
-          : "cursor-pointer text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-gray-50"
+          : "cursor-pointer text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-gray-50",
       )}
       disabled={disabled}
       onClick={(e) => {
-        e.stopPropagation();
-        onClick?.();
+        e.stopPropagation()
+        onClick?.()
       }}
       onMouseDown={(e) => {
-        e.stopPropagation();
-        setIsPressed(true);
+        e.stopPropagation()
+        setIsPressed(true)
       }}
       onMouseUp={(e) => {
-        e.stopPropagation();
-        setIsPressed(false);
+        e.stopPropagation()
+        setIsPressed(false)
       }}
     >
       <Icon className="size-full" aria-hidden="true" />
     </button>
-  );
-};
+  )
+}
 
 interface LegendProps extends React.OlHTMLAttributes<HTMLOListElement> {
-  categories: { name: string; chartType: "bar" | "line" }[];
-  barCategoryColors: Map<string, AvailableChartColorsKeys>;
-  lineCategoryColors: Map<string, AvailableChartColorsKeys>;
+  categories: { name: string; chartType: "bar" | "line" }[]
+  barCategoryColors: Map<string, AvailableChartColorsKeys>
+  lineCategoryColors: Map<string, AvailableChartColorsKeys>
   onClickLegendItem?: (
     category: string,
-    color: AvailableChartColorsKeys
-  ) => void;
-  activeLegend?: string;
-  enableLegendSlider?: boolean;
+    color: AvailableChartColorsKeys,
+  ) => void
+  activeLegend?: string
+  enableLegendSlider?: boolean
 }
 
 type HasScrollProps = {
-  left: boolean;
-  right: boolean;
-};
+  left: boolean
+  right: boolean
+}
 
 const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
   const {
@@ -232,27 +232,27 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
     enableLegendSlider = false,
     className,
     ...other
-  } = props;
-  const scrollableRef = React.useRef<HTMLInputElement>(null);
-  const [hasScroll, setHasScroll] = React.useState<HasScrollProps | null>(null);
-  const [isKeyDowned, setIsKeyDowned] = React.useState<string | null>(null);
-  const intervalRef = React.useRef<NodeJS.Timeout | null>(null);
+  } = props
+  const scrollableRef = React.useRef<HTMLInputElement>(null)
+  const [hasScroll, setHasScroll] = React.useState<HasScrollProps | null>(null)
+  const [isKeyDowned, setIsKeyDowned] = React.useState<string | null>(null)
+  const intervalRef = React.useRef<NodeJS.Timeout | null>(null)
 
   const checkScroll = React.useCallback(() => {
-    const scrollable = scrollableRef?.current;
-    if (!scrollable) return;
+    const scrollable = scrollableRef?.current
+    if (!scrollable) return
 
-    const hasLeftScroll = scrollable.scrollLeft > 0;
+    const hasLeftScroll = scrollable.scrollLeft > 0
     const hasRightScroll =
-      scrollable.scrollWidth - scrollable.clientWidth > scrollable.scrollLeft;
+      scrollable.scrollWidth - scrollable.clientWidth > scrollable.scrollLeft
 
-    setHasScroll({ left: hasLeftScroll, right: hasRightScroll });
-  }, [setHasScroll]);
+    setHasScroll({ left: hasLeftScroll, right: hasRightScroll })
+  }, [setHasScroll])
 
   const scrollToTest = React.useCallback(
     (direction: "left" | "right") => {
-      const element = scrollableRef?.current;
-      const width = element?.clientWidth ?? 0;
+      const element = scrollableRef?.current
+      const width = element?.clientWidth ?? 0
 
       if (element && enableLegendSlider) {
         element.scrollTo({
@@ -261,59 +261,59 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
               ? element.scrollLeft - width
               : element.scrollLeft + width,
           behavior: "smooth",
-        });
+        })
         setTimeout(() => {
-          checkScroll();
-        }, 400);
+          checkScroll()
+        }, 400)
       }
     },
-    [enableLegendSlider, checkScroll]
-  );
+    [enableLegendSlider, checkScroll],
+  )
 
   React.useEffect(() => {
     const keyDownHandler = (key: string) => {
       if (key === "ArrowLeft") {
-        scrollToTest("left");
+        scrollToTest("left")
       } else if (key === "ArrowRight") {
-        scrollToTest("right");
+        scrollToTest("right")
       }
-    };
-    if (isKeyDowned) {
-      keyDownHandler(isKeyDowned);
-      intervalRef.current = setInterval(() => {
-        keyDownHandler(isKeyDowned);
-      }, 300);
-    } else {
-      clearInterval(intervalRef.current as NodeJS.Timeout);
     }
-    return () => clearInterval(intervalRef.current as NodeJS.Timeout);
-  }, [isKeyDowned, scrollToTest]);
+    if (isKeyDowned) {
+      keyDownHandler(isKeyDowned)
+      intervalRef.current = setInterval(() => {
+        keyDownHandler(isKeyDowned)
+      }, 300)
+    } else {
+      clearInterval(intervalRef.current as NodeJS.Timeout)
+    }
+    return () => clearInterval(intervalRef.current as NodeJS.Timeout)
+  }, [isKeyDowned, scrollToTest])
 
   const keyDown = (e: KeyboardEvent) => {
-    e.stopPropagation();
+    e.stopPropagation()
     if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
-      e.preventDefault();
-      setIsKeyDowned(e.key);
+      e.preventDefault()
+      setIsKeyDowned(e.key)
     }
-  };
+  }
   const keyUp = (e: KeyboardEvent) => {
-    e.stopPropagation();
-    setIsKeyDowned(null);
-  };
+    e.stopPropagation()
+    setIsKeyDowned(null)
+  }
 
   React.useEffect(() => {
-    const scrollable = scrollableRef?.current;
+    const scrollable = scrollableRef?.current
     if (enableLegendSlider) {
-      checkScroll();
-      scrollable?.addEventListener("keydown", keyDown);
-      scrollable?.addEventListener("keyup", keyUp);
+      checkScroll()
+      scrollable?.addEventListener("keydown", keyDown)
+      scrollable?.addEventListener("keyup", keyUp)
     }
 
     return () => {
-      scrollable?.removeEventListener("keydown", keyDown);
-      scrollable?.removeEventListener("keyup", keyUp);
-    };
-  }, [checkScroll, enableLegendSlider]);
+      scrollable?.removeEventListener("keydown", keyDown)
+      scrollable?.removeEventListener("keyup", keyUp)
+    }
+  }, [checkScroll, enableLegendSlider])
 
   return (
     <ol
@@ -329,12 +329,12 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
             ? hasScroll?.right || hasScroll?.left
               ? "snap-mandatory items-center overflow-auto pl-4 pr-12 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
               : ""
-            : "flex-wrap"
+            : "flex-wrap",
         )}
       >
         {categories.map((category, index) => {
-          const barColor = barCategoryColors.get(category.name);
-          const lineColor = lineCategoryColors.get(category.name);
+          const barColor = barCategoryColors.get(category.name)
+          const lineColor = lineCategoryColors.get(category.name)
           return (
             <LegendItem
               key={`item-${index}`}
@@ -344,7 +344,7 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
               activeLegend={activeLegend}
               color={category.chartType === "bar" ? barColor! : lineColor!}
             />
-          );
+          )
         })}
       </div>
       {enableLegendSlider && (hasScroll?.right || hasScroll?.left) ? (
@@ -354,22 +354,22 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
               // base
               "absolute bottom-0 right-0 top-0 flex h-full items-center justify-center pr-1",
               // background color
-              "bg-white dark:bg-gray-950"
+              "bg-white dark:bg-gray-950",
             )}
           >
             <ScrollButton
               icon={RiArrowLeftSLine}
               onClick={() => {
-                setIsKeyDowned(null);
-                scrollToTest("left");
+                setIsKeyDowned(null)
+                scrollToTest("left")
               }}
               disabled={!hasScroll?.left}
             />
             <ScrollButton
               icon={RiArrowRightSLine}
               onClick={() => {
-                setIsKeyDowned(null);
-                scrollToTest("right");
+                setIsKeyDowned(null)
+                scrollToTest("right")
               }}
               disabled={!hasScroll?.right}
             />
@@ -377,10 +377,10 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
         </>
       ) : null}
     </ol>
-  );
-});
+  )
+})
 
-Legend.displayName = "Legend";
+Legend.displayName = "Legend"
 
 const ChartLegend = (
   { payload }: any,
@@ -392,25 +392,25 @@ const ChartLegend = (
   enableLegendSlider?: boolean,
   legendPosition?: "left" | "center" | "right",
   barYAxisWidth?: number,
-  lineYAxisWidth?: number
+  lineYAxisWidth?: number,
 ) => {
-  const legendRef = React.useRef<HTMLDivElement>(null);
+  const legendRef = React.useRef<HTMLDivElement>(null)
 
   useOnWindowResize(() => {
     const calculateHeight = (height: number | undefined) =>
-      height ? Number(height) + 15 : 60;
-    setLegendHeight(calculateHeight(legendRef.current?.clientHeight));
-  });
+      height ? Number(height) + 15 : 60
+    setLegendHeight(calculateHeight(legendRef.current?.clientHeight))
+  })
 
-  const filteredPayload = payload.filter((item: any) => item.type !== "none");
+  const filteredPayload = payload.filter((item: any) => item.type !== "none")
 
   const paddingLeft =
-    legendPosition === "left" && barYAxisWidth ? barYAxisWidth - 8 : 0;
+    legendPosition === "left" && barYAxisWidth ? barYAxisWidth - 8 : 0
   const paddingRight =
     (legendPosition === "right" || legendPosition === undefined) &&
     lineYAxisWidth
       ? lineYAxisWidth - 8
-      : 52;
+      : 52
 
   return (
     <div
@@ -422,7 +422,7 @@ const ChartLegend = (
         {
           "justify-start": legendPosition === "left",
         },
-        { "justify-end": legendPosition === "right" }
+        { "justify-end": legendPosition === "right" },
       )}
     >
       <Legend
@@ -437,30 +437,30 @@ const ChartLegend = (
         enableLegendSlider={enableLegendSlider}
       />
     </div>
-  );
-};
+  )
+}
 
 //#region Tooltip
 
-type TooltipProps = Pick<ChartTooltipProps, "active" | "payload" | "label">;
+type TooltipProps = Pick<ChartTooltipProps, "active" | "payload" | "label">
 
 type PayloadItem = {
-  category: string;
-  value: number;
-  index: string;
-  barColor: AvailableChartColorsKeys;
-  lineColor: AvailableChartColorsKeys;
-  chartType: "bar" | "line";
-  type: string;
-  payload: any;
-};
+  category: string
+  value: number
+  index: string
+  barColor: AvailableChartColorsKeys
+  lineColor: AvailableChartColorsKeys
+  chartType: "bar" | "line"
+  type: string
+  payload: any
+}
 
 interface ChartTooltipProps {
-  active: boolean | undefined;
-  payload: PayloadItem[];
-  label: string;
-  barValueFormatter?: (value: number) => string;
-  lineValueFormatter?: (value: number) => string;
+  active: boolean | undefined
+  payload: PayloadItem[]
+  label: string
+  barValueFormatter?: (value: number) => string
+  lineValueFormatter?: (value: number) => string
 }
 
 const ChartTooltip = ({
@@ -471,7 +471,7 @@ const ChartTooltip = ({
   lineValueFormatter = (value: number): string => value.toString(),
 }: ChartTooltipProps) => {
   if (active && payload && payload.length) {
-    const filteredPayload = payload.filter((item: any) => item.type !== "none");
+    const filteredPayload = payload.filter((item: any) => item.type !== "none")
     return (
       <div
         className={cx(
@@ -480,7 +480,7 @@ const ChartTooltip = ({
           // border color
           "border-gray-200 dark:border-gray-800",
           // background color
-          "bg-white dark:bg-gray-950"
+          "bg-white dark:bg-gray-950",
         )}
       >
         <div className={cx("border-b border-inherit px-4 py-2")}>
@@ -489,7 +489,7 @@ const ChartTooltip = ({
               // base
               "font-medium",
               // text color
-              "text-gray-900 dark:text-gray-50"
+              "text-gray-900 dark:text-gray-50",
             )}
           >
             {label}
@@ -515,8 +515,8 @@ const ChartTooltip = ({
                         "shrink-0",
                         getColorClassName(
                           chartType === "bar" ? barColor : lineColor,
-                          "bg"
-                        )
+                          "bg",
+                        ),
                       )}
                     />
                   </div>
@@ -525,7 +525,7 @@ const ChartTooltip = ({
                       // base
                       "whitespace-nowrap text-right",
                       // text color
-                      "text-gray-700 dark:text-gray-300"
+                      "text-gray-700 dark:text-gray-300",
                     )}
                   >
                     {category}
@@ -536,7 +536,7 @@ const ChartTooltip = ({
                     // base
                     "whitespace-nowrap text-right font-medium tabular-nums",
                     // text color
-                    "text-gray-900 dark:text-gray-50"
+                    "text-gray-900 dark:text-gray-50",
                   )}
                 >
                   {chartType === "bar"
@@ -544,64 +544,64 @@ const ChartTooltip = ({
                     : lineValueFormatter(value)}
                 </p>
               </div>
-            )
+            ),
           )}
         </div>
       </div>
-    );
+    )
   }
-  return null;
-};
+  return null
+}
 
 interface ActiveDot {
-  index?: number;
-  dataKey?: string;
+  index?: number
+  dataKey?: string
 }
 
 type BaseEventProps = {
-  eventType: "category" | "bar" | "dot";
-  categoryClicked: string;
-  [key: string]: number | string;
-};
+  eventType: "category" | "bar" | "dot"
+  categoryClicked: string
+  [key: string]: number | string
+}
 
-type ComboChartEventProps = BaseEventProps | null | undefined;
+type ComboChartEventProps = BaseEventProps | null | undefined
 
 type ChartSeries = {
-  categories: string[];
-  colors?: AvailableChartColorsKeys[];
-  valueFormatter?: (value: number) => string;
-  showYAxis?: boolean;
-  yAxisWidth?: number;
-  allowDecimals?: boolean;
-  yAxisLabel?: string;
-  autoMinValue?: boolean;
-  minValue?: number;
-  maxValue?: number;
-};
+  categories: string[]
+  colors?: AvailableChartColorsKeys[]
+  valueFormatter?: (value: number) => string
+  showYAxis?: boolean
+  yAxisWidth?: number
+  allowDecimals?: boolean
+  yAxisLabel?: string
+  autoMinValue?: boolean
+  minValue?: number
+  maxValue?: number
+}
 
 interface ComboChartProps extends React.HTMLAttributes<HTMLDivElement> {
-  data: Record<string, any>[];
-  index: string;
-  startEndOnly?: boolean;
-  showXAxis?: boolean;
-  xAxisLabel?: string;
-  showGridLines?: boolean;
-  intervalType?: "preserveStartEnd" | "equidistantPreserveStart";
-  showLegend?: boolean;
-  showTooltip?: boolean;
-  onValueChange?: (value: ComboChartEventProps) => void;
-  enableLegendSlider?: boolean;
-  legendPosition?: "left" | "center" | "right";
-  tickGap?: number;
-  enableBiaxial?: boolean;
-  tooltipCallback?: (tooltipCallbackContent: TooltipProps) => void;
-  customTooltip?: React.ComponentType<TooltipProps>;
+  data: Record<string, any>[]
+  index: string
+  startEndOnly?: boolean
+  showXAxis?: boolean
+  xAxisLabel?: string
+  showGridLines?: boolean
+  intervalType?: "preserveStartEnd" | "equidistantPreserveStart"
+  showLegend?: boolean
+  showTooltip?: boolean
+  onValueChange?: (value: ComboChartEventProps) => void
+  enableLegendSlider?: boolean
+  legendPosition?: "left" | "center" | "right"
+  tickGap?: number
+  enableBiaxial?: boolean
+  tooltipCallback?: (tooltipCallbackContent: TooltipProps) => void
+  customTooltip?: React.ComponentType<TooltipProps>
   barSeries: ChartSeries & {
-    type?: "default" | "stacked";
-  };
+    type?: "default" | "stacked"
+  }
   lineSeries?: ChartSeries & {
-    connectNulls?: boolean;
-  };
+    connectNulls?: boolean
+  }
 }
 
 const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
@@ -618,13 +618,13 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
       autoMinValue: false,
       minValue: undefined,
       maxValue: undefined,
-    };
+    }
 
-    const defaultBarSeries = defaultSeries;
+    const defaultBarSeries = defaultSeries
     const defaultLineSeries = {
       ...defaultSeries,
       connectNulls: false,
-    };
+    }
 
     const {
       data = [],
@@ -649,11 +649,11 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
 
       className,
       ...other
-    } = props;
-    const mergedBarSeries = { ...defaultBarSeries, ...barSeries };
-    const mergedLineSeries = { ...defaultLineSeries, ...lineSeries };
+    } = props
+    const mergedBarSeries = { ...defaultBarSeries, ...barSeries }
+    const mergedLineSeries = { ...defaultLineSeries, ...lineSeries }
 
-    const CustomTooltip = customTooltip;
+    const CustomTooltip = customTooltip
 
     const paddingValue =
       (!showXAxis &&
@@ -665,67 +665,65 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
         enableBiaxial &&
         !mergedLineSeries.showYAxis)
         ? 0
-        : 20;
-    const [legendHeight, setLegendHeight] = React.useState(60);
+        : 20
+    const [legendHeight, setLegendHeight] = React.useState(60)
     const [activeDot, setActiveDot] = React.useState<ActiveDot | undefined>(
-      undefined
-    );
+      undefined,
+    )
     const [activeLegend, setActiveLegend] = React.useState<string | undefined>(
-      undefined
-    );
+      undefined,
+    )
 
-    const prevActiveRef = React.useRef<boolean | undefined>(undefined);
-    const prevLabelRef = React.useRef<string | undefined>(undefined);
+    const prevActiveRef = React.useRef<boolean | undefined>(undefined)
+    const prevLabelRef = React.useRef<string | undefined>(undefined)
 
     const barCategoryColors = constructCategoryColors(
       mergedBarSeries.categories,
-      mergedBarSeries.colors ?? AvailableChartColors
-    );
+      mergedBarSeries.colors ?? AvailableChartColors,
+    )
     const lineCategoryColors = constructCategoryColors(
       mergedLineSeries.categories,
-      mergedLineSeries.colors ?? AvailableChartColors
-    );
-    const [activeBar, setActiveBar] = React.useState<any | undefined>(
-      undefined
-    );
+      mergedLineSeries.colors ?? AvailableChartColors,
+    )
+    const [activeBar, setActiveBar] = React.useState<any | undefined>(undefined)
     const barYAxisDomain = getYAxisDomain(
       mergedBarSeries.autoMinValue ?? false,
       mergedBarSeries.minValue,
-      mergedBarSeries.maxValue
-    );
+      mergedBarSeries.maxValue,
+    )
     const lineYAxisDomain = getYAxisDomain(
       mergedLineSeries.autoMinValue ?? false,
       mergedLineSeries.minValue,
-      mergedLineSeries.maxValue
-    );
-    const hasOnValueChange = !!onValueChange;
-    const stacked = barSeries.type === "stacked";
+      mergedLineSeries.maxValue,
+    )
+    const hasOnValueChange = !!onValueChange
+    const stacked = barSeries.type === "stacked"
 
     function onBarClick(data: any, _: any, event: React.MouseEvent) {
-      event.stopPropagation();
-      if (!onValueChange) return;
+      event.stopPropagation()
+      if (!onValueChange) return
       if (deepEqual(activeBar, { ...data.payload, value: data.value })) {
-        setActiveLegend(undefined);
-        setActiveBar(undefined);
-        onValueChange?.(null);
+        setActiveLegend(undefined)
+        setActiveBar(undefined)
+        onValueChange?.(null)
       } else {
-        setActiveLegend(data.tooltipPayload?.[0]?.dataKey);
+        setActiveLegend(data.tooltipPayload?.[0]?.dataKey)
         setActiveBar({
           ...data.payload,
           value: data.value,
-        });
+        })
         onValueChange?.({
           eventType: "bar",
           categoryClicked: data.tooltipPayload?.[0]?.dataKey,
           ...data.payload,
-        });
+        })
       }
     }
 
     function onDotClick(itemData: any, event: React.MouseEvent) {
-      event.stopPropagation();
+      event.stopPropagation()
 
-      if (!hasOnValueChange) return;
+      if (!hasOnValueChange) return
       if (
         (itemData.index === activeDot?.index &&
           itemData.dataKey === activeDot?.dataKey) ||
@@ -733,47 +731,47 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
           activeLegend &&
           activeLegend === itemData.dataKey)
       ) {
-        setActiveLegend(undefined);
-        setActiveDot(undefined);
-        onValueChange?.(null);
+        setActiveLegend(undefined)
+        setActiveDot(undefined)
+        onValueChange?.(null)
       } else {
-        setActiveBar(undefined);
-        setActiveLegend(itemData.dataKey);
+        setActiveBar(undefined)
+        setActiveLegend(itemData.dataKey)
         setActiveDot({
           index: itemData.index,
           dataKey: itemData.dataKey,
-        });
+        })
         onValueChange?.({
           eventType: "dot",
           categoryClicked: itemData.dataKey,
           ...itemData.payload,
-        });
+        })
       }
     }
 
     function onCategoryClick(dataKey: string) {
-      if (!hasOnValueChange) return;
+      if (!hasOnValueChange) return
 
       if (dataKey === activeLegend && !activeBar && !activeDot) {
-        setActiveLegend(undefined);
-        onValueChange?.(null);
+        setActiveLegend(undefined)
+        onValueChange?.(null)
       } else if (
         activeBar &&
         activeBar.tooltipPayload?.[0]?.dataKey === dataKey
       ) {
-        setActiveLegend(dataKey);
+        setActiveLegend(dataKey)
         onValueChange?.({
           eventType: "category",
           categoryClicked: dataKey,
-        });
+        })
       } else {
-        setActiveLegend(dataKey);
-        setActiveBar(undefined);
-        setActiveDot(undefined);
+        setActiveLegend(dataKey)
+        setActiveBar(undefined)
+        setActiveDot(undefined)
         onValueChange?.({
           eventType: "category",
           categoryClicked: dataKey,
-        });
+        })
       }
     }
 
@@ -790,10 +788,10 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
             onClick={
               hasOnValueChange && (activeLegend || activeBar || activeDot)
                 ? () => {
-                    setActiveBar(undefined);
-                    setActiveDot(undefined);
-                    setActiveLegend(undefined);
-                    onValueChange?.(null);
+                    setActiveBar(undefined)
+                    setActiveDot(undefined)
+                    setActiveLegend(undefined)
+                    onValueChange?.(null)
                   }
                 : undefined
             }
@@ -824,7 +822,7 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
                 // base
                 "mt-4 text-xs",
                 // text fill
-                "fill-gray-500 dark:fill-gray-500"
+                "fill-gray-500 dark:fill-gray-500",
               )}
               tickLine={false}
               axisLine={false}
@@ -863,7 +861,7 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
                 // base
                 "text-xs",
                 // text fill
-                "fill-gray-500 dark:fill-gray-500"
+                "fill-gray-500 dark:fill-gray-500",
               )}
               tick={{
                 transform: "translate(-3, 0)",
@@ -900,7 +898,7 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
                   // base
                   "text-xs",
                   // text fill
-                  "fill-gray-500 dark:fill-gray-500"
+                  "fill-gray-500 dark:fill-gray-500",
                 )}
                 tick={{
                   transform: "translate(3, 0)",
@@ -940,10 +938,10 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
                       value: item.value,
                       index: item.payload[index],
                       barColor: barCategoryColors.get(
-                        item.dataKey
+                        item.dataKey,
                       ) as AvailableChartColorsKeys,
                       lineColor: lineCategoryColors.get(
-                        item.dataKey
+                        item.dataKey,
                       ) as AvailableChartColorsKeys,
                       chartType: barCategoryColors.get(item.dataKey)
                         ? "bar"
@@ -951,16 +949,16 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
                       type: item.type,
                       payload: item.payload,
                     }))
-                  : [];
+                  : []
 
                 if (
                   tooltipCallback &&
                   (active !== prevActiveRef.current ||
                     label !== prevLabelRef.current)
                 ) {
-                  tooltipCallback({ active, payload: cleanPayload, label });
-                  prevActiveRef.current = active;
-                  prevLabelRef.current = label;
+                  tooltipCallback({ active, payload: cleanPayload, label })
+                  prevActiveRef.current = active
+                  prevLabelRef.current = label
                 }
 
                 return showTooltip && active ? (
@@ -979,7 +977,7 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
                       lineValueFormatter={mergedLineSeries.valueFormatter}
                     />
                   )
-                ) : null;
+                ) : null
               }}
             />
             {showLegend ? (
@@ -1000,7 +998,7 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
                     enableLegendSlider,
                     legendPosition,
                     mergedBarSeries.yAxisWidth,
-                    mergedLineSeries.yAxisWidth
+                    mergedLineSeries.yAxisWidth,
                   )
                 }
               />
@@ -1011,9 +1009,9 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
                 className={cx(
                   getColorClassName(
                     barCategoryColors.get(category) as AvailableChartColorsKeys,
-                    "fill"
+                    "fill",
                   ),
-                  onValueChange ? "cursor-pointer" : ""
+                  onValueChange ? "cursor-pointer" : "",
                 )}
                 key={category}
                 name={category}
@@ -1046,9 +1044,9 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
                     strokeWidth={12}
                     connectNulls={mergedLineSeries.connectNulls}
                     onClick={(props: any, event) => {
-                      event.stopPropagation();
-                      const { name } = props;
-                      onCategoryClick(name);
+                      event.stopPropagation()
+                      const { name } = props
+                      onCategoryClick(name)
                     }}
                   />
                 ))
@@ -1059,11 +1057,11 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
                 className={cx(
                   getColorClassName(
                     lineCategoryColors.get(
-                      category
+                      category,
                     ) as AvailableChartColorsKeys,
-                    "stroke"
+                    "stroke",
                   ),
-                  hasOnValueChange && "cursor-pointer"
+                  hasOnValueChange && "cursor-pointer",
                 )}
                 strokeOpacity={
                   activeDot || (activeLegend && activeLegend !== category)
@@ -1079,7 +1077,7 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
                     strokeLinejoin,
                     strokeWidth,
                     dataKey,
-                  } = props;
+                  } = props
                   return (
                     <Dot
                       className={cx(
@@ -1087,10 +1085,10 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
                         onValueChange ? "cursor-pointer" : "",
                         getColorClassName(
                           lineCategoryColors.get(
-                            dataKey
+                            dataKey,
                           ) as AvailableChartColorsKeys,
-                          "fill"
-                        )
+                          "fill",
+                        ),
                       )}
                       cx={cxCoord}
                       cy={cyCoord}
@@ -1102,7 +1100,7 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
                       strokeWidth={strokeWidth}
                       onClick={(_, event) => onDotClick(props, event)}
                     />
-                  );
+                  )
                 }}
                 dot={(props: any) => {
                   const {
@@ -1114,7 +1112,7 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
                     cy: cyCoord,
                     dataKey,
                     index,
-                  } = props;
+                  } = props
 
                   if (
                     (hasOnlyOneValueForKey(data, category) &&
@@ -1141,15 +1139,15 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
                           onValueChange ? "cursor-pointer" : "",
                           getColorClassName(
                             lineCategoryColors.get(
-                              dataKey
+                              dataKey,
                             ) as AvailableChartColorsKeys,
-                            "fill"
-                          )
+                            "fill",
+                          ),
                         )}
                       />
-                    );
+                    )
                   }
-                  return <React.Fragment key={index}></React.Fragment>;
+                  return <React.Fragment key={index}></React.Fragment>
                 }}
                 key={`${category}-line-id`}
                 name={category}
@@ -1162,19 +1160,19 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
                 isAnimationActive={false}
                 connectNulls={mergedLineSeries.connectNulls}
                 onClick={(props: any, event) => {
-                  event.stopPropagation();
-                  const { name } = props;
-                  onCategoryClick(name);
+                  event.stopPropagation()
+                  const { name } = props
+                  onCategoryClick(name)
                 }}
               />
             ))}
           </RechartsComposedChart>
         </ResponsiveContainer>
       </div>
-    );
-  }
-);
+    )
+  },
+)
 
-ComboChart.displayName = "ComboChart";
+ComboChart.displayName = "ComboChart"
 
-export { ComboChart, type ComboChartEventProps, type TooltipProps };
+export { ComboChart, type ComboChartEventProps, type TooltipProps }
