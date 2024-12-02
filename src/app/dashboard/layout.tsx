@@ -1,15 +1,15 @@
 "use client"
 import React from "react"
 
-import { cx } from "@/lib/utils"
-import Link from "next/link"
+import { TabNavigation, TabNavigationLink } from "@/components/TabNavigation"
+import { MetricsCards } from "@/components/ui/homepage/MetricsCards"
 import { Breadcrumbs } from "@/components/ui/navigation/Breadcrumbs"
 import { Sidebar } from "@/components/ui/navigation/Sidebar"
-import { MetricsCards } from "@/components/ui/homepage/MetricsCards"
-import { TabNavigation, TabNavigationLink } from "@/components/TabNavigation"
+import { cx } from "@/lib/utils"
 import { PanelRightClose, PanelRightOpen } from "lucide-react"
-import { siteConfig } from "../siteConfig"
+import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { siteConfig } from "../siteConfig"
 
 const navigation = [
   { name: "Overview", href: siteConfig.baseLinks.dashboard.overview },
@@ -62,10 +62,10 @@ export default function Layout({
             />
             <Breadcrumbs />
           </div>
-          <div className="p-6">
+          <div className="p-4 sm:p-6">
             <MetricsCards />
           </div>
-          <TabNavigation className="mt-6 gap-x-4 px-6">
+          <TabNavigation className="mt-6 gap-x-4 px-4 sm:px-6">
             {navigation.map((item) => (
               <TabNavigationLink
                 key={item.name}
