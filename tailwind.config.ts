@@ -1,4 +1,4 @@
-import type { Config } from "tailwindcss";
+import type { Config } from "tailwindcss"
 
 export default {
   darkMode: "selector",
@@ -17,6 +17,14 @@ export default {
         hide: {
           from: { opacity: "1" },
           to: { opacity: "0" },
+        },
+        drawerSlideLeftAndFade: {
+          from: { opacity: "0", transform: "translateX(100%)" },
+          to: { opacity: "1", transform: "translateX(0)" },
+        },
+        drawerSlideRightAndFade: {
+          from: { opacity: "1", transform: "translateX(0)" },
+          to: { opacity: "0", transform: "translateX(100%)" },
         },
         slideDownAndFade: {
           from: { opacity: "0", transform: "translateY(-6px)" },
@@ -56,8 +64,11 @@ export default {
           "slideRightAndFade 150ms cubic-bezier(0.16, 1, 0.3, 1)",
         accordionOpen: "accordionOpen 150ms cubic-bezier(0.87, 0, 0.13, 1)",
         accordionClose: "accordionClose 150ms cubic-bezier(0.87, 0, 0.13, 1)",
+        drawerSlideLeftAndFade:
+          "drawerSlideLeftAndFade 150ms cubic-bezier(0.16, 1, 0.3, 1)",
+        drawerSlideRightAndFade: "drawerSlideRightAndFade 150ms ease-in",
       },
     },
   },
   plugins: [],
-} satisfies Config;
+} satisfies Config

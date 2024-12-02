@@ -38,8 +38,8 @@ export default function Layout({
           "ease transform-gpu transition-all duration-100 will-change-transform",
         )}
       >
-        <div className="h-screen bg-white dark:bg-gray-925">
-          <div className="sticky top-0 z-10 flex items-center gap-3 border-b border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-950">
+        <div className="bg-white dark:bg-gray-925">
+          <div className="sticky top-0 z-10 hidden items-center gap-3 border-b border-gray-200 bg-white p-4 lg:flex dark:border-gray-800 dark:bg-gray-950">
             <button
               className="group inline-flex rounded-md p-1.5 hover:bg-gray-200/50 hover:dark:bg-gray-900"
               onClick={toggleSidebar}

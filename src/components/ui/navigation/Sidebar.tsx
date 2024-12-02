@@ -1,47 +1,15 @@
 "use client"
+import { Divider } from "@/components/Divider"
+import { Input } from "@/components/Input"
+import { cx, focusRing } from "@/lib/utils"
+import { RiArrowDownSFill } from "@remixicon/react"
+import { BookText, House, PackageSearch } from "lucide-react"
+import Link from "next/link"
 import React from "react"
 import { Logo } from "../../../../public/Logo"
-import { cx, focusRing } from "@/lib/utils"
-import { PackageSearch, BookText, House } from "lucide-react"
-import Link from "next/link"
-import { Input } from "@/components/Input"
-import { UserProfileDesktop } from "./UserProfile"
-import { RiArrowDownSFill } from "@remixicon/react"
-import { Divider } from "@/components/Divider"
-
-function NavLink({
-  href,
-  children,
-  active = false,
-  isAnchorLink = false,
-}: {
-  href: string
-  children: React.ReactNode
-  active?: boolean
-  isAnchorLink?: boolean
-}) {
-  return (
-    <Link
-      href={href}
-      aria-current={active ? "page" : undefined}
-      className={cx(
-        "relative flex gap-2 py-1.5 pr-3 text-sm transition",
-        isAnchorLink ? "pl-9" : "pl-4",
-        active
-          ? "rounded bg-white text-blue-600 shadow ring-1 ring-gray-200 dark:bg-gray-900 dark:text-blue-500 dark:ring-gray-800"
-          : "text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50",
-      )}
-    >
-      {active && (
-        <div
-          className="absolute left-4 top-1/2 h-5 w-px -translate-y-1/2 bg-blue-500 dark:bg-blue-500"
-          aria-hidden="true"
-        />
-      )}
-      {children}
-    </Link>
-  )
-}
+import MobileSidebar from "./MobileSidebar"
+import { NavLink } from "./NavLink"
+import { UserProfileDesktop, UserProfileMobile } from "./UserProfile"
 
 const navigation = [
   {
@@ -268,20 +236,20 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
       </nav>
       {/* top navbar (xs-lg) */}
       <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center justify-between border-b border-gray-200 bg-white px-4 shadow-sm sm:px-6 lg:hidden dark:border-gray-800 dark:bg-gray-950">
-        <span
-          className={cx(
-            "font-semibold text-gray-900 sm:text-sm dark:text-gray-50",
-            isCollapsed ? "opacity-0" : "opacity-100",
-          )}
-        >
-          <Link aria-label="Home Link" href="/">
+        <div className="flex items-center gap-2">
+          <Logo className="size-6 text-blue-500 dark:text-blue-500" />
+          <Link
+            aria-label="Home Link"
+            href="/"
+            className="text-sm font-semibold text-gray-900 dark:text-gray-50"
+          >
             Innovex Systems
           </Link>
-        </span>
-        {/* <div className="flex items-center gap-1 sm:gap-2">
+        </div>
+        <div className="flex items-center gap-1 sm:gap-2">
           <UserProfileMobile />
           <MobileSidebar />
-        </div> */}
+        </div>
       </div>
     </>
   )
