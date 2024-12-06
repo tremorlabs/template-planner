@@ -35,7 +35,7 @@ export default function Layout({
       <div
         className={cx(
           isCollapsed ? "lg:pl-0" : "lg:pl-64",
-          "ease transform-gpu transition-all duration-100 will-change-transform",
+          "ease transform-gpu transition-all duration-150 will-change-transform",
         )}
       >
         <div className="bg-white dark:bg-gray-925">

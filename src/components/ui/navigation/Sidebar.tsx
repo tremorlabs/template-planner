@@ -11,6 +11,9 @@ import MobileSidebar from "./MobileSidebar"
 import { NavLink } from "./NavLink"
 import { UserProfileDesktop, UserProfileMobile } from "./UserProfile"
 
+const SIDEBAR_COOKIE_NAME = "sidebar:state"
+const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
+
 const navigation = [
   {
     name: "Home",
@@ -75,10 +78,14 @@ const navigation2 = [
   },
 ] as const
 
-interface SidebarProps {
-  isCollapsed: boolean
+type SidebarProps = {
+  state: "expanded" | "collapsed"
+  open: boolean
+  setOpen: (open: boolean) => void
   toggleSidebar: () => void
 }
+
+const SidebarContext = React.createContext<SidebarContext | null>(null)
 
 export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
   // const pathname = usePathname();
@@ -86,6 +93,26 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
     navigation2[0].name,
     navigation2[1].name,
   ])
+
+  // Get initial state from cookie
+  React.useEffect(() => {
+    const cookies = document.cookie.split(";")
+    const sidebarCookie = cookies.find((cookie) =>
+      cookie.trim().startsWith(`${SIDEBAR_COOKIE_NAME}=`),
+    )
+
+    if (sidebarCookie) {
+      const value = sidebarCookie.split("=")[1]
+      if ((value === "true") !== isCollapsed) {
+        toggleSidebar()
+      }
+    }
+  }, [])
+
+  // Update cookie when sidebar state changes
+  React.useEffect(() => {
+    document.cookie = `${SIDEBAR_COOKIE_NAME}=${isCollapsed}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`
+  }, [isCollapsed])
 
   // @chris: old
   // const isActive = (itemHref: string) => {
@@ -109,7 +136,7 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
       <nav
         className={cx(
           isCollapsed ? "lg:hidden" : "lg:w-64",
-          "hidden overflow-x-hidden border-r border-gray-200 bg-gray-50 lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:flex-col dark:border-gray-800 dark:bg-gray-925",
+          "ease hidden transform-gpu overflow-x-hidden border-r border-gray-200 bg-gray-50 transition-all duration-150 will-change-transform lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:flex-col dark:border-gray-800 dark:bg-gray-925",
         )}
       >
         <aside
