@@ -4,7 +4,6 @@ import React from "react"
 import { TabNavigation, TabNavigationLink } from "@/components/TabNavigation"
 import { MetricsCards } from "@/components/ui/homepage/MetricsCards"
 import { Breadcrumbs } from "@/components/ui/navigation/Breadcrumbs"
-import { Sidebar } from "@/components/ui/navigation/Sidebar"
 import { cx } from "@/lib/utils"
 import { PanelRightClose, PanelRightOpen } from "lucide-react"
 import Link from "next/link"
@@ -31,7 +30,6 @@ export default function Layout({
     <>
       {/* @CHRIS: challenge sev */}
       {/* <div className="mx-auto max-w-screen-2xl"> */}
-      <Sidebar isCollapsed={isCollapsed} toggleSidebar={toggleSidebar} />
       <div
         className={cx(
           isCollapsed ? "lg:pl-0" : "lg:pl-64",
