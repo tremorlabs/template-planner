@@ -1,3 +1,5 @@
+"use client"
+import { Input } from "@/components/Input"
 import {
   Sidebar,
   SidebarContent,
@@ -81,17 +83,17 @@ const navigation2 = [
 ] as const
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  //   const [openMenus, setOpenMenus] = React.useState<string[]>([
-  //     navigation2[0].name,
-  //     navigation2[1].name,
-  //   ])
-  //   const toggleMenu = (name: string) => {
-  //     setOpenMenus((prev: string[]) =>
-  //       prev.includes(name)
-  //         ? prev.filter((item: string) => item !== name)
-  //         : [...prev, name],
-  //     )
-  //   }
+  const [openMenus, setOpenMenus] = React.useState<string[]>([
+    navigation2[0].name,
+    navigation2[1].name,
+  ])
+  const toggleMenu = (name: string) => {
+    setOpenMenus((prev: string[]) =>
+      prev.includes(name)
+        ? prev.filter((item: string) => item !== name)
+        : [...prev, name],
+    )
+  }
   return (
     <Sidebar
       {...props}
@@ -116,11 +118,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
-            {/* <Input
+            <Input
               type="search"
               placeholder="Search items..."
               className="[&>input]:py-1.5"
-            /> */}
+            />
           </SidebarGroupContent>
         </SidebarGroup>
         <SidebarGroup className="pt-0">
@@ -165,7 +167,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               {navigation2.map((item) => (
                 <li key={item.name}>
                   <button
-                    // onClick={() => toggleMenu(item.name)}
+                    onClick={() => toggleMenu(item.name)}
                     className={cx(
                       "flex w-full items-center justify-between gap-x-2.5 rounded-md p-2 text-sm text-gray-900 transition hover:bg-gray-200/50 dark:text-gray-400 hover:dark:bg-gray-900 hover:dark:text-gray-50",
                       focusRing,
@@ -181,16 +183,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     </div>
                     <RiArrowDownSFill
                       className={cx(
-                        // openMenus.includes(item.name)
-                        //   ? "rotate-180"
-                        //   : "rotate-0",
-                        "size-5 shrink-0 rotate-180 transform text-gray-400 transition-transform duration-150 ease-in-out dark:text-gray-600",
+                        openMenus.includes(item.name)
+                          ? "rotate-0"
+                          : "-rotate-90",
+                        "size-5 shrink-0 transform text-gray-400 transition-transform duration-150 ease-in-out dark:text-gray-600",
                       )}
                       aria-hidden="true"
                     />
                   </button>
-                  {/* {item.children && openMenus.includes(item.name) && ( */}
-                  {item.children && (
+                  {item.children && openMenus.includes(item.name) && (
                     <ul
                       role="list"
                       className={cx(

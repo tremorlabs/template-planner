@@ -156,7 +156,7 @@ const data = [
     lastEdited: "24/09/2023 09:15",
   },
   {
-    workspace: "sales_by_day_api",
+    workspace: "sales_by_channel_api",
     owner: "John Doe",
     status: "Live",
     costs: "$3,509.00",
@@ -349,8 +349,8 @@ export default function Audits() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((item) => (
-              <TableRow key={item.workspace}>
+            {data.map((item, idx) => (
+              <TableRow key={idx}>
                 <TableCell className="border-b border-gray-200 font-medium text-gray-900 dark:border-gray-800 dark:text-gray-50">
                   {item.workspace}
                 </TableCell>
