@@ -1,8 +1,10 @@
 "use client"
+import { Divider } from "@/components/Divider"
 import { Input } from "@/components/Input"
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarHeader,
@@ -14,12 +16,10 @@ import {
 } from "@/components/Sidebar"
 import { cx, focusRing } from "@/lib/utils"
 import { RiArrowDownSFill } from "@remixicon/react"
+import { BookText, House, PackageSearch } from "lucide-react"
 import * as React from "react"
 import { Logo } from "../../../../public/Logo"
-
-import { Divider } from "@/components/Divider"
-
-import { BookText, House, PackageSearch } from "lucide-react"
+import { UserProfileDesktop } from "./UserProfile"
 
 const navigation = [
   {
@@ -151,6 +151,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <SidebarMenu className="space-y-4">
               {navigation2.map((item) => (
                 <SidebarMenuItem key={item.name}>
+                  {/* @CHRIS/SEV: discussion whether to componentize (-> state mgmt) */}
                   <button
                     onClick={() => toggleMenu(item.name)}
                     className={cx(
@@ -197,6 +198,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+        {/* <div className="mt-auto border-t border-gray-200 pt-3 dark:border-gray-800"> */}
+        <UserProfileDesktop />
+      </SidebarFooter>
     </Sidebar>
   )
 }

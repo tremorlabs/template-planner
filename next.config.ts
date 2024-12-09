@@ -1,15 +1,15 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
-  // redirects: async () => {
-  //   return [
-  //     {
-  //       source: "/",
-  //       destination: "/reports",
-  //       permanent: true,
-  //     },
-  //   ];
-  // },
-};
+  redirects: async () => {
+    return [
+      {
+        source: "/",
+        destination: "/dashboard/overview",
+        permanent: true,
+      },
+    ]
+  },
+}
 
-export default nextConfig;
+export default nextConfig

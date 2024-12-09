@@ -18,11 +18,7 @@ export default function Layout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const [isCollapsed, setIsCollapsed] = React.useState(false)
   const pathname = usePathname()
-  const toggleSidebar = () => {
-    setIsCollapsed(!isCollapsed)
-  }
   return (
     <>
       {/* @CHRIS: challenge sev */}
@@ -42,7 +38,7 @@ export default function Layout({
             </TabNavigationLink>
           ))}
         </TabNavigation>
-        <main>{children}</main>
+        <section>{children}</section>
       </div>
     </>
   )

@@ -1,6 +1,6 @@
 import { SidebarProvider, SidebarTrigger } from "@/components/Sidebar"
+import { AppSidebar } from "@/components/ui/navigation/AppSidebar"
 import { Breadcrumbs } from "@/components/ui/navigation/Breadcrumbs"
-import { AppSidebar } from "@/components/ui/navigation/Sidebar2"
 import type { Metadata } from "next"
 import { ThemeProvider } from "next-themes"
 import localFont from "next/font/local"
@@ -44,14 +44,12 @@ export default async function RootLayout({
           <SidebarProvider defaultOpen={defaultOpen}>
             <AppSidebar />
             <div className="flex-1">
-              <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
+              <header className="sticky top-0 z-10 flex h-16 shrink-0 items-center gap-2 border-b border-gray-200 bg-white px-4 dark:border-gray-800 dark:bg-gray-950">
                 <SidebarTrigger className="-ml-1" />
-                <div className="mr-2 h-4 w-px bg-gray-200" />
+                <div className="mr-2 h-4 w-px bg-gray-200 dark:bg-gray-800" />
                 <Breadcrumbs />
               </header>
-              <main className="flex h-full items-center justify-center p-6 text-sm text-gray-900">
-                {children}
-              </main>
+              <main>{children}</main>
             </div>
           </SidebarProvider>
         </ThemeProvider>
