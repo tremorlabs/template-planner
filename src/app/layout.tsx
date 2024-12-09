@@ -1,8 +1,4 @@
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/Sidebar"
+import { SidebarProvider, SidebarTrigger } from "@/components/Sidebar"
 import { Breadcrumbs } from "@/components/ui/navigation/Breadcrumbs"
 import { AppSidebar } from "@/components/ui/navigation/Sidebar2"
 import type { Metadata } from "next"
@@ -47,14 +43,16 @@ export default async function RootLayout({
         >
           <SidebarProvider defaultOpen={defaultOpen}>
             <AppSidebar />
-            <SidebarInset>
+            <div className="flex-1">
               <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
                 <SidebarTrigger className="-ml-1" />
                 <div className="mr-2 h-4 w-px bg-gray-200" />
                 <Breadcrumbs />
               </header>
-              {children}
-            </SidebarInset>
+              <main className="flex h-full items-center justify-center p-6 text-sm text-gray-900">
+                {children}
+              </main>
+            </div>
           </SidebarProvider>
         </ThemeProvider>
       </body>
