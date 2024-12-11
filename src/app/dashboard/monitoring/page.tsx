@@ -16,134 +16,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/Select"
+import { dataChart, dataChart2, dataChart3, dataChart4 } from "@/data/data"
 import { formatters } from "@/lib/utils"
 import { SlidersHorizontal } from "lucide-react"
-
-const data = [
-  {
-    date: "Jan 24",
-    "Current year": 23,
-    "Same period last year": 67,
-  },
-  {
-    date: "Feb 24",
-    "Current year": 31,
-    "Same period last year": 23,
-  },
-  {
-    date: "Mar 24",
-    "Current year": 46,
-    "Same period last year": 78,
-  },
-  {
-    date: "Apr 24",
-    "Current year": 46,
-    "Same period last year": 23,
-  },
-  {
-    date: "May 24",
-    "Current year": 39,
-    "Same period last year": 32,
-  },
-  {
-    date: "Jun 24",
-    "Current year": 65,
-    "Same period last year": 32,
-  },
-]
-
-const data2 = [
-  {
-    date: "Jan 24",
-    Quotes: 120,
-    "Total deal size": 55000,
-  },
-  {
-    date: "Feb 24",
-    Quotes: 183,
-    "Total deal size": 75400,
-  },
-  {
-    date: "Mar 24",
-    Quotes: 165,
-    "Total deal size": 50450,
-  },
-  {
-    date: "Apr 24",
-    Quotes: 99,
-    "Total deal size": 41540,
-  },
-  {
-    date: "May 24",
-    Quotes: 194,
-    "Total deal size": 63850,
-  },
-  {
-    date: "Jun 24",
-    Quotes: 241,
-    "Total deal size": 73850,
-  },
-]
-
-const data3 = [
-  {
-    date: "Jan 24",
-    Addressed: 8,
-    Unrealized: 12,
-  },
-  {
-    date: "Feb 24",
-    Addressed: 9,
-    Unrealized: 12,
-  },
-  {
-    date: "Mar 24",
-    Addressed: 6,
-    Unrealized: 12,
-  },
-  {
-    date: "Apr 24",
-    Addressed: 5,
-    Unrealized: 12,
-  },
-  {
-    date: "May 24",
-    Addressed: 12,
-    Unrealized: 12,
-  },
-  {
-    date: "Jun 24",
-    Addressed: 9,
-    Unrealized: 12,
-  },
-]
-
-const data4 = [
-  {
-    date: "Jan 24",
-    Density: 0.891,
-  },
-  {
-    date: "Feb 24",
-    Density: 0.084,
-  },
-  {
-    date: "Mar 24",
-    Density: 0.155,
-  },
-  {
-    date: "Apr 24",
-    Density: 0.75,
-  },
-  {
-    date: "May 24",
-    Density: 0.221,
-  },
-  {
-    date: "Jun 24",
-    Density: 0.561,
-  },
-]
 
 export default function Monitoring() {
   return (
@@ -182,7 +57,7 @@ export default function Monitoring() {
             </dd>
           </div>
           <BarChart
-            data={data}
+            data={dataChart}
             index="date"
             categories={["Current year", "Same period last year"]}
             colors={["blue", "lightGray"]}
@@ -190,54 +65,53 @@ export default function Monitoring() {
             customTooltip={CustomTooltip}
             yAxisLabel="Number of inherent risks"
             barCategoryGap="20%"
-            onValueChange={(v) => console.log(v)}
+            valueFormatter={(number: number) =>
+              `${Intl.NumberFormat().format(number).toString()}`
+            }
+            // @sev: my formatter functions does not work below
+            // valueFormatter={(value) => formatters.unit({ number: value })}
             className="mt-4 hidden h-60 md:block"
           />
           <BarChart
-            data={data}
+            data={dataChart}
             index="date"
             categories={["Current year", "Same period last year"]}
             colors={["blue", "lightGray"]}
             showYAxis={false}
             customTooltip={CustomTooltip}
             barCategoryGap="20%"
-            onValueChange={(v) => console.log(v)}
             className="mt-4 h-60 md:hidden"
           />
         </div>
         <div className="flex flex-col justify-between">
           <div>
             <dt className="text-sm font-semibold text-gray-900 dark:text-gray-50">
-              {/* Lead-to-Quote time */}
               Quote-to-Deal ratio
             </dt>
             <dd className="mt-0.5 text-sm/6 text-gray-500 dark:text-gray-500">
-              {/* Analysis of the avg. duration from lead generation to quote
-                  issuance */}
               Number of quotes compared to total deal size for given month
             </dd>
           </div>
           <ComboChart
-            data={data2}
+            data={dataChart2}
             index="date"
             enableBiaxial={true}
             barSeries={{
               categories: ["Quotes"],
               yAxisLabel: "Number of quotes / Deal size ($)",
+              valueFormatter: (value) =>
+                formatters.currency({ number: value, maxFractionDigits: 0 }),
             }}
             lineSeries={{
               categories: ["Total deal size"],
               colors: ["lightGray"],
-              yAxisWidth: 60,
               showYAxis: false,
-              valueFormatter: (number: number) =>
-                `$${Intl.NumberFormat().format(number).toString()}`,
             }}
             customTooltip={CustomTooltip2}
             className="mt-4 hidden h-60 md:block"
           />
           <ComboChart
-            data={data2}
+            data={dataChart2}
             index="date"
             enableBiaxial={true}
             barSeries={{
@@ -247,10 +121,7 @@ export default function Monitoring() {
             lineSeries={{
               categories: ["Total deal size"],
               colors: ["lightGray"],
-              yAxisWidth: 60,
               showYAxis: false,
-              valueFormatter: (number: number) =>
-                `$${Intl.NumberFormat().format(number).toString()}`,
             }}
             customTooltip={CustomTooltip2}
             className="mt-4 h-60 md:hidden"
@@ -266,7 +137,7 @@ export default function Monitoring() {
             </dd>
           </div>
           <BarChart
-            data={data3}
+            data={dataChart3}
             index="date"
             categories={["Addressed", "Unrealized"]}
             colors={["emerald", "lightEmerald"]}
@@ -278,7 +149,7 @@ export default function Monitoring() {
             className="mt-4 hidden h-60 md:block"
           />
           <BarChart
-            data={data3}
+            data={dataChart3}
             index="date"
             categories={["Addressed", "Unrealized"]}
             colors={["emerald", "lightEmerald"]}
@@ -299,7 +170,7 @@ export default function Monitoring() {
             </dd>
           </div>
           <ConditionalBarChart
-            data={data4}
+            data={dataChart4}
             index="date"
             categories={["Density"]}
             colors={["orange"]}
@@ -313,7 +184,7 @@ export default function Monitoring() {
             className="mt-4 hidden h-60 md:block"
           />
           <ConditionalBarChart
-            data={data4}
+            data={dataChart4}
             index="date"
             categories={["Density"]}
             colors={["orange"]}

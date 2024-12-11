@@ -13,6 +13,7 @@ const navigation = [
   { name: "Audits", href: siteConfig.baseLinks.dashboard.audits },
 ]
 
+// @sev: I choose the nested structure (/dashboard/...) because otherwise I would had to to integrate all this stuff below at first level in /Layout.tsx -> makes it little bit hard to read
 export default function Layout({
   children,
 }: Readonly<{
@@ -21,8 +22,6 @@ export default function Layout({
   const pathname = usePathname()
   return (
     <>
-      {/* @CHRIS: challenge sev */}
-      {/* <div className="mx-auto max-w-screen-2xl"> */}
       <div className="bg-white dark:bg-gray-925">
         <div className="p-4 sm:p-6">
           <MetricsCards />

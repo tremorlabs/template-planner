@@ -18,7 +18,7 @@ import {
   TableRoot,
   TableRow,
 } from "@/components/Table"
-import { quotes } from "@/data/quotes"
+import { quotes } from "@/data/data"
 import { cx } from "@/lib/utils"
 import { Download } from "lucide-react"
 import { Fragment } from "react"
@@ -42,7 +42,6 @@ const getRandomColor = (initials: string) => {
 export default function Overview() {
   return (
     <>
-      {/* @chris: to be moved as Filterbar.tsx */}
       <div className="flex flex-col justify-between gap-2 px-4 py-6 sm:flex-row sm:items-center sm:p-6">
         <Input
           type="search"
