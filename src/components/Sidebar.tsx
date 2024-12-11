@@ -13,6 +13,8 @@ import { PanelLeft } from "lucide-react"
 import * as React from "react"
 import { Button } from "./Button"
 
+// * This component is based on shadcn's sidebar component *
+
 const SIDEBAR_COOKIE_NAME = "sidebar:state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
 const SIDEBAR_WIDTH = "16rem"
@@ -270,6 +272,8 @@ const SidebarHeader = React.forwardRef<
 })
 SidebarHeader.displayName = "SidebarHeader"
 
+// @sev: own component
+// @sev: I used <a> instead of <Link> (because shadcn does the same)
 const SidebarLink = React.forwardRef<
   HTMLAnchorElement,
   React.ComponentProps<"a"> & {
@@ -293,12 +297,12 @@ const SidebarLink = React.forwardRef<
       )}
       {...props}
     >
-      <div className="flex items-center gap-x-2.5">
+      <span className="flex items-center gap-x-2.5">
         {Icon && <Icon className="size-[18px] shrink-0" aria-hidden="true" />}
         {children}
-      </div>
+      </span>
       {notifications && (
-        <span className="inline-flex size-5 items-center justify-center rounded bg-blue-100 text-xs font-medium text-blue-600 dark:bg-blue-500/10 dark:text-blue-500">
+        <span className="inline-flex size-5 items-center justify-center rounded bg-blue-100 text-sm font-medium text-blue-600 sm:text-xs dark:bg-blue-500/10 dark:text-blue-500">
           {notifications}
         </span>
       )}
@@ -354,6 +358,7 @@ const SidebarMenuItem = React.forwardRef<
 >(({ ...props }, ref) => <li ref={ref} {...props} />)
 SidebarMenuItem.displayName = "SidebarMenuItem"
 
+// @sev: own component
 const SidebarSubLink = React.forwardRef<
   HTMLAnchorElement,
   React.ComponentProps<"a"> & {
@@ -364,13 +369,13 @@ const SidebarSubLink = React.forwardRef<
   return (
     <a
       ref={ref}
-      //   @CHRIS/SEV
+      //   @sev/chris: check aria
       aria-current={isActive ? "page" : undefined}
       data-active={isActive}
       className={cx(
         "relative flex gap-2 py-1.5 pl-9 pr-3 text-base transition sm:text-sm",
-        "data-[active=true]:rounded data-[active=true]:bg-white data-[active=true]:text-blue-600 data-[active=true]:shadow data-[active=true]:ring-1 data-[active=true]:ring-gray-200 data-[active=true]:dark:bg-gray-900 data-[active=true]:dark:text-blue-500 data-[active=true]:dark:ring-gray-800",
         "text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50",
+        "data-[active=true]:rounded data-[active=true]:bg-white data-[active=true]:text-blue-600 data-[active=true]:shadow data-[active=true]:ring-1 data-[active=true]:ring-gray-200 data-[active=true]:dark:bg-gray-900 data-[active=true]:dark:text-blue-500 data-[active=true]:dark:ring-gray-800",
       )}
       {...props}
     >
