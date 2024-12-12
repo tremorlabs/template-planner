@@ -38,7 +38,6 @@ const getRandomColor = (initials: string) => {
     .reduce((acc, char) => acc + char.charCodeAt(0), 0)
   return colorClasses[seed % colorClasses.length]
 }
-
 export default function Overview() {
   return (
     <>

@@ -1,10 +1,9 @@
 "use client"
-import React from "react"
-
 import { TabNavigation, TabNavigationLink } from "@/components/TabNavigation"
 import { MetricsCards } from "@/components/ui/homepage/MetricsCards"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import React from "react"
 import { siteConfig } from "../siteConfig"
 
 const navigation = [
