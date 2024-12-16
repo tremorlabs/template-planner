@@ -11,8 +11,6 @@ const navigation = [
   { name: "Monitoring", href: siteConfig.baseLinks.dashboard.monitoring },
   { name: "Audits", href: siteConfig.baseLinks.dashboard.audits },
 ]
-
-// @sev: I choose the nested structure (/dashboard/...) because otherwise I would had to to integrate all this stuff below at first level in /Layout.tsx -> makes it little bit hard to read
 export default function Layout({
   children,
 }: Readonly<{

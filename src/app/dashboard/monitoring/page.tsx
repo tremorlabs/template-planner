@@ -65,11 +65,7 @@ export default function Monitoring() {
             customTooltip={CustomTooltip}
             yAxisLabel="Number of inherent risks"
             barCategoryGap="20%"
-            valueFormatter={(number: number) =>
-              `${Intl.NumberFormat().format(number).toString()}`
-            }
-            // @sev: my formatter functions does not work below
-            // valueFormatter={(value) => formatters.unit({ number: value })}
+            valueFormatter={(value) => formatters.unit(value)}
             className="mt-4 hidden h-60 md:block"
           />
           <BarChart

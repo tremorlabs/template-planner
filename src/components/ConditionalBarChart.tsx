@@ -56,7 +56,6 @@ const renderShape = (
   props: any,
   activeBar: any | undefined,
   activeLegend: string | undefined,
-  colors = AvailableChartColors,
   layout: string,
 ) => {
   const { fillOpacity, name, payload, value } = props
@@ -84,9 +83,7 @@ const renderShape = (
               ? `fill-orange-300 dark:fill-orange-400`
               : value <= 0.75
                 ? `fill-orange-400 dark:fill-orange-500`
-                : // @SEV/CHRIS: $-logic causes outages sometimes
-                  // : `fill-${colors}-500 dark:fill-${colors}-500`
-                  `fill-${colors}-500 dark:fill-${colors}-500`,
+                : `fill-orange-500 dark:fill-orange-600`,
         )}
         opacity={
           activeBar || (activeLegend && activeLegend !== name)
@@ -127,9 +124,7 @@ const LegendItem = ({ name, color, onClick }: LegendItemProps) => {
       <span className="text-xs text-gray-700 dark:text-gray-300">Low</span>
       <span
         className={cx(
-          // @SEV/CHRIS: $-logic causes outages
           `from-orange-200 to-orange-500 dark:from-orange-200/10 dark:to-orange-400`,
-          // `from-${color}-500 to-${color}-700 dark:from-${color}-500 dark:to-${color}-700`,
           "h-1.5 w-14 rounded-full bg-gradient-to-r",
         )}
       />
@@ -665,7 +660,7 @@ const ConditionalBarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                 isAnimationActive={false}
                 fill=""
                 shape={(props: any) =>
-                  renderShape(props, activeBar, activeLegend, colors, layout)
+                  renderShape(props, activeBar, activeLegend, layout)
                 }
                 onClick={onBarClick}
               />

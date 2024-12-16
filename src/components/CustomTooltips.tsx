@@ -1,5 +1,4 @@
-import { cx } from "@/lib/utils"
-import { formatters } from "@/lib/utils"
+import { cx, formatters } from "@/lib/utils"
 import { TooltipProps } from "./BarChart"
 import { TooltipProps as TooltipComboBarChartProps } from "./ComboChart"
 
@@ -125,25 +124,17 @@ export const CustomTooltip2 = ({
 }
 
 export const CustomTooltip3 = ({ payload, active }: TooltipProps) => {
-  if (!active || !payload || payload.length === 0) return null
+  const PEER_AVERAGE = 6.5
+  if (!active || !payload?.length) return null
 
-  const calculatePercentageDiff = () => {
-    const firstValue = payload[0].value
-    const peerAverage = 6.5
+  const firstValue = payload[0]?.value
 
-    if (isNaN(firstValue) || firstValue === 0) return null
+  if (typeof firstValue !== "number" || isNaN(firstValue) || firstValue === 0)
+    return null
 
-    const percentageDiff = ((firstValue - peerAverage) / peerAverage) * 100
-    const sign = percentageDiff > 0 ? "+" : ""
-    return `${sign}${percentageDiff.toFixed(1)}%`
-  }
-
-  // @SEV/CHRIS: double check whether it can be further simplified
-  const percentageDiff = calculatePercentageDiff()
-  const parsedValue = parseFloat(percentageDiff || "0")
-
-  // capped Value, such that marker bar cannot be bigger than 100%
-  const cappedValue = Math.min(Math.max(parsedValue, -100), 100)
+  const percentageDiff = ((firstValue - PEER_AVERAGE) / PEER_AVERAGE) * 100
+  const formattedDiff = `${percentageDiff > 0 ? "+" : ""}${percentageDiff.toFixed(1)}%`
+  const cappedValue = Math.min(Math.max(percentageDiff, -100), 100)
 
   return (
     <div className="w-56 rounded-md border border-gray-200 bg-white text-sm shadow-md dark:border-gray-800 dark:bg-gray-950">
@@ -173,33 +164,27 @@ export const CustomTooltip3 = ({ payload, active }: TooltipProps) => {
       <div className="border-t border-gray-200 p-2 dark:border-gray-800">
         <div className="relative mt-0.5 h-1.5 w-full rounded-full bg-gray-200 dark:bg-gray-800">
           <span className="absolute left-1/2 top-1/2 z-30 h-2.5 w-0.5 -translate-y-1/2 rounded-full bg-gray-500 dark:bg-gray-500" />
-          {percentageDiff &&
-            (parseFloat(percentageDiff) >= 0 ? (
-              <span className="absolute left-1/2 top-1/2 z-10 h-1.5 w-1/2 -translate-y-1/2">
-                <span
-                  style={{
-                    width: `${cappedValue}%`,
-                    transition: "all duration-300",
-                  }}
-                  className="absolute h-1.5 rounded-r-full bg-gradient-to-r from-gray-400 to-gray-300 dark:from-gray-400 dark:to-gray-500"
-                  // @CHRIS: dark mode
-                  // @CHRIS: check simpler approach for 100% cap approach
-                  // className="absolute h-1.5 rounded-r-full bg-[repeating-linear-gradient(-45deg,theme(colors.gray.400)_0px,theme(colors.gray.400)_2px,theme(colors.gray.300)_2px,theme(colors.gray.300)_4px)]"
-                />
-              </span>
-            ) : (
-              <span className="absolute right-1/2 top-1/2 z-10 h-1.5 w-1/2 -translate-y-1/2">
-                <span
-                  style={{
-                    width: `${cappedValue}%`,
-                    transition: "all duration-300",
-                  }}
-                  className="absolute right-0 h-1.5 rounded-l-full bg-gradient-to-l from-gray-400 to-gray-300 dark:from-gray-400 dark:to-gray-500"
-                  // @CHRIS: dark mode
-                  // className="absolute h-1.5 right-0 rounded-l-full bg-[repeating-linear-gradient(-45deg,theme(colors.gray.400)_0px,theme(colors.gray.400)_2px,theme(colors.gray.300)_2px,theme(colors.gray.300)_4px)]"
-                />
-              </span>
-            ))}
+          {percentageDiff >= 0 ? (
+            <span className="absolute left-1/2 top-1/2 z-10 h-1.5 w-1/2 -translate-y-1/2">
+              <span
+                style={{
+                  width: `${cappedValue}%`,
+                  transition: "all duration-300",
+                }}
+                className="absolute h-1.5 rounded-r-full bg-gradient-to-r from-gray-400 to-gray-300 dark:from-gray-400 dark:to-gray-500"
+              />
+            </span>
+          ) : (
+            <span className="absolute right-1/2 top-1/2 z-10 h-1.5 w-1/2 -translate-y-1/2">
+              <span
+                style={{
+                  width: `${Math.abs(cappedValue)}%`,
+                  transition: "all duration-300",
+                }}
+                className="absolute right-0 h-1.5 rounded-l-full bg-gradient-to-l from-gray-400 to-gray-300 dark:from-gray-400 dark:to-gray-500"
+              />
+            </span>
+          )}
         </div>
         <div className="mt-1 flex items-center justify-between">
           <div className="flex items-center">
@@ -212,7 +197,7 @@ export const CustomTooltip3 = ({ payload, active }: TooltipProps) => {
             </span>
           </div>
           <span className="text-xs font-medium text-gray-600 dark:text-gray-400">
-            {percentageDiff}
+            {formattedDiff}
           </span>
         </div>
       </div>

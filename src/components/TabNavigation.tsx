@@ -5,23 +5,31 @@ import React from "react"
 
 import { cx, focusRing } from "@/lib/utils"
 
-function getSubtree(
-  options: { asChild: boolean | undefined; children: React.ReactNode },
+export function getSubtree(
+  options: {
+    asChild?: boolean
+    children: React.ReactNode
+  },
   content: React.ReactNode | ((children: React.ReactNode) => React.ReactNode),
 ) {
   const { asChild, children } = options
-  if (!asChild)
+
+  if (!asChild) {
     return typeof content === "function" ? content(children) : content
+  }
 
-  const firstChild = React.Children.only(children) as React.ReactElement
-  return React.cloneElement(firstChild, {
-    children:
-      typeof content === "function"
-        ? content(firstChild.props.children)
-        : content,
-  })
+  const firstChild = React.Children.only(children) as React.ReactElement<{
+    children?: React.ReactNode
+    className?: string
+  }>
+  return React.cloneElement(
+    firstChild,
+    undefined,
+    typeof content === "function"
+      ? content(firstChild.props.children)
+      : content,
+  )
 }
-
 const TabNavigation = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitives.Root>,
   Omit<

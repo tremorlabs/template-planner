@@ -38,57 +38,61 @@ export const hasErrorInput = [
   "ring-red-200 dark:ring-red-700/30",
 ]
 
-export const formatters: { [key: string]: any } = {
+interface CurrencyParams {
+  number: number
+  maxFractionDigits?: number
+  currency?: string
+}
+
+interface PercentageParams {
+  number: number
+  decimals?: number
+}
+
+interface MillionParams {
+  number: number
+  decimals?: number
+}
+
+type FormatterFunctions = {
+  currency: (params: CurrencyParams) => string
+  unit: (number: number) => string
+  percentage: (params: PercentageParams) => string
+  million: (params: MillionParams) => string
+}
+
+export const formatters: FormatterFunctions = {
   currency: ({
     number,
     maxFractionDigits = 2,
     currency = "USD",
-  }: {
-    number: number
-    maxFractionDigits?: number
-    currency?: string
-  }) =>
-    new Intl.NumberFormat("en-US", {
+  }: CurrencyParams): string => {
+    return new Intl.NumberFormat("en-US", {
       style: "currency",
-      currency: currency,
+      currency,
       maximumFractionDigits: maxFractionDigits,
-    }).format(number),
-
-  unit: (number: number) => {
-    const formattedNumber = new Intl.NumberFormat("en-US", {
-      style: "decimal",
     }).format(number)
-    return `${formattedNumber}`
   },
 
-  percentage: ({
-    number,
-    decimals = 1,
-  }: {
-    number: number
-    decimals?: number
-  }) => {
-    const formattedNumber = new Intl.NumberFormat("en-US", {
+  unit: (number: number): string => {
+    return new Intl.NumberFormat("en-US", {
+      style: "decimal",
+    }).format(number)
+  },
+
+  percentage: ({ number, decimals = 1 }: PercentageParams): string => {
+    return new Intl.NumberFormat("en-US", {
       style: "percent",
       minimumFractionDigits: decimals,
       maximumFractionDigits: decimals,
     }).format(number)
-
-    return `${formattedNumber}`
   },
 
-  million: ({
-    number,
-    decimals = 1,
-  }: {
-    number: number
-    decimals?: number
-  }) => {
-    const formattedNumber = new Intl.NumberFormat("en-US", {
+  million: ({ number, decimals = 1 }: MillionParams): string => {
+    return `${new Intl.NumberFormat("en-US", {
       style: "decimal",
       minimumFractionDigits: decimals,
       maximumFractionDigits: decimals,
-    }).format(number)
-    return `${formattedNumber}M`
+    }).format(number)}M`
   },
 }

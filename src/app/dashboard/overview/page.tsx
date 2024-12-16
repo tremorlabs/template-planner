@@ -53,8 +53,8 @@ export default function Overview() {
               <SelectValue placeholder="Assigned to..." />
             </SelectTrigger>
             <SelectContent align="end">
-              <SelectItem value="1">Severin Landolt</SelectItem>
-              <SelectItem value="2">Christopher Kindl</SelectItem>
+              <SelectItem value="1">Harry Granger</SelectItem>
+              <SelectItem value="2">Hermoine Weasley</SelectItem>
               <SelectItem value="3">Emma Stone</SelectItem>
             </SelectContent>
           </Select>

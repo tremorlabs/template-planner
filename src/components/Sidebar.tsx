@@ -197,8 +197,7 @@ const Sidebar = React.forwardRef<HTMLDivElement, React.ComponentProps<"div">>(
 Sidebar.displayName = "Sidebar"
 
 const SidebarTrigger = React.forwardRef<
-  // @sev: types
-  React.ElementRef<"button">,
+  React.ComponentRef<"button">,
   React.ComponentPropsWithRef<"button">
 >(({ className, onClick, ...props }, ref) => {
   const { toggleSidebar } = useSidebar()
@@ -272,8 +271,6 @@ const SidebarHeader = React.forwardRef<
 })
 SidebarHeader.displayName = "SidebarHeader"
 
-// @sev: own component
-// @sev: I used <a> instead of <Link> (because shadcn does the same)
 const SidebarLink = React.forwardRef<
   HTMLAnchorElement,
   React.ComponentProps<"a"> & {
@@ -287,7 +284,6 @@ const SidebarLink = React.forwardRef<
   return (
     <a
       ref={ref}
-      //   @CHRIS/SEV: aria
       aria-current={isActive ? "page" : undefined}
       data-active={isActive}
       className={cx(
@@ -358,7 +354,6 @@ const SidebarMenuItem = React.forwardRef<
 >(({ ...props }, ref) => <li ref={ref} {...props} />)
 SidebarMenuItem.displayName = "SidebarMenuItem"
 
-// @sev: own component
 const SidebarSubLink = React.forwardRef<
   HTMLAnchorElement,
   React.ComponentProps<"a"> & {
@@ -369,7 +364,6 @@ const SidebarSubLink = React.forwardRef<
   return (
     <a
       ref={ref}
-      //   @sev/chris: check aria
       aria-current={isActive ? "page" : undefined}
       data-active={isActive}
       className={cx(

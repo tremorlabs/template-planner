@@ -1,8 +1,8 @@
 // Tremor ComboChart [v0.0.0]
 "use client"
 
-import React from "react"
 import { RiArrowLeftSLine, RiArrowRightSLine } from "@remixicon/react"
+import React from "react"
 import {
   Bar,
   CartesianGrid,
@@ -801,7 +801,6 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
               right: mergedLineSeries.yAxisLabel ? 20 : undefined,
               top: 5,
             }}
-            // @SEV: add as additional prop in tremor.so
             barCategoryGap="30%"
           >
             {showGridLines ? (
