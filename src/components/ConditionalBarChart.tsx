@@ -96,7 +96,6 @@ const renderShape = (
             : fillOpacity
         }
       />
-      {console.log(colors)}
     </>
   )
 }
