@@ -1,5 +1,3 @@
-// *** data for /dashboard/overview ***
-
 interface AssignedPerson {
   name: string
   initials: string
@@ -306,8 +304,6 @@ export const quotes: Region[] = [
   },
 ]
 
-// *** data for /dashboard/monitoring ***
-
 interface DataChart {
   date: string
   "Current year": number
@@ -457,7 +453,6 @@ export const dataChart4: DataChart4[] = [
   },
 ]
 
-// *** data for /dashboard/audits ***
 interface Progress {
   current: number
   total: number

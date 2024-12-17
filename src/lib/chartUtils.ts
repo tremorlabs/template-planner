@@ -1,4 +1,4 @@
-// Tremor Raw chartColors [v0.0.0]
+// Tremor Custom chartColors
 
 export type ColorUtility = "bg" | "stroke" | "fill" | "text"
 
