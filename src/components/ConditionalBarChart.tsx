@@ -59,9 +59,9 @@ const renderShape = (
   activeBar: any | undefined,
   activeLegend: string | undefined,
   layout: string,
-  // color: AvailableChartColorsKeys,
+  color: AvailableChartColorsKeys,
 ) => {
-  const { fillOpacity, name, payload, value, color } = props
+  const { fillOpacity, name, payload, value } = props
   let { x, width, y, height } = props
 
   if (layout === "horizontal" && height < 0) {
@@ -79,7 +79,6 @@ const renderShape = (
         y={y}
         width={width}
         height={height}
-        // @SEV: it takes always the fallback color, although value input returns value within range (see console log)
         className={getConditionalColorClassName(value, color)}
         opacity={
           activeBar || (activeLegend && activeLegend !== name)
@@ -89,7 +88,6 @@ const renderShape = (
             : fillOpacity
         }
       />
-      {console.log(value)}
     </>
   )
 }
@@ -655,7 +653,13 @@ const ConditionalBarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                 isAnimationActive={false}
                 fill=""
                 shape={(props: any) =>
-                  renderShape(props, activeBar, activeLegend, layout)
+                  renderShape(
+                    props,
+                    activeBar,
+                    activeLegend,
+                    layout,
+                    categoryColors.get(category) as AvailableChartColorsKeys,
+                  )
                 }
                 onClick={onBarClick}
               />
