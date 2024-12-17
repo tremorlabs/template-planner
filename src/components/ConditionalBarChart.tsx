@@ -21,6 +21,8 @@ import {
   AvailableChartColorsKeys,
   constructCategoryColors,
   getColorClassName,
+  getConditionalColorClassName,
+  getGradientColorClassName,
   getYAxisDomain,
 } from "@/lib/chartUtils"
 import { useOnWindowResize } from "@/lib/useOnWindowResize"
@@ -57,6 +59,7 @@ const renderShape = (
   activeBar: any | undefined,
   activeLegend: string | undefined,
   layout: string,
+  color: AvailableChartColorsKeys,
 ) => {
   const { fillOpacity, name, payload, value } = props
   let { x, width, y, height } = props
@@ -76,15 +79,7 @@ const renderShape = (
         y={y}
         width={width}
         height={height}
-        className={cx(
-          value <= 0.25
-            ? `fill-orange-200 dark:fill-orange-300`
-            : value <= 0.5
-              ? `fill-orange-300 dark:fill-orange-400`
-              : value <= 0.75
-                ? `fill-orange-400 dark:fill-orange-500`
-                : `fill-orange-500 dark:fill-orange-600`,
-        )}
+        className={getConditionalColorClassName(value, color)}
         opacity={
           activeBar || (activeLegend && activeLegend !== name)
             ? deepEqual(activeBar, { ...payload, value })
@@ -124,7 +119,7 @@ const LegendItem = ({ name, color, onClick }: LegendItemProps) => {
       <span className="text-xs text-gray-700 dark:text-gray-300">Low</span>
       <span
         className={cx(
-          `from-orange-200 to-orange-500 dark:from-orange-200/10 dark:to-orange-400`,
+          getGradientColorClassName(color),
           "h-1.5 w-14 rounded-full bg-gradient-to-r",
         )}
       />
@@ -177,7 +172,6 @@ const ChartLegend = (
   setLegendHeight: React.Dispatch<React.SetStateAction<number>>,
   activeLegend: string | undefined,
   onClick?: (category: string, color: string) => void,
-  enableLegendSlider?: boolean,
   legendPosition?: "left" | "center" | "right",
   yAxisWidth?: number,
 ) => {
@@ -642,7 +636,6 @@ const ConditionalBarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                       ? (clickedLegendItem: string) =>
                           onCategoryClick(clickedLegendItem)
                       : undefined,
-                    enableLegendSlider,
                     legendPosition,
                     yAxisWidth,
                   )
@@ -660,7 +653,13 @@ const ConditionalBarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                 isAnimationActive={false}
                 fill=""
                 shape={(props: any) =>
-                  renderShape(props, activeBar, activeLegend, layout)
+                  renderShape(
+                    props,
+                    activeBar,
+                    activeLegend,
+                    layout,
+                    categoryColors.get(category) as AvailableChartColorsKeys,
+                  )
                 }
                 onClick={onBarClick}
               />
