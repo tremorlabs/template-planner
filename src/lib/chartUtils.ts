@@ -247,14 +247,12 @@ export const getColorClassName = (
   return chartColors[color]?.[type] ?? fallbackColor[type]
 }
 
-// @SEV: newly added utility -> didn't want to combine it with utility above because of new prop (nachziehen)
 export const getGradientColorClassName = (
   color: AvailableChartColorsKeys,
 ): string => {
   return chartGradientColors[color]
 }
 
-// @SEV: newly added
 export const getConditionalColorClassName = (
   value: number,
   color: AvailableChartConditionalColorsKeys,

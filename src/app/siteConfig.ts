@@ -3,10 +3,10 @@ export const siteConfig = {
   url: "https://planner.tremor.so",
   description: "The simplest dashboard template.",
   baseLinks: {
-    dashboard: {
-      quotes: "/quotes",
-      monitoring: "/monitoring",
-      audits: "/audits",
+    quotes: {
+      overview: "/quotes/overview",
+      monitoring: "/quotes/monitoring",
+      audits: "/quotes/audits",
     },
   },
 }
