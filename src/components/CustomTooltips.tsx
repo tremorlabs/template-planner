@@ -1,3 +1,4 @@
+import { getColorClassName } from "@/lib/chartUtils"
 import { cx, formatters } from "@/lib/utils"
 import { TooltipProps } from "./BarChart"
 import { TooltipProps as TooltipComboBarChartProps } from "./ComboChart"
@@ -27,10 +28,7 @@ export const CustomTooltip = ({ payload, active }: TooltipProps) => {
           <div key={index} className="flex space-x-2.5">
             <span
               className={cx(
-                index === 1
-                  ? // @CHRIS: add dark mode
-                    "bg-[repeating-linear-gradient(-45deg,theme(colors.gray.300)_0px,theme(colors.gray.300)_2px,theme(colors.gray.400)_2px,theme(colors.gray.400)_4px)] dark:bg-gray-700"
-                  : `bg-${category.color}-500 dark:bg-${category.color}-500`,
+                getColorClassName(category.color, "bg"),
                 "w-1 rounded",
               )}
               aria-hidden={true}
