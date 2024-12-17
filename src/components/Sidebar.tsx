@@ -5,7 +5,7 @@ import {
   DrawerContent,
   DrawerTitle,
 } from "@/components/Drawer"
-import { useIsMobile } from "@/lib/use-mobile"
+import { useIsMobile } from "@/lib/useMobile"
 import { cx } from "@/lib/utils"
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden"
 import { RiCloseLine } from "@remixicon/react"
