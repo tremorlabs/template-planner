@@ -4,9 +4,9 @@ export const siteConfig = {
   description: "The simplest dashboard template.",
   baseLinks: {
     dashboard: {
-      overview: "/dashboard/overview",
-      monitoring: "/dashboard/monitoring",
-      audits: "/dashboard/audits",
+      quotes: "/quotes",
+      monitoring: "/monitoring",
+      audits: "/audits",
     },
   },
 }

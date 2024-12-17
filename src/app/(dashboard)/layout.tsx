@@ -7,7 +7,7 @@ import React from "react"
 import { siteConfig } from "../siteConfig"
 
 const navigation = [
-  { name: "Overview", href: siteConfig.baseLinks.dashboard.overview },
+  { name: "Quotes", href: siteConfig.baseLinks.dashboard.quotes },
   { name: "Monitoring", href: siteConfig.baseLinks.dashboard.monitoring },
   { name: "Audits", href: siteConfig.baseLinks.dashboard.audits },
 ]

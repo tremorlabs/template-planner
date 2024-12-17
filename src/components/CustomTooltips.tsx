@@ -71,7 +71,7 @@ export const CustomTooltip2 = ({
   const ratio = (data["Quotes"] / data["Total deal size"]) * 100
 
   // @SEV: couldn't make it indexable -> would look smoother, e.g.: const ratio = data[0] / data[1];
-  // + @SEV: error hint in tooltip prop in <ComboChart /> -> mirrored your docs tooltip example
+  // @CHRIS: I don't understand, looks alright to me tbh
 
   const categoriesToShow = ["Quotes", "Total deal size"]
 
