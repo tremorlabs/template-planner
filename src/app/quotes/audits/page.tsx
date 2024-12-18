@@ -25,7 +25,7 @@ const getStatusIcon = (status: string) => {
 
 export default function Audits() {
   return (
-    <>
+    <section aria-label="Audits overview">
       <div className="flex flex-col items-center justify-between gap-2 p-6 sm:flex-row">
         <Input
           type="search"
@@ -55,7 +55,7 @@ export default function Audits() {
                       {section.certified}
                     </span>
                   </span>
-                  <span className="flex items-center gap-x-2">
+                  <span className="flex items-center gap-x-2 tabular-nums">
                     {getStatusIcon(section.status)}
                     {section.progress.current}/{section.progress.total}
                   </span>
@@ -129,6 +129,6 @@ export default function Audits() {
           ))}
         </Accordion>
       </div>
-    </>
+    </section>
   )
 }

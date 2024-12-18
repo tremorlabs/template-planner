@@ -40,7 +40,7 @@ const getRandomColor = (initials: string) => {
 }
 export default function Overview() {
   return (
-    <>
+    <section aria-label="Overview Table">
       <div className="flex flex-col justify-between gap-2 px-4 py-6 sm:flex-row sm:items-center sm:p-6">
         <Input
           type="search"
@@ -97,17 +97,17 @@ export default function Overview() {
                     </span>
                   </TableHeaderCell>
                 </TableRow>
-                {quote.project.map((item, idx) => (
-                  <TableRow key={idx}>
+                {quote.project.map((item, index) => (
+                  <TableRow key={index}>
                     <TableCell>{item.company}</TableCell>
                     <TableCell>{item.size}</TableCell>
                     <TableCell>{item.probability}</TableCell>
                     <TableCell>{item.duration}</TableCell>
                     <TableCell>
                       <div className="flex -space-x-1 overflow-hidden">
-                        {item.assigned.map((name, nameIdx) => (
+                        {item.assigned.map((name, nameIndex) => (
                           <span
-                            key={nameIdx}
+                            key={nameIndex}
                             className={cx(
                               getRandomColor(name.initials),
                               "inline-flex size-5 items-center justify-center rounded-full text-xs font-medium text-white ring-2 ring-white dark:text-white dark:ring-[#090E1A]",
@@ -160,6 +160,6 @@ export default function Overview() {
           </TableBody>
         </Table>
       </TableRoot>
-    </>
+    </section>
   )
 }

@@ -34,7 +34,7 @@ export default function Layout({
             </TabNavigationLink>
           ))}
         </TabNavigation>
-        <section>{children}</section>
+        <div>{children}</div>
       </div>
     </>
   )

@@ -78,8 +78,8 @@ export const CustomTooltip2 = ({
   return (
     <div className="w-56 rounded-md border border-gray-200 bg-white text-sm shadow-md dark:border-gray-800 dark:bg-gray-950">
       <ul role="list" className="grid grid-cols-2 gap-x-4 p-2">
-        {categoriesToShow.map((category, idx) => (
-          <li key={idx} className="flex space-x-2.5">
+        {categoriesToShow.map((category, index) => (
+          <li key={index} className="flex space-x-2.5">
             <span
               className={cx(
                 category === "Quotes"
