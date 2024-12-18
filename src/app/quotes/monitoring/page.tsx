@@ -22,7 +22,7 @@ import { SlidersHorizontal } from "lucide-react"
 
 export default function Monitoring() {
   return (
-    <>
+    <section aria-label="App Monitoring">
       <div className="flex flex-col items-center justify-between gap-2 p-6 sm:flex-row">
         <Select defaultValue="365-days">
           <SelectTrigger className="py-1.5 sm:w-44">
@@ -194,6 +194,6 @@ export default function Monitoring() {
           />
         </div>
       </dl>
-    </>
+    </section>
   )
 }
