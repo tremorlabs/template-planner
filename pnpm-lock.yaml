@@ -65,7 +65,7 @@ importers:
         version: 2.5.5
       tailwind-variants:
         specifier: ^0.3.0
-        version: 0.3.0(tailwindcss@3.4.16)
+        version: 0.3.0(tailwindcss@3.4.17)
     devDependencies:
       '@types/node':
         specifier: ^20.17.10
@@ -92,8 +92,8 @@ importers:
         specifier: ^0.6.9
         version: 0.6.9(prettier@3.4.2)
       tailwindcss:
-        specifier: ^3.4.16
-        version: 3.4.16
+        specifier: ^3.4.17
+        version: 3.4.17
       typescript:
         specifier: ^5.7.2
         version: 5.7.2
@@ -1372,8 +1372,8 @@ packages:
     resolution: {integrity: sha512-FJhYRoDaiatfEkUK8HKlicmu/3SGFD51q3itKDGoSTysQJBnfOcxU5GxnhE1E6soB76MbT0MBtnKJuXyAx+96Q==}
     engines: {node: '>=6'}
 
-  get-symbol-description@1.0.2:
-    resolution: {integrity: sha512-g0QYk1dZBxGwk+Ngc+ltRH2IBp2f7zBkBMBJZCDerh6EhlhSR6+9irMCuT/09zD6qkarHUSn529sK/yL4S27mg==}
+  get-symbol-description@1.1.0:
+    resolution: {integrity: sha512-w9UMqWwJxHNOvoNzSJ2oPF5wvYcvP7jUvYzhp67yEhTi17ZDBBC1z9pTdGuzjD+EFIqLSYRweZjqfiPzQ06Ebg==}
     engines: {node: '>= 0.4'}
 
   get-tsconfig@4.8.1:
@@ -1568,8 +1568,8 @@ packages:
     resolution: {integrity: sha512-9gGx6GTtCQM73BgmHQXfDmLtfjjTUDSyoxTCbp5WtoixAhfgsDirWIcVQ/IHpvI5Vgd5i/J5F7B9cN/WlVbC/w==}
     engines: {node: '>= 0.4'}
 
-  is-typed-array@1.1.13:
-    resolution: {integrity: sha512-uZ25/bUAlUY5fR4OKT4rZQEBrzQWYV9ZJYGGsUmEJ6thodVJ1HX64ePQ6Z0qPWP+m+Uq6e9UugrE38jeYsDSMw==}
+  is-typed-array@1.1.14:
+    resolution: {integrity: sha512-lQUsHzcTb7rH57dajbOuZEuMDXjs9f04ZloER4QOpjpKcaw4f98BRUrs8aiO9Z4G7i7B0Xhgarg6SCgYcYi8Nw==}
     engines: {node: '>= 0.4'}
 
   is-weakmap@2.0.2:
@@ -1597,8 +1597,8 @@ packages:
   jackspeak@3.4.3:
     resolution: {integrity: sha512-OGlZQpz2yfahA/Rd1Y8Cd9SIEsqvXkLVoSw/cgwhnhFMDbsQFeZYoJJ7bIZBS9BcamUW96asq/npPWugM+RQBw==}
 
-  jiti@1.21.6:
-    resolution: {integrity: sha512-2yTgeWTWzMWkHu6Jp9NKgePDaYHbntiwvYuuJLbbN9vl7DC9DvXKOB2BC3ZZ92D3cvV/aflH0osDfwpHepQ53w==}
+  jiti@1.21.7:
+    resolution: {integrity: sha512-/imKNG4EbWNrVjoNC/1H5/9GFy+tqjGBHCaSsN+P2RnPqjsLmv6UD3Ej+Kj8nBWaRAwyk7kK5ZUc+OEatnTR3A==}
     hasBin: true
 
   js-tokens@4.0.0:
@@ -2222,8 +2222,8 @@ packages:
     peerDependencies:
       tailwindcss: '*'
 
-  tailwindcss@3.4.16:
-    resolution: {integrity: sha512-TI4Cyx7gDiZ6r44ewaJmt0o6BrMCT5aK5e0rmJ/G9Xq3w7CX/5VXl/zIPEJZFUK5VEqwByyhqNPycPlvcK4ZNw==}
+  tailwindcss@3.4.17:
+    resolution: {integrity: sha512-w33E2aCvSDP0tW9RZuNXadXlkHXqFzSkQew/aIa2i/Sj8fThxwovwlXHSPXTbAHwEIhBFXAedUhP2tueAKP8Og==}
     engines: {node: '>=14.0.0'}
     hasBin: true
 
@@ -2275,8 +2275,8 @@ packages:
     resolution: {integrity: sha512-gEymJYKZtKXzzBzM4jqa9w6Q1Jjm7x2d+sh19AdsD4wqnMPDYyvwpsIc2Q/835kHuo3BEQ7CjelGhfTsoBb2MQ==}
     engines: {node: '>= 0.4'}
 
-  typed-array-byte-length@1.0.1:
-    resolution: {integrity: sha512-3iMJ9q0ao7WE9tWcaYKIptkNBuOIcZCCT0d4MRvuuH88fEoEH62IuQe0OtraD3ebQEoTRk8XCBoknUNc1Y67pw==}
+  typed-array-byte-length@1.0.3:
+    resolution: {integrity: sha512-BaXgOuIxz8n8pIq3e7Atg/7s+DpiYrxn4vdot3w9KbnBhcRQq6o3xemQdIfynqSeXeDrF32x+WvfzmOjPiY9lg==}
     engines: {node: '>= 0.4'}
 
   typed-array-byte-offset@1.0.3:
@@ -3437,7 +3437,7 @@ snapshots:
       es-to-primitive: 1.3.0
       function.prototype.name: 1.1.7
       get-intrinsic: 1.2.6
-      get-symbol-description: 1.0.2
+      get-symbol-description: 1.1.0
       globalthis: 1.0.4
       gopd: 1.2.0
       has-property-descriptors: 1.0.2
@@ -3452,7 +3452,7 @@ snapshots:
       is-regex: 1.2.1
       is-shared-array-buffer: 1.0.3
       is-string: 1.1.1
-      is-typed-array: 1.1.13
+      is-typed-array: 1.1.14
       is-weakref: 1.1.0
       math-intrinsics: 1.0.0
       object-inspect: 1.13.3
@@ -3465,7 +3465,7 @@ snapshots:
       string.prototype.trimend: 1.0.9
       string.prototype.trimstart: 1.0.8
       typed-array-buffer: 1.0.2
-      typed-array-byte-length: 1.0.1
+      typed-array-byte-length: 1.0.3
       typed-array-byte-offset: 1.0.3
       typed-array-length: 1.0.7
       unbox-primitive: 1.1.0
@@ -3806,9 +3806,9 @@ snapshots:
 
   get-nonce@1.0.1: {}
 
-  get-symbol-description@1.0.2:
+  get-symbol-description@1.1.0:
     dependencies:
-      call-bind: 1.0.8
+      call-bound: 1.0.3
       es-errors: 1.3.0
       get-intrinsic: 1.2.6
 
@@ -3943,7 +3943,7 @@ snapshots:
     dependencies:
       call-bound: 1.0.3
       get-intrinsic: 1.2.6
-      is-typed-array: 1.1.13
+      is-typed-array: 1.1.14
 
   is-date-object@1.1.0:
     dependencies:
@@ -4003,7 +4003,7 @@ snapshots:
       has-symbols: 1.1.0
       safe-regex-test: 1.1.0
 
-  is-typed-array@1.1.13:
+  is-typed-array@1.1.14:
     dependencies:
       which-typed-array: 1.1.16
 
@@ -4037,7 +4037,7 @@ snapshots:
     optionalDependencies:
       '@pkgjs/parseargs': 0.11.0
 
-  jiti@1.21.6: {}
+  jiti@1.21.7: {}
 
   js-tokens@4.0.0: {}
 
@@ -4647,12 +4647,12 @@ snapshots:
 
   tailwind-merge@2.5.5: {}
 
-  tailwind-variants@0.3.0(tailwindcss@3.4.16):
+  tailwind-variants@0.3.0(tailwindcss@3.4.17):
     dependencies:
       tailwind-merge: 2.5.5
-      tailwindcss: 3.4.16
+      tailwindcss: 3.4.17
 
-  tailwindcss@3.4.16:
+  tailwindcss@3.4.17:
     dependencies:
       '@alloc/quick-lru': 5.2.0
       arg: 5.0.2
@@ -4662,7 +4662,7 @@ snapshots:
       fast-glob: 3.3.2
       glob-parent: 6.0.2
       is-glob: 4.0.3
-      jiti: 1.21.6
+      jiti: 1.21.7
       lilconfig: 3.1.3
       micromatch: 4.0.8
       normalize-path: 3.0.0
@@ -4722,15 +4722,15 @@ snapshots:
     dependencies:
       call-bind: 1.0.8
       es-errors: 1.3.0
-      is-typed-array: 1.1.13
+      is-typed-array: 1.1.14
 
-  typed-array-byte-length@1.0.1:
+  typed-array-byte-length@1.0.3:
     dependencies:
       call-bind: 1.0.8
       for-each: 0.3.3
       gopd: 1.2.0
       has-proto: 1.2.0
-      is-typed-array: 1.1.13
+      is-typed-array: 1.1.14
 
   typed-array-byte-offset@1.0.3:
     dependencies:
@@ -4739,7 +4739,7 @@ snapshots:
       for-each: 0.3.3
       gopd: 1.2.0
       has-proto: 1.2.0
-      is-typed-array: 1.1.13
+      is-typed-array: 1.1.14
       reflect.getprototypeof: 1.0.8
 
   typed-array-length@1.0.7:
@@ -4747,7 +4747,7 @@ snapshots:
       call-bind: 1.0.8
       for-each: 0.3.3
       gopd: 1.2.0
-      is-typed-array: 1.1.13
+      is-typed-array: 1.1.14
       possible-typed-array-names: 1.0.0
       reflect.getprototypeof: 1.0.8
 
