@@ -1,4 +1,5 @@
 "use client"
+
 import {
   Drawer,
   DrawerClose,
@@ -6,14 +7,14 @@ import {
   DrawerTitle,
 } from "@/components/Drawer"
 import { useIsMobile } from "@/lib/useMobile"
-import { cx } from "@/lib/utils"
+import { cx, focusRing } from "@/lib/utils"
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden"
 import { RiCloseLine } from "@remixicon/react"
 import { PanelLeft } from "lucide-react"
 import * as React from "react"
 import { Button } from "./Button"
 
-// * This component is based on shadcn's sidebar component *
+// This component is based on shadcn's sidebar component
 
 const SIDEBAR_COOKIE_NAME = "sidebar:state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
@@ -206,7 +207,10 @@ const SidebarTrigger = React.forwardRef<
     <button
       ref={ref}
       data-sidebar="trigger"
-      className="group inline-flex rounded-md p-1.5 hover:bg-gray-200/50 hover:dark:bg-gray-900"
+      className={cx(
+        "group inline-flex rounded-md p-1.5 hover:bg-gray-200/50 hover:dark:bg-gray-900",
+        focusRing,
+      )}
       onClick={(event) => {
         onClick?.(event)
         toggleSidebar()
@@ -290,6 +294,7 @@ const SidebarLink = React.forwardRef<
         "flex items-center justify-between rounded-md p-2 text-base transition hover:bg-gray-200/50 sm:text-sm hover:dark:bg-gray-900",
         "text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
         "data-[active=true]:text-blue-600 data-[active=true]:dark:text-blue-500",
+        focusRing,
       )}
       {...props}
     >
@@ -367,9 +372,10 @@ const SidebarSubLink = React.forwardRef<
       aria-current={isActive ? "page" : undefined}
       data-active={isActive}
       className={cx(
-        "relative flex gap-2 py-1.5 pl-9 pr-3 text-base transition sm:text-sm",
+        "relative flex gap-2 rounded-md py-1.5 pl-9 pr-3 text-base transition sm:text-sm",
         "text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50",
         "data-[active=true]:rounded data-[active=true]:bg-white data-[active=true]:text-blue-600 data-[active=true]:shadow data-[active=true]:ring-1 data-[active=true]:ring-gray-200 data-[active=true]:dark:bg-gray-900 data-[active=true]:dark:text-blue-500 data-[active=true]:dark:ring-gray-800",
+        focusRing,
       )}
       {...props}
     >
