@@ -128,7 +128,7 @@ const LegendItem = ({
           colorClass,
           activeLegend && activeLegend !== name ? "opacity-40" : "opacity-100",
         )}
-        aria-hidden={true}
+        aria-hidden="true"
       />
       <p
         className={cx(

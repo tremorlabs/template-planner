@@ -19,7 +19,7 @@ import { RiArrowDownSFill } from "@remixicon/react"
 import { BookText, House, PackageSearch } from "lucide-react"
 import * as React from "react"
 import { Logo } from "../../../../public/Logo"
-import { UserProfileDesktop } from "./UserProfile"
+import { UserProfile } from "./UserProfile"
 
 const navigation = [
   {
@@ -198,7 +198,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarContent>
       <SidebarFooter>
         <div className="border-t border-gray-200 dark:border-gray-800" />
-        <UserProfileDesktop />
+        <UserProfile />
       </SidebarFooter>
     </Sidebar>
   )
