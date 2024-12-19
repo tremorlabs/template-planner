@@ -1,4 +1,4 @@
-import { getColorClassName } from "@/lib/chartUtils"
+import { chartColors, getColorClassName } from "@/lib/chartUtils"
 import { cx, formatters } from "@/lib/utils"
 import { TooltipProps } from "./BarChart"
 import { TooltipProps as TooltipComboBarChartProps } from "./ComboChart"
@@ -70,9 +70,6 @@ export const CustomTooltip2 = ({
   const data = payload[0].payload
   const ratio = (data["Quotes"] / data["Total deal size"]) * 100
 
-  // @SEV: couldn't make it indexable -> would look smoother, e.g.: const ratio = data[0] / data[1];
-  // @CHRIS: I don't understand, looks alright to me tbh
-
   const categoriesToShow = ["Quotes", "Total deal size"]
 
   return (
@@ -107,7 +104,6 @@ export const CustomTooltip2 = ({
       </ul>
       <div className="border-t border-gray-200 p-2 dark:border-gray-800">
         <p className="inline-flex w-full justify-center rounded bg-gray-100 px-1.5 py-1 text-xs text-gray-600 dark:bg-gray-400/20 dark:text-gray-400">
-          {/* @CHRIS: maybe complement with icons */}
           {ratio > 0.3
             ? "Critical ratio"
             : ratio > 0.25
@@ -140,12 +136,7 @@ export const CustomTooltip3 = ({ payload, active }: TooltipProps) => {
         {payload.map((category, index) => (
           <li key={index} className="flex space-x-2.5">
             <span
-              className={cx(
-                index === 1
-                  ? "bg-emerald-300 dark:bg-emerald-700"
-                  : `bg-${category.color}-500 dark:bg-${category.color}-500`,
-                "w-1 rounded",
-              )}
+              className={cx(chartColors[category.color].bg, "w-1 rounded")}
               aria-hidden={true}
             />
             <div className="space-y-0.5">
