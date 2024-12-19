@@ -6,7 +6,7 @@ import { ChevronsUpDown } from "lucide-react"
 
 import { DropdownUserProfile } from "./DropdownUserProfile"
 
-export function UserProfileDesktop() {
+export function UserProfile() {
   return (
     <DropdownUserProfile>
       <Button

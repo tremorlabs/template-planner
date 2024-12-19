@@ -31,7 +31,7 @@ export const CustomTooltip = ({ payload, active }: TooltipProps) => {
                 getColorClassName(category.color, "bg"),
                 "w-1 rounded",
               )}
-              aria-hidden={true}
+              aria-hidden="true"
             />
             <div className="space-y-0.5">
               <p className="text-xs text-gray-500 dark:text-gray-500">
@@ -84,7 +84,7 @@ export const CustomTooltip2 = ({
                   : "bg-gray-300 dark:bg-gray-700",
                 "w-1 rounded",
               )}
-              aria-hidden={true}
+              aria-hidden="true"
             />
             <div className="space-y-0.5">
               <p className="whitespace-nowrap text-xs text-gray-500 dark:text-gray-500">
@@ -137,7 +137,7 @@ export const CustomTooltip3 = ({ payload, active }: TooltipProps) => {
           <li key={index} className="flex space-x-2.5">
             <span
               className={cx(chartColors[category.color].bg, "w-1 rounded")}
-              aria-hidden={true}
+              aria-hidden="true"
             />
             <div className="space-y-0.5">
               <p className="text-xs text-gray-500 dark:text-gray-500">
@@ -197,10 +197,13 @@ export const CustomTooltip3 = ({ payload, active }: TooltipProps) => {
 export const CustomTooltip4 = ({ payload, active }: TooltipProps) => {
   if (!active || !payload || payload.length === 0) return null
 
-  const peerAverage = 0.75
+  {
+    /* dummy values for showcase */
+  }
+  const PEER_AVERAGE = 0.75
 
   const calculateDiff = () => {
-    const difference = payload[0].value - peerAverage
+    const difference = payload[0].value - PEER_AVERAGE
     const sign = difference > 0 ? "+" : ""
     return `${sign}${formatters.percentage({ number: difference })}`
   }
@@ -216,7 +219,7 @@ export const CustomTooltip4 = ({ payload, active }: TooltipProps) => {
               `bg-${payload[0].color}-500 dark:bg-${payload[0].color}-500`,
               "w-1 rounded",
             )}
-            aria-hidden={true}
+            aria-hidden="true"
           />
           <div className="space-y-0.5">
             <p className="whitespace-nowrap text-xs text-gray-500 dark:text-gray-500">
@@ -230,15 +233,14 @@ export const CustomTooltip4 = ({ payload, active }: TooltipProps) => {
         <li className="flex space-x-2.5">
           <span
             className="w-1 rounded bg-gray-400 dark:bg-gray-600"
-            aria-hidden={true}
+            aria-hidden="true"
           />
           <div className="space-y-0.5">
             <p className="whitespace-nowrap text-xs text-gray-500 dark:text-gray-500">
               Benchmark
             </p>
             <p className="font-medium text-gray-900 dark:text-gray-50">
-              {/* dummy values for showcase */}
-              {formatters.percentage({ number: peerAverage })}
+              {formatters.percentage({ number: PEER_AVERAGE })}
             </p>
           </div>
         </li>
