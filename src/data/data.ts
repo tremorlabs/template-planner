@@ -498,7 +498,7 @@ export const sections: Section[] = [
   {
     id: "item-2",
     title: "SAFe Certifications",
-    certified: "ISO/IEC 27001",
+    certified: "IEC 2701",
     progress: { current: 32, total: 41 },
     status: "warning",
     auditDates: [
